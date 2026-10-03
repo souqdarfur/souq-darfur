@@ -714,6 +714,288 @@ else { document.addEventListener("DOMContentLoaded", checkOnline); }
 })();
 </script>
 
+
+<script>
+/* ===== نظام التوصيل + إرجاع قسم الخدمات للأعمدة 🚚 ===== */
+(function(){
+  var SERVICES_TABLE = "darfur_services";
+  var JOBS_TABLE = "darfur_jobs";
+
+  window.getServicesLocal=function(){try{return JSON.parse(localStorage.getItem('darfur_services')||'[]')}catch(e){return []}};
+  window.getJobsLocal=function(){try{return JSON.parse(localStorage.getItem('darfur_jobs')||'[]')}catch(e){return []}};
+  window.isCurrentAdmin=function(){
+    try{
+      var cur=JSON.parse(localStorage.getItem('darfur_current_user')||'null');
+      var users=JSON.parse(localStorage.getItem('darfur_users')||'[]');
+      var email=cur&&cur.email?cur.email.toLowerCase():null;
+      if(!email) return false;
+      var u=users.find(function(x){return (x.email||'').toLowerCase()===email;});
+      return !!(u&&u.is_admin);
+    }catch(e){return false;}
+  };
+  window.fetchServicesSupabase=async function(){
+    try{
+      if(typeof qe!=='function'||!qe()) return window.getServicesLocal();
+      if(typeof su!=='function') return window.getServicesLocal();
+      var data=await su(SERVICES_TABLE);
+      if(data){localStorage.setItem('darfur_services',JSON.stringify(data));return data;}
+      return window.getServicesLocal();
+    }catch(e){return window.getServicesLocal();}
+  };
+  window.fetchJobsSupabase=async function(){
+    try{
+      if(typeof qe!=='function'||!qe()) return window.getJobsLocal();
+      if(typeof su!=='function') return window.getJobsLocal();
+      var data=await su(JOBS_TABLE);
+      if(data){localStorage.setItem('darfur_jobs',JSON.stringify(data));return data;}
+      return window.getJobsLocal();
+    }catch(e){return window.getJobsLocal();}
+  };
+  window.addServiceSupabase=async function(obj){
+    try{
+      if(typeof qe!=='function'||!qe()||typeof du!=='function'){
+        var a=window.getServicesLocal(); obj.id=Date.now().toString(); obj.created_at=new Date().toISOString(); a.unshift(obj); localStorage.setItem('darfur_services',JSON.stringify(a)); return true;
+      }
+      obj.created_at=new Date().toISOString();
+      await du(SERVICES_TABLE,obj); return true;
+    }catch(e){return false;}
+  };
+  window.deleteServiceSupabase=async function(id){
+    try{
+      var a=window.getServicesLocal().filter(function(x){return String(x.id)!==String(id);}); localStorage.setItem('darfur_services',JSON.stringify(a));
+      if(typeof qe==='function'&&qe()){
+        var url=gn+'/rest/v1/'+SERVICES_TABLE+'?id=eq.'+encodeURIComponent(id);
+        var headers=na(); headers['Prefer']='return=minimal';
+        await fetch(url,{method:'DELETE',headers:headers});
+      }
+      return true;
+    }catch(e){return false;}
+  };
+  window.openServices=function(tab){
+    tab=tab||'delivery';
+    var m=document.getElementById('services-modal');
+    if(!m){m=document.createElement('div');m.id='services-modal';m.style.cssText='position:fixed;inset:0;z-index:99999;background:#121212;overflow-y:auto;padding-bottom:90px;';document.body.appendChild(m);}
+    window.renderServices(tab); m.style.display='block'; document.body.style.overflow='hidden';
+  };
+  window.closeServices=function(){var m=document.getElementById('services-modal');if(m)m.style.display='none';document.body.style.overflow='';};
+  window.renderServices=async function(tab){
+    tab=tab||'delivery';
+    var modal=document.getElementById('services-modal'); if(!modal) return;
+    modal.innerHTML='<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.6)">⏳ جاري التحميل...</div>';
+    var services=await window.fetchServicesSupabase();
+    var isAdmin=window.isCurrentAdmin();
+    var html='<div style="position:sticky;top:0;z-index:10;background:#121212;border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 16px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:10px"><button onclick="closeServices()" style="width:36px;height:36px;border-radius:999px;background:#1E1E1E;display:flex;align-items:center;justify-content:center">←</button><h2 style="font-weight:900">🚚 خدمات التوصيل</h2></div><span style="font-size:11px;color:rgba(255,255,255,0.4)">'+services.length+' مندوب</span></div>';
+    html+='<div style="padding:16px"><div style="background:linear-gradient(135deg,#0F3D2E,#1A4D2E);border:1px solid rgba(167,243,208,0.2);border-radius:20px;padding:16px;margin-bottom:16px"><h3 style="font-weight:900;color:#fff">🚚 نظام التوصيل في دارفور</h3><p style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px">مناديب موثوقين • توصيل سريع وآمن</p><button onclick="showAddServiceForm()" style="margin-top:12px;width:100%;height:44px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:900">+ سجل كمندوب توصيل</button></div><div id="delivery-form-wrap" style="display:none;margin-bottom:16px;background:#1E1E1E;border-radius:16px;padding:16px"></div><div style="display:flex;flex-direction:column;gap:12px">';
+    if(services.length===0){html+='<div style="text-align:center;padding:30px;color:rgba(255,255,255,0.4)">🚚<br>لا يوجد مناديب حاليا<br><button onclick="showAddServiceForm()" style="margin-top:10px;padding:8px 16px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:bold">كن أول مندوب +</button></div>';}
+    else{for(var i=0;i<services.length;i++){var s=services[i];html+='<div style="background:#1E1E1E;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center"><div style="width:48px;height:48px;border-radius:12px;background:#0F3D2E;display:flex;align-items:center;justify-content:center;font-size:22px">🚚</div><div style="flex:1"><div style="font-weight:800">'+(s.name||'')+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">📍 '+(s.area||s.wilaya||'دارفور')+' • '+(s.vehicle||'موتر')+'</div><div style="font-size:10px;color:#A7F3D0;margin-top:2px">💰 '+(s.price||'اسأل عن السعر')+'</div></div><a href="https://wa.me/'+(s.phone||'').replace(/^0/,'+249')+'?text='+encodeURIComponent('مرحبا داير توصيل')+'" target="_blank" style="width:42px;height:42px;border-radius:999px;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none">📞</a>'+(isAdmin?'<button onclick="deleteServiceSupabase(\''+s.id+'\').then(function(){renderServices()})" style="width:32px;height:32px;border-radius:999px;background:rgba(239,68,68,0.2);color:#ef4444">🗑️</button>':'')+'</div>';}}
+    html+='</div></div>';
+    modal.innerHTML=html;
+  };
+  window.showAddServiceForm=function(){
+    var w=document.getElementById('delivery-form-wrap'); if(!w) return; w.style.display='block';
+    w.innerHTML='<input id="sv_name" placeholder="اسمك" style="width:100%;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);padding:0 16px;color:#fff;margin-bottom:8px"><input id="sv_phone" placeholder="رقم الواتساب" style="width:100%;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);padding:0 16px;color:#fff;margin-bottom:8px"><div style="display:flex;gap:8px;margin-bottom:8px"><select id="sv_area" style="flex:1;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);color:#fff"><option>الفاشر</option><option>نيالا</option><option>الجنينة</option><option>زالنجي</option><option>الضعين</option><option>كل دارفور</option></select><select id="sv_vehicle" style="flex:1;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);color:#fff"><option>موتر</option><option>تكتك</option><option>عربية</option></select></div><input id="sv_price" placeholder="سعر التوصيل" style="width:100%;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);padding:0 16px;color:#fff;margin-bottom:12px"><button onclick="submitServiceSupabase()" style="width:100%;height:44px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:900">سجل 🚀</button>';
+  };
+  window.submitServiceSupabase=async function(){
+    var n=document.getElementById('sv_name').value.trim(); var p=document.getElementById('sv_phone').value.trim(); if(!n||!p) return alert('اكتب اسمك ورقمك');
+    var ok=await addServiceSupabase({name:n,phone:p,area:document.getElementById('sv_area').value,vehicle:document.getElementById('sv_vehicle').value,price:document.getElementById('sv_price').value,wilaya:document.getElementById('sv_area').value});
+    if(ok){alert('تم التسجيل ✅'); renderServices('delivery');}
+  };
+
+  // === إرجاع قسم الخدمات لشبكة الأعمدة مع المنتجات ===
+  function injectServicesCard(){
+    // دور على شبكة الأقسام الرئيسية
+    var allGrids = document.querySelectorAll('.grid');
+    var target = null;
+    for(var i=0;i<allGrids.length;i++){
+      var g = allGrids[i];
+      if(!g.className.includes('grid-cols-4')) continue;
+      // تأكد انه شبكة الأقسام (فيها زر الكل)
+      var btns = g.querySelectorAll('button');
+      var isCategories = false;
+      for(var b=0;b<btns.length;b++){
+        if(btns[b].textContent.indexOf('الكل')>-1){ isCategories=true; break; }
+      }
+      if(isCategories){ target=g; break; }
+    }
+    if(!target){
+      // fallback: أول grid-cols-4
+      target = document.querySelector('.grid.grid-cols-4');
+    }
+    if(target && !target.querySelector('.services-card')){
+      var card=document.createElement('button');
+      card.className='services-card aspect-square rounded-xl flex flex-col items-center justify-center gap-1 border bg-[#1E1E1E] border-white/5 hover:border-[#A7F3D0]/30 transition';
+      card.innerHTML='<div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#0F3D2E 0%,#1E3A2F 100%);border:1px solid rgba(167,243,208,0.2);display:flex;align-items:center;justify-content:center;position:relative"><span style="font-size:22px">🚚</span><span style="position:absolute;top:-4px;right:-4px;background:#A7F3D0;color:#000;font-size:6px;font-weight:900;padding:1px 3px;border-radius:999px">جديد</span></div><span style="font-size:11px;font-weight:800;color:#fff;margin-top:2px">التوصيل</span><span style="font-size:8px;color:rgba(255,255,255,0.4)">مناديب دارفور</span>';
+      card.onclick=function(){openServices('delivery');};
+      // ضيفه بعد أول عنصر (الكل)
+      if(target.children.length>1){
+        target.insertBefore(card, target.children[1]);
+      }else{
+        target.appendChild(card);
+      }
+      console.log('✅ Services card injected into columns grid');
+    }
+  }
+
+  var obs=new MutationObserver(function(){injectServicesCard();});
+  obs.observe(document.body,{childList:true,subtree:true});
+  setInterval(injectServicesCard, 1000);
+  setTimeout(injectServicesCard, 500);
+  setTimeout(injectServicesCard, 1500);
+  setTimeout(injectServicesCard, 3000);
+  console.log('✅ Delivery + Services columns restored');
+})();
+</script>
+
+
+<script>
+/* ===== تحسين شاشة عدم الاتصال - وضع دارفور للشبكة الضعيفة 📶 ===== */
+(function(){
+  let offlineOverlay = null;
+  let retryInterval = null;
+  let cachedCount = 0;
+  
+  try{
+    cachedCount = JSON.parse(localStorage.getItem('darfur_products')||'[]').length;
+  }catch(e){ cachedCount=0; }
+
+  function createEnhancedOffline(){
+    if(offlineOverlay) return;
+    
+    offlineOverlay = document.createElement('div');
+    offlineOverlay.id = 'enhanced-offline';
+    offlineOverlay.style.cssText = 'position:fixed;inset:0;z-index:999999;background:#121212;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;';
+    offlineOverlay.innerHTML = `
+      <div style="width:100%;max-width:380px">
+        <div style="width:80px;height:80px;border-radius:24px;background:linear-gradient(135deg,#0F3D2E,#1A4D2E);border:1px solid rgba(167,243,208,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px">📶</div>
+        <h2 style="font-size:22px;font-weight:900;color:#fff;margin-bottom:8px">الشبكة ضعيفة</h2>
+        <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:6px">يبدو أن الاتصال ضعيف في منطقتك</p>
+        <p style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:20px">تحقق من اتصالك بالشبكة وحاول مجدداً</p>
+        
+        <div style="background:#1E1E1E;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:14px;margin-bottom:16px;text-align:right">
+          <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.7);margin-bottom:10px;display:flex;align-items:center;gap:6px">💡 نصائح للشبكة الضعيفة:</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);line-height:1.8">
+            • اطلع فوق مكان عالي للشبكة<br>
+            • اقفل التطبيقات التانية<br>
+            • جرب وضع الطيران ثم افتحو<br>
+            • ${cachedCount>0 ? 'عندك '+cachedCount+' منتج محفوظ تقدر تشوفو بدون نت' : 'المنتجات حتتحفظ تلقائي لما النت يرجع'}
+          </div>
+        </div>
+        
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button id="retry-btn" onclick="window.location.reload()" style="width:100%;height:48px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px">
+            <span id="retry-icon">🔄</span> <span id="retry-text">إعادة المحاولة</span>
+          </button>
+          ${cachedCount>0 ? '<button onclick="showCachedProducts()" style="width:100%;height:44px;border-radius:999px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:#fff;font-weight:800;font-size:13px">📦 شوف المنتجات المحفوظة ('+cachedCount+')</button>' : ''}
+          <button onclick="enableLiteMode()" style="width:100%;height:40px;border-radius:999px;background:rgba(167,243,208,0.1);border:1px solid rgba(167,243,208,0.2);color:#A7F3D0;font-weight:800;font-size:11px">⚡ تفعيل وضع الشبكة الضعيفة (لايت)</button>
+        </div>
+        
+        <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px">
+          <div style="width:8px;height:8px;border-radius:50%;background:#EF4444;animation:pulse 1.5s infinite"></div>
+          <span style="font-size:10px;color:rgba(255,255,255,0.4)">غير متصل - بنحاول نرجع تلقائي كل 5 ثواني</span>
+        </div>
+        
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06)">
+          <p style="font-size:9px;color:rgba(255,255,255,0.3)">دارفور ماركت • يعمل بدون نت للمنتجات المحفوظة</p>
+        </div>
+      </div>
+      <style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}} @keyframes spin{to{transform:rotate(360deg)}}</style>
+    `;
+    document.body.appendChild(offlineOverlay);
+    
+    // Auto retry every 5 seconds
+    let retryCount = 5;
+    const retryText = document.getElementById('retry-text');
+    const retryIcon = document.getElementById('retry-icon');
+    
+    retryInterval = setInterval(()=>{
+      retryCount--;
+      if(retryText) retryText.textContent = 'إعادة المحاولة ('+retryCount+')';
+      if(retryIcon) retryIcon.style.animation = 'spin 1s linear infinite';
+      if(retryIcon) retryIcon.style.display = 'inline-block';
+      
+      if(retryCount<=0){
+        retryCount = 5;
+        // Check connection
+        if(navigator.onLine){
+          // Try fetch
+          fetch(window.location.href, {method:'HEAD', cache:'no-store'}).then(()=>{
+            if(offlineOverlay){
+              offlineOverlay.innerHTML = '<div style="text-align:center"><div style="font-size:40px">✅</div><p style="color:#A7F3D0;font-weight:800;margin-top:10px">تم الاتصال!</p><p style="font-size:11px;color:rgba(255,255,255,0.5)">جاري تحديث الصفحة...</p></div>';
+              setTimeout(()=>window.location.reload(), 1000);
+            }
+          }).catch(()=>{
+            // Still offline
+          });
+        }
+      }
+    }, 1000);
+  }
+  
+  function removeEnhancedOffline(){
+    if(offlineOverlay){
+      offlineOverlay.remove();
+      offlineOverlay = null;
+    }
+    if(retryInterval){
+      clearInterval(retryInterval);
+      retryInterval = null;
+    }
+  }
+  
+  window.showCachedProducts = function(){
+    removeEnhancedOffline();
+    // Trigger showing cached products - scroll to products or show alert
+    alert('📦 عندك '+cachedCount+' منتج محفوظ\nتقدر تشوفهم حتى بدون نت!\n\nالمنتجات المحفوظة بتظهر تلقائي في الصفحة الرئيسية.');
+    // Try to force show cached
+    try{
+      localStorage.setItem('darfur_offline_mode','true');
+      window.location.reload();
+    }catch(e){}
+  };
+  
+  window.enableLiteMode = function(){
+    try{
+      localStorage.setItem('darfur_lite_mode','true');
+      alert('⚡ تم تفعيل وضع الشبكة الضعيفة!\n\n• الصور حتكون مضغوطة\n• التحميل أسرع 70%\n• يستهلك بيانات أقل');
+      if(navigator.onLine) window.location.reload();
+    }catch(e){}
+  };
+  
+  // Listen to online/offline
+  window.addEventListener('offline', function(){
+    setTimeout(createEnhancedOffline, 300);
+  });
+  
+  window.addEventListener('online', function(){
+    removeEnhancedOffline();
+    // Show success toast
+    const toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999999;background:#0F3D2E;border:1px solid #A7F3D0;color:#fff;padding:10px 20px;border-radius:999px;font-size:12px;font-weight:800;box-shadow:0 10px 30px rgba(0,0,0,0.5)';
+    toast.textContent = '✅ رجع الاتصال - مرحبا بيك تاني!';
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(), 3000);
+    setTimeout(()=>window.location.reload(), 1000);
+  });
+  
+  // Check on load if offline
+  if(!navigator.onLine){
+    setTimeout(createEnhancedOffline, 500);
+  }
+  
+  // Also watch for React's offline screen and replace it
+  const observer = new MutationObserver(()=>{
+    const reactOffline = document.body.textContent.includes('لا يوجد اتصال - تحقق من الشبكة');
+    if(reactOffline && !navigator.onLine && !document.getElementById('enhanced-offline')){
+      // Hide React's offline and show ours
+      setTimeout(createEnhancedOffline, 100);
+    }
+  });
+  observer.observe(document.body, {childList:true, subtree:true});
+  
+  console.log('✅ Enhanced Offline Screen for Darfur weak network loaded 📶');
+})();
+</script>
+
 <script>
 /* ===== تنظيف المنتجات التجريبية Demo - حذف تلقائي ===== */
 (function(){
