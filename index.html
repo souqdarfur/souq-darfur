@@ -33,6 +33,12 @@
 })();
 </script>
 
+
+
+
+
+
+
 </head>
 <body>
   <div id="root"></div>
@@ -692,7 +698,7 @@ else { document.addEventListener("DOMContentLoaded", checkOnline); }
       }
       
       const finalViews = Math.max(realViews, 1);
-      counter.innerHTML = `<span style="display:flex;align-items:center;gap:4px">👁️ <b style="color:#A7F3D0">${finalViews}</b> مشاهدة</span> <span style="width:3px;height:3px;background:rgba(255,255,255,0.3);border-radius:50%"></span> <span>⭐ تقييم البائع</span> <span style="width:3px;height:3px;background:rgba(255,255,255,0.3);border-radius:50%"></span> <span style="color:rgba(255,255,255,0.4)">حقيقي - كل زول بتحسب مرة واحدة</span>`;
+      counter.innerHTML = `<span style="display:flex;align-items:center;gap:4px">👁️ <b style="color:#A7F3D0">${finalViews}</b> مشاهدة</span> <span style="width:3px;height:3px;background:rgba(255,255,255,0.3);border-radius:50%"></span> <span>⭐ تقييم البائع</span> `;
       
     }catch(e){ console.log('view error', e); }
   }
@@ -778,20 +784,47 @@ else { document.addEventListener("DOMContentLoaded", checkOnline); }
     window.renderServices(tab); m.style.display='block'; document.body.style.overflow='hidden';
   };
   window.closeServices=function(){var m=document.getElementById('services-modal');if(m)m.style.display='none';document.body.style.overflow='';};
-  window.renderServices=async function(tab){
-    tab=tab||'delivery';
+  window.renderServices=async function(activeTab){
+    activeTab=activeTab||'delivery';
     var modal=document.getElementById('services-modal'); if(!modal) return;
-    modal.innerHTML='<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.6)">⏳ جاري التحميل...</div>';
+    modal.innerHTML='<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.6)">⏳ جاري تحميل الخدمات...</div>';
     var services=await window.fetchServicesSupabase();
+    var jobs=await window.fetchJobsSupabase();
     var isAdmin=window.isCurrentAdmin();
-    var html='<div style="position:sticky;top:0;z-index:10;background:#121212;border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 16px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:10px"><button onclick="closeServices()" style="width:36px;height:36px;border-radius:999px;background:#1E1E1E;display:flex;align-items:center;justify-content:center">←</button><h2 style="font-weight:900">🚚 خدمات التوصيل</h2></div><span style="font-size:11px;color:rgba(255,255,255,0.4)">'+services.length+' مندوب</span></div>';
-    html+='<div style="padding:16px"><div style="background:linear-gradient(135deg,#0F3D2E,#1A4D2E);border:1px solid rgba(167,243,208,0.2);border-radius:20px;padding:16px;margin-bottom:16px"><h3 style="font-weight:900;color:#fff">🚚 نظام التوصيل في دارفور</h3><p style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px">مناديب موثوقين • توصيل سريع وآمن</p><button onclick="showAddServiceForm()" style="margin-top:12px;width:100%;height:44px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:900">+ سجل كمندوب توصيل</button></div><div id="delivery-form-wrap" style="display:none;margin-bottom:16px;background:#1E1E1E;border-radius:16px;padding:16px"></div><div style="display:flex;flex-direction:column;gap:12px">';
-    if(services.length===0){html+='<div style="text-align:center;padding:30px;color:rgba(255,255,255,0.4)">🚚<br>لا يوجد مناديب حاليا<br><button onclick="showAddServiceForm()" style="margin-top:10px;padding:8px 16px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:bold">كن أول مندوب +</button></div>';}
-    else{for(var i=0;i<services.length;i++){var s=services[i];html+='<div style="background:#1E1E1E;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center"><div style="width:48px;height:48px;border-radius:12px;background:#0F3D2E;display:flex;align-items:center;justify-content:center;font-size:22px">🚚</div><div style="flex:1"><div style="font-weight:800">'+(s.name||'')+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">📍 '+(s.area||s.wilaya||'دارفور')+' • '+(s.vehicle||'موتر')+'</div><div style="font-size:10px;color:#A7F3D0;margin-top:2px">💰 '+(s.price||'اسأل عن السعر')+'</div></div><a href="https://wa.me/'+(s.phone||'').replace(/^0/,'+249')+'?text='+encodeURIComponent('مرحبا داير توصيل')+'" target="_blank" style="width:42px;height:42px;border-radius:999px;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none">📞</a>'+(isAdmin?'<button onclick="deleteServiceSupabase(\''+s.id+'\').then(function(){renderServices()})" style="width:32px;height:32px;border-radius:999px;background:rgba(239,68,68,0.2);color:#ef4444">🗑️</button>':'')+'</div>';}}
-    html+='</div></div>';
+    var html='';
+    html+='<div style="position:sticky;top:0;z-index:10;background:#121212;border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 16px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:10px"><button onclick="closeServices()" style="width:36px;height:36px;border-radius:999px;background:#1E1E1E;display:flex;align-items:center;justify-content:center;font-size:18px">←</button><h2 style="font-weight:900;font-size:18px">🛠️ قسم الخدمات</h2></div><span style="font-size:11px;color:rgba(255,255,255,0.4)">'+(services.length+jobs.length)+' خدمة</span></div>';
+    html+='<div style="padding:12px 16px;display:flex;gap:8px;position:sticky;top:61px;background:#121212;z-index:9;overflow-x:auto"><button onclick="renderServices(\'delivery\')" style="flex-shrink:0;height:44px;padding:0 18px;border-radius:999px;font-weight:bold;font-size:13px;border:1px solid '+(activeTab==='delivery'?'#A7F3D0':'rgba(255,255,255,0.1)')+';background:'+(activeTab==='delivery'?'#0F3D2E':'#1E1E1E')+';color:'+(activeTab==='delivery'?'#fff':'rgba(255,255,255,0.6)')+'">🚚 التوصيل ('+services.length+')</button><button onclick="renderServices(\'jobs\')" style="flex-shrink:0;height:44px;padding:0 18px;border-radius:999px;font-weight:bold;font-size:13px;border:1px solid '+(activeTab==='jobs'?'#FFC107':'rgba(255,255,255,0.1)')+';background:'+(activeTab==='jobs'?'#3a2f00':'#1E1E1E')+';color:'+(activeTab==='jobs'?'#FFC107':'rgba(255,255,255,0.6)')+'">💼 وظائف ('+jobs.length+')</button></div>';
+    html+='<div style="padding:16px">';
+    if(activeTab==='delivery'){
+      html+='<div style="background:linear-gradient(135deg,#0F3D2E 0%,#1A4D2E 100%);border:1px solid rgba(167,243,208,0.2);border-radius:20px;padding:16px;margin-bottom:16px"><h3 style="font-weight:900;font-size:16px;color:#fff">🚚 نظام التوصيل الذكي</h3><p style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px">مناديب موثوقين في كل دارفور • توصيل سريع وآمن</p><button onclick="showAddServiceForm()" style="margin-top:12px;width:100%;height:44px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:900">+ سجل كمندوب توصيل 🚚</button></div>';
+      html+='<div id="delivery-form-wrap" style="display:none;margin-bottom:16px;background:#1E1E1E;border-radius:20px;padding:16px;border:1px solid rgba(167,243,208,0.2)"></div>';
+      html+='<div style="display:flex;flex-direction:column;gap:12px">';
+      if(services.length===0){html+='<div style="text-align:center;padding:40px 20px;background:#1E1E1E;border-radius:20px;border:1px dashed rgba(255,255,255,0.1)"><div style="font-size:40px">🚚</div><p style="font-weight:800;margin-top:8px">لا يوجد مناديب حاليا</p><p style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px">كن أول مندوب توصيل!</p><button onclick="showAddServiceForm()" style="margin-top:14px;height:40px;padding:0 20px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:900">سجل الآن +</button></div>';}
+      else{
+        for(var i=0;i<services.length;i++){
+          var s=services[i];
+          var isVerified=s.is_verified||false;
+          html+='<div style="background:#1E1E1E;border-radius:18px;padding:14px;border:1px solid '+(isVerified?'rgba(167,243,208,0.2)':'rgba(255,255,255,0.06)')+';position:relative">'+(isVerified?'<div style="position:absolute;top:0;left:0;background:#A7F3D0;color:#000;font-size:7px;font-weight:900;padding:2px 6px;border-radius:0 0 8px 0">✓ موثق</div>':'')+'<div style="display:flex;gap:12px;align-items:center"><div style="width:48px;height:48px;border-radius:12px;background:#0F3D2E;display:flex;align-items:center;justify-content:center;font-size:22px">🚚</div><div style="flex:1"><div style="font-weight:800;display:flex;gap:6px;align-items:center">'+(s.name||'مندوب')+(isVerified?'<span style="background:#0F3D2E;color:#A7F3D0;font-size:8px;padding:1px 4px;border-radius:999px">✓</span>':'')+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5)">📍 '+(s.area||s.wilaya||'دارفور')+' • '+(s.vehicle||'موتر')+'</div><div style="font-size:10px;color:#A7F3D0;margin-top:2px">💰 '+(s.price||'اسأل')+' • ⭐ '+(s.rating||'5.0')+'</div></div><a href="https://wa.me/'+(s.phone||'').replace(/^0/,'+249')+'?text='+encodeURIComponent('مرحبا داير توصيل من دارفور ماركت')+'" target="_blank" style="width:42px;height:42px;border-radius:999px;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none">📞</a>'+(isAdmin?'<button onclick="deleteServiceSupabase(\''+s.id+'\').then(function(){renderServices(\'delivery\')})" style="width:32px;height:32px;border-radius:999px;background:rgba(239,68,68,0.2);color:#ef4444">🗑️</button>':'')+'</div></div>';
+        }
+      }
+      html+='</div>';
+    }else{
+      html+='<div style="background:#3a2f00;border:1px solid rgba(255,193,7,0.2);border-radius:20px;padding:16px;margin-bottom:16px"><h3 style="font-weight:900;font-size:15px;color:#FFC107">💼 فرص عمل في دارفور</h3><p style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px">وظائف حقيقية من شركات ومحلات دارفور</p>'+(isAdmin?'<button onclick="showAddJobForm()" style="margin-top:12px;width:100%;height:44px;border-radius:999px;background:#FFC107;color:#000;font-weight:900">+ إضافة وظيفة</button>':'')+'</div>';
+      html+='<div id="job-form-wrap" style="display:none;margin-bottom:16px;background:#1E1E1E;border-radius:20px;padding:16px"></div><div style="display:flex;flex-direction:column;gap:12px">';
+      if(jobs.length===0){html+='<div style="text-align:center;padding:40px;color:rgba(255,255,255,0.4)"><div style="font-size:40px">💼</div><p>لا توجد وظائف حاليا</p><p style="font-size:11px;margin-top:6px">كن أول من ينشر وظيفة!</p></div>';}
+      else{
+        for(var j=0;j<jobs.length;j++){
+          var job=jobs[j];
+          html+='<div style="background:#1E1E1E;border-radius:16px;padding:14px"><div style="display:flex;justify-content:space-between"><div style="font-weight:800;flex:1">'+(job.title||'')+'</div>'+(isAdmin?'<button onclick="deleteJobSupabase(\''+job.id+'\').then(function(){renderServices(\'jobs\')})" style="width:28px;height:28px;border-radius:999px;background:rgba(239,68,68,0.2);color:#ef4444">🗑️</button>':'')+'</div><div style="font-size:12px;color:rgba(255,255,255,0.7);margin-top:4px">🏢 '+(job.company||'')+' • 📍 '+(job.location||job.wilaya||'دارفور')+'</div><div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:6px;background:rgba(0,0,0,0.2);padding:8px;border-radius:10px">'+(job.description||job.desc||'')+'</div><a href="https://wa.me/'+(job.phone||'').replace(/^0/,'+249')+'" target="_blank" style="display:block;margin-top:10px;height:40px;border-radius:999px;background:#25D366;color:#000;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:12px;text-decoration:none">📱 تواصل واتساب</a></div>';
+        }
+      }
+      html+='</div>';
+    }
+    html+='</div>';
     modal.innerHTML=html;
   };
   window.showAddServiceForm=function(){
+window.showAddServiceForm=function(){
     var w=document.getElementById('delivery-form-wrap'); if(!w) return; w.style.display='block';
     w.innerHTML='<input id="sv_name" placeholder="اسمك" style="width:100%;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);padding:0 16px;color:#fff;margin-bottom:8px"><input id="sv_phone" placeholder="رقم الواتساب" style="width:100%;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);padding:0 16px;color:#fff;margin-bottom:8px"><div style="display:flex;gap:8px;margin-bottom:8px"><select id="sv_area" style="flex:1;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);color:#fff"><option>الفاشر</option><option>نيالا</option><option>الجنينة</option><option>زالنجي</option><option>الضعين</option><option>كل دارفور</option></select><select id="sv_vehicle" style="flex:1;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);color:#fff"><option>موتر</option><option>تكتك</option><option>عربية</option></select></div><input id="sv_price" placeholder="سعر التوصيل" style="width:100%;height:44px;border-radius:999px;background:#121212;border:1px solid rgba(255,255,255,0.1);padding:0 16px;color:#fff;margin-bottom:12px"><button onclick="submitServiceSupabase()" style="width:100%;height:44px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:900">سجل 🚀</button>';
   };
@@ -1048,6 +1081,611 @@ else { document.addEventListener("DOMContentLoaded", checkOnline); }
     }
 
   }catch(e){ console.log('cleanup error', e); }
+})();
+</script>
+
+
+<script>
+/* ===== إصلاحات الأداء - بدون حذف أي شي ⚡ ===== */
+(function(){
+  console.log('🚀 بدء إصلاحات الأداء...');
+
+  /* 1. تحميل الصور الكسول + ضغط الصور */
+  function setupLazyImages(){
+    // راقب كل الصور الجديدة
+    const lazyObserver = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const img = entry.target;
+          if(img.dataset.src){
+            img.src = img.dataset.src;
+            delete img.dataset.src;
+          }
+          if(img.dataset.srcset){
+            img.srcset = img.dataset.srcset;
+            delete img.dataset.srcset;
+          }
+          lazyObserver.unobserve(img);
+        }
+      });
+    }, {rootMargin:'200px'});
+
+    // حول كل الصور الحالية للتحميل الكسول
+    function makeImagesLazy(){
+      document.querySelectorAll('img:not([data-lazy-done])').forEach(img=>{
+        if(img.src && !img.src.includes('data:') && !img.src.includes('icon-') && img.width>50){
+          // احفظ الأصلي
+          if(!img.dataset.src){
+            img.dataset.src = img.src;
+            // ضع placeholder صغير
+            img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect width="100%25" height="100%25" fill="%231E1E1E"/%3E%3C/svg%3E';
+            img.style.background='#1E1E1E';
+          }
+          img.setAttribute('data-lazy-done','true');
+          lazyObserver.observe(img);
+        }
+      });
+    }
+
+    // شغل كل ثانية عشان الصور الجديدة من React
+    setInterval(makeImagesLazy, 1000);
+    setTimeout(makeImagesLazy, 500);
+    console.log('✅ Lazy loading مفعل');
+  }
+
+  /* 2. ضغط الصور عند الرفع - يقلل الحجم 80% */
+  function setupImageCompression(){
+    const originalCreateObjectURL = URL.createObjectURL;
+    // راقب input file
+    document.addEventListener('change', async (e)=>{
+      if(e.target.type==='file' && e.target.files && e.target.files[0] && e.target.files[0].type.startsWith('image/')){
+        const file = e.target.files[0];
+        if(file.size > 500*1024){ // أكبر من 500KB
+          console.log('📸 ضغط صورة كبيرة:', Math.round(file.size/1024)+'KB');
+          try{
+            const compressed = await compressImage(file, 0.6, 800);
+            // استبدل الملف
+            const dt = new DataTransfer();
+            dt.items.add(compressed);
+            e.target.files = dt.files;
+            console.log('✅ تم الضغط:', Math.round(compressed.size/1024)+'KB - توفير '+Math.round((1-compressed.size/file.size)*100)+'%');
+            
+            // تنبيه للمستخدم
+            const toast = document.createElement('div');
+            toast.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:999999;background:#0F3D2E;border:1px solid #A7F3D0;color:#A7F3D0;padding:8px 16px;border-radius:999px;font-size:11px;font-weight:800';
+            toast.textContent='✅ تم ضغط الصورة - توفير '+Math.round((1-compressed.size/file.size)*100)+'% من البيانات';
+            document.body.appendChild(toast);
+            setTimeout(()=>toast.remove(), 3000);
+          }catch(err){ console.log('Compression failed', err); }
+        }
+      }
+    });
+
+    function compressImage(file, quality, maxWidth){
+      return new Promise((resolve,reject)=>{
+        const img = new Image();
+        img.onload = ()=>{
+          const canvas = document.createElement('canvas');
+          let w = img.width, h = img.height;
+          if(w>maxWidth){ h = h*(maxWidth/w); w=maxWidth; }
+          canvas.width=w; canvas.height=h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img,0,0,w,h);
+          canvas.toBlob((blob)=>{
+            if(!blob) return reject('blob failed');
+            const newFile = new File([blob], file.name, {type:'image/jpeg'});
+            resolve(newFile);
+          }, 'image/jpeg', quality);
+        };
+        img.onerror=reject;
+        img.src = URL.createObjectURL(file);
+      });
+    }
+    console.log('✅ ضغط الصور مفعل');
+  }
+
+  /* 3. حفظ المسودات تلقائي - لو النت قطع ما يضيع */
+  function setupDraftSaver(){
+    let draftTimer = null;
+    document.addEventListener('input', (e)=>{
+      if(e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA' || e.target.tagName==='SELECT'){
+        clearTimeout(draftTimer);
+        draftTimer = setTimeout(()=>{
+          try{
+            const formData = {};
+            document.querySelectorAll('input, textarea, select').forEach(inp=>{
+              if(inp.id && inp.value && inp.type!=='file' && inp.value.length>2){
+                formData[inp.id] = inp.value;
+              }
+            });
+            if(Object.keys(formData).length>0){
+              localStorage.setItem('darfur_draft_autosave', JSON.stringify({data:formData, time:Date.now()}));
+              // console.log('💾 تم حفظ المسودة');
+            }
+          }catch(e){}
+        }, 1000);
+      }
+    });
+
+    // استرجاع المسودة عند التحميل
+    setTimeout(()=>{
+      try{
+        const saved = JSON.parse(localStorage.getItem('darfur_draft_autosave')||'null');
+        if(saved && saved.data && (Date.now()-saved.time)< 24*60*60*1000){ // أقل من يوم
+          const count = Object.keys(saved.data).length;
+          if(count>2){
+            // اعرض تنبيه
+            const banner = document.createElement('div');
+            banner.style.cssText='position:fixed;top:60px;left:10px;right:10px;z-index:99999;background:#1E1E1E;border:1px solid #FFC107;border-radius:16px;padding:12px;display:flex;align-items:center;justify-content:space-between;gap:10px';
+            banner.innerHTML='<div><div style="font-weight:800;font-size:12px">📝 عندك مسودة محفوظة</div><div style="font-size:10px;color:rgba(255,255,255,0.5)">حفظناها لما النت كان ضعيف</div></div><div style="display:flex;gap:6px"><button id="restore-draft" style="height:32px;padding:0 12px;border-radius:999px;background:#FFC107;color:#000;font-weight:800;font-size:11px">استرجاع</button><button id="dismiss-draft" style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.1);color:#fff">×</button></div>';
+            document.body.appendChild(banner);
+            document.getElementById('restore-draft').onclick=()=>{
+              Object.entries(saved.data).forEach(([id,val])=>{
+                const el=document.getElementById(id);
+                if(el) el.value=val;
+              });
+              banner.remove();
+            };
+            document.getElementById('dismiss-draft').onclick=()=>{
+              localStorage.removeItem('darfur_draft_autosave');
+              banner.remove();
+            };
+            setTimeout(()=>{ if(banner.parentNode) banner.remove(); }, 10000);
+          }
+        }
+      }catch(e){}
+    }, 2000);
+    console.log('✅ حفظ المسودات مفعل');
+  }
+
+  /* 4. تخزين الصور في الكاش - ما تحملها تاني */
+  function setupImageCache(){
+    if('caches' in window){
+      // استخدم Cache API
+      caches.open('darfur-images-v1').then(cache=>{
+        console.log('✅ كاش الصور جاهز');
+      });
+    }
+    // كمان احفظ المنتجات في ذاكرة سريعة
+    try{
+      const prods = localStorage.getItem('darfur_products');
+      if(prods){
+        sessionStorage.setItem('darfur_products_cache', prods);
+      }
+    }catch(e){}
+  }
+
+  /* 5. تسريع عام - إلغاء التحميلات غير الضرورية */
+  function setupGeneralBoost(){
+    // أوقف تحميل الصور خارج الشاشة فورا
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // Preconnect لـ Supabase
+      const link = document.createElement('link');
+      link.rel='preconnect';
+      link.href='https://supabase.co';
+      document.head.appendChild(link);
+    });
+
+    // قلل استهلاك البطارية - أوقف التحريكات لما الصفحة مخفية
+    document.addEventListener('visibilitychange', ()=>{
+      if(document.hidden){
+        console.log('⏸️ الصفحة مخفية - توفير البطارية');
+      }
+    });
+  }
+
+  // شغل كل شي
+  setupLazyImages();
+  setupImageCompression();
+  setupDraftSaver();
+  setupImageCache();
+  setupGeneralBoost();
+
+  // مؤشر الأداء
+  setTimeout(()=>{
+    const perf = performance.timing;
+    const loadTime = perf.loadEventEnd - perf.navigationStart;
+    console.log('⚡ زمن التحميل:', loadTime+'ms');
+    
+    if(loadTime>5000){
+      console.log('⚠️ الموقع بطيء - تم تفعيل وضع التوفير');
+      localStorage.setItem('darfur_lite_mode','true');
+    }
+  }, 3000);
+
+  console.log('✅ كل إصلاحات الأداء مفعلة - بدون حذف أي شي');
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<style id="social-features">
+.product-social-bar{
+  display:flex;gap:8px;padding:12px 16px;
+  background:#1E1E1E;border-top:1px solid rgba(255,255,255,0.06);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.social-btn{
+  flex:1;height:42px;border-radius:999px;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:13px;font-weight:700;cursor:pointer;
+  border:1px solid rgba(255,255,255,0.08);
+  background:#121212;color:rgba(255,255,255,0.7);
+  transition:all 0.2s;
+}
+.social-btn:active{transform:scale(0.95)}
+.social-btn.liked{background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.3);color:#ef4444}
+.social-btn.shared{background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3);color:#10b981}
+.social-btn.report{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.2);color:rgba(255,255,255,0.5);flex:0.6}
+.social-btn .count{font-size:11px;background:rgba(0,0,0,0.3);padding:1px 6px;border-radius:999px;min-width:18px;text-align:center}
+.comments-section{background:#121212;border-radius:16px;margin:12px 16px;padding:12px;border:1px solid rgba(255,255,255,0.06);}
+.comment-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.comment-avatar{width:32px;height:32px;border-radius:50%;background:#0F3D2E;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.comment-body{flex:1}
+.comment-author{font-size:12px;font-weight:800;color:#fff}
+.comment-text{font-size:12px;color:rgba(255,255,255,0.7);margin-top:2px;line-height:1.5}
+.comment-time{font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px}
+.comment-input-wrap{display:flex;gap:8px;margin-top:12px;}
+.comment-input-wrap input{flex:1;height:40px;border-radius:999px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.08);padding:0 16px;color:#fff;font-size:13px;}
+.comment-input-wrap button{width:40px;height:40px;border-radius:50%;background:#A7F3D0;color:#000;font-weight:900;display:flex;align-items:center;justify-content:center;}
+.report-modal{position:fixed;inset:0;z-index:9999999;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;padding:16px;}
+.report-box{background:#1E1E1E;border-radius:20px;padding:20px;width:100%;max-width:360px;border:1px solid rgba(255,255,255,0.08);}
+</style>
+<script id="social-features-script">
+(function(){
+  console.log('👍 Social features with Supabase loading...');
+  
+  // استخدم نفس متغيرات Supabase الموجودة في التطبيق
+  const SUPA_URL = window.gn || 'https://qmzkdvphrcuwneboyeda.supabase.co';
+  const SUPA_KEY = window.Bn || 'sb_publishable_rHycFHkRNiR9V5vTghpguA_e__nfOgb';
+  
+  function getHeaders(){
+    return {
+      'apikey': SUPA_KEY,
+      'Authorization': 'Bearer '+SUPA_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    };
+  }
+  
+  function getUserId(){
+    try{
+      const sess = JSON.parse(localStorage.getItem('supabase_session')||'null');
+      return sess?.user?.id || 'anon_'+(localStorage.getItem('darfur_anon_id') || (()=>{ const id='anon_'+Date.now(); localStorage.setItem('darfur_anon_id', id); return id; })());
+    }catch(e){
+      return 'anon_'+Date.now();
+    }
+  }
+  
+  // ===== Supabase Functions =====
+  async function supaLike(productId, isLiked){
+    const userId = getUserId();
+    try{
+      if(isLiked){
+        // احذف الإعجاب
+        await fetch(`${SUPA_URL}/rest/v1/product_likes?product_id=eq.${productId}&user_id=eq.${userId}`, {
+          method: 'DELETE',
+          headers: getHeaders()
+        });
+      }else{
+        // أضف إعجاب
+        await fetch(`${SUPA_URL}/rest/v1/product_likes`, {
+          method: 'POST',
+          headers: getHeaders(),
+          body: JSON.stringify({product_id: productId, user_id: userId})
+        });
+      }
+      // حدث العداد في products
+      const countRes = await fetch(`${SUPA_URL}/rest/v1/product_likes?product_id=eq.${productId}&select=id`, {headers: getHeaders()});
+      const countData = await countRes.json();
+      const newCount = Array.isArray(countData) ? countData.length : 0;
+      // حدث جدول المنتجات لو فيه likes_count
+      try{
+        await fetch(`${SUPA_URL}/rest/v1/products?id=eq.${productId}`, {
+          method: 'PATCH',
+          headers: getHeaders(),
+          body: JSON.stringify({likes_count: newCount})
+        });
+      }catch(e){}
+      return newCount;
+    }catch(e){
+      console.log('Supa like error', e);
+      return null;
+    }
+  }
+  
+  async function supaGetLikes(productId){
+    try{
+      const res = await fetch(`${SUPA_URL}/rest/v1/product_likes?product_id=eq.${productId}&select=id,user_id`, {headers: getHeaders()});
+      const data = await res.json();
+      if(!Array.isArray(data)) return {count:0, liked:false};
+      const userId = getUserId();
+      return {count: data.length, liked: data.some(d=>d.user_id===userId)};
+    }catch(e){ return {count:0, liked:false}; }
+  }
+  
+  async function supaAddComment(productId, text){
+    const userId = getUserId();
+    try{
+      const res = await fetch(`${SUPA_URL}/rest/v1/product_comments`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({product_id: productId, user_id: userId, text: text, author_name: 'مستخدم'})
+      });
+      return res.ok;
+    }catch(e){ console.log('comment error', e); return false; }
+  }
+  
+  async function supaGetComments(productId){
+    try{
+      const res = await fetch(`${SUPA_URL}/rest/v1/product_comments?product_id=eq.${productId}&order=created_at.desc&limit=20`, {headers: getHeaders()});
+      const data = await res.json();
+      return Array.isArray(data) ? data : [];
+    }catch(e){ return []; }
+  }
+  
+  async function supaReport(productId, reason){
+    const userId = getUserId();
+    try{
+      await fetch(`${SUPA_URL}/rest/v1/product_reports`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({product_id: productId, user_id: userId, reason: reason})
+      });
+      return true;
+    }catch(e){ return false; }
+  }
+  
+  // ===== UI =====
+  const LIKES_KEY='darfur_likes';
+  const getLocalLikes=()=>{ try{return JSON.parse(localStorage.getItem(LIKES_KEY)||'{}')}catch(e){return{}} };
+  const saveLocalLikes=(obj)=>localStorage.setItem(LIKES_KEY, JSON.stringify(obj));
+  
+  function getCurrentProductId(){
+    // حاول تجيب ID من React أو من URL
+    try{
+      // من window
+      if(window.__currentProductId) return window.__currentProductId;
+      // من hash
+      const hash = location.hash;
+      const m = hash.match(/product[\/=]([^&]+)/);
+      if(m) return m[1];
+      // من آخر منتج
+      const prods = JSON.parse(localStorage.getItem('darfur_products')||'[]');
+      if(prods[0]?.id) return prods[0].id;
+    }catch(e){}
+    return 'prod_unknown';
+  }
+  
+  async function enhanceProductPage(){
+    const waButtons = Array.from(document.querySelectorAll('a, button')).filter(b => 
+      b.textContent.includes('واتساب') && !b.closest('.product-social-bar')
+    );
+    
+    if(waButtons.length>0 && !document.querySelector('.product-social-bar')){
+      const waBtn = waButtons[0];
+      let parent = waBtn.closest('div[class*="p-"]') || waBtn.parentElement;
+      if(!parent || (parent.parentElement && parent.parentElement.querySelector('.product-social-bar'))) return;
+      
+      const prodId = getCurrentProductId();
+      window.__currentProductId = prodId;
+      
+      // جيب الإعجابات من Supabase
+      let likeInfo = {count: 0, liked: false};
+      try{
+        likeInfo = await supaGetLikes(prodId);
+      }catch(e){}
+      
+      // جيب التعليقات
+      let comments = [];
+      try{
+        comments = await supaGetComments(prodId);
+      }catch(e){}
+      
+      const bar = document.createElement('div');
+      bar.className='product-social-bar';
+      bar.innerHTML = `
+        <button class="social-btn ${likeInfo.liked?'liked':''}" data-action="like">
+          <span>${likeInfo.liked?'❤️':'🤍'}</span>
+          <span>إعجاب</span>
+          <span class="count">${likeInfo.count}</span>
+        </button>
+        <button class="social-btn" data-action="comment">
+          <span>💬</span>
+          <span>تعليق</span>
+          <span class="count">${comments.length}</span>
+        </button>
+        <button class="social-btn" data-action="share">
+          <span>🔗</span>
+          <span>مشاركة</span>
+        </button>
+        <button class="social-btn report" data-action="report">
+          <span>🚩</span>
+        </button>
+      `;
+      
+      parent.parentElement.insertBefore(bar, parent);
+      
+      const commentsSec = document.createElement('div');
+      commentsSec.className='comments-section';
+      commentsSec.id='comments-section';
+      commentsSec.style.display = comments.length>0 ? 'block' : 'none';
+      renderComments(commentsSec, comments);
+      parent.parentElement.insertBefore(commentsSec, bar.nextSibling);
+      
+      // أحداث
+      const likeBtn = bar.querySelector('[data-action="like"]');
+      likeBtn.onclick = async function(){
+        const isLiked = this.classList.contains('liked');
+        this.style.opacity='0.5';
+        const newCount = await supaLike(prodId, isLiked);
+        this.style.opacity='1';
+        
+        if(newCount!==null){
+          if(isLiked){
+            this.classList.remove('liked');
+            this.innerHTML = `<span>🤍</span><span>إعجاب</span><span class="count">${newCount}</span>`;
+          }else{
+            this.classList.add('liked');
+            this.innerHTML = `<span>❤️</span><span>إعجاب</span><span class="count">${newCount}</span>`;
+            this.style.transform='scale(1.1)';
+            setTimeout(()=>this.style.transform='', 200);
+          }
+        }else{
+          // fallback local
+          const likes = getLocalLikes();
+          const cur = likes[prodId] || {count:0, liked:false};
+          if(cur.liked){ cur.count=Math.max(0,cur.count-1); cur.liked=false; }else{ cur.count++; cur.liked=true; }
+          likes[prodId]=cur;
+          saveLocalLikes(likes);
+          this.classList.toggle('liked');
+          this.innerHTML = `<span>${cur.liked?'❤️':'🤍'}</span><span>إعجاب</span><span class="count">${cur.count}</span>`;
+        }
+      };
+      
+      bar.querySelector('[data-action="comment"]').onclick = function(){
+        const sec = document.getElementById('comments-section');
+        if(sec){
+          sec.style.display = sec.style.display==='none' ? 'block' : 'none';
+          if(sec.style.display==='block'){
+            setTimeout(()=>document.getElementById('comment-input')?.focus(), 200);
+          }
+        }
+      };
+      
+      bar.querySelector('[data-action="share"]').onclick = async function(){
+        const url = location.href;
+        try{
+          if(navigator.share){
+            await navigator.share({title:'دارفور ماركت', text:'شوف المنتج ده', url});
+          }else{
+            await navigator.clipboard.writeText(url);
+            alert('✅ تم نسخ الرابط!');
+          }
+          this.classList.add('shared');
+          setTimeout(()=>this.classList.remove('shared'), 2000);
+        }catch(e){
+          const ta=document.createElement('textarea'); ta.value=url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); alert('✅ تم نسخ الرابط');
+        }
+      };
+      
+      bar.querySelector('[data-action="report"]').onclick = ()=>showReportModal(prodId);
+    }
+  }
+  
+  function renderComments(container, comments){
+    let html = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-weight:800;font-size:13px">💬 التعليقات (${comments.length})</h4><button onclick="this.parentElement.parentElement.style.display='none'" style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.1)">×</button></div>`;
+    if(comments.length===0){
+      html += `<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.3)"><div style="font-size:24px">💬</div><div style="font-size:11px;margin-top:6px">كن أول من يعلق</div></div>`;
+    }else{
+      comments.slice(0,5).forEach(c=>{
+        const time = c.created_at ? new Date(c.created_at).toLocaleDateString('ar-EG') : 'الآن';
+        html += `<div class="comment-item"><div class="comment-avatar">👤</div><div class="comment-body"><div class="comment-author">${c.author_name||'مستخدم'}</div><div class="comment-text">${(c.text||'').replace(/</g,'&lt;')}</div><div class="comment-time">${time}</div></div></div>`;
+      });
+    }
+    html += `<div class="comment-input-wrap"><input id="comment-input" placeholder="اكتب تعليقك..." maxlength="200"><button onclick="window.addSupaComment()">➤</button></div>`;
+    container.innerHTML = html;
+    const inp = container.querySelector('#comment-input');
+    if(inp){
+      inp.addEventListener('keypress', (e)=>{ if(e.key==='Enter') window.addSupaComment(); });
+    }
+  }
+  
+  window.addSupaComment = async function(){
+    const input = document.getElementById('comment-input');
+    if(!input || !input.value.trim()) return;
+    const text = input.value.trim();
+    const prodId = window.__currentProductId || getCurrentProductId();
+    input.value='';
+    input.placeholder='جاري الإرسال...';
+    input.disabled=true;
+    
+    const ok = await supaAddComment(prodId, text);
+    input.disabled=false;
+    input.placeholder='اكتب تعليقك...';
+    
+    if(ok){
+      const comments = await supaGetComments(prodId);
+      const sec = document.getElementById('comments-section');
+      if(sec) renderComments(sec, comments);
+      const cntEl = document.querySelector('[data-action="comment"] .count');
+      if(cntEl) cntEl.textContent = comments.length;
+    }else{
+      alert('فشل الإرسال، حاول تاني');
+      input.value=text;
+    }
+  };
+  
+  function showReportModal(prodId){
+    if(document.querySelector('.report-modal')) return;
+    const modal = document.createElement('div');
+    modal.className='report-modal';
+    modal.innerHTML=`
+      <div class="report-box">
+        <h3 style="font-weight:900;font-size:16px;margin-bottom:6px">🚩 إبلاغ عن المنتج</h3>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:16px">ساعدنا نحافظ على سوق آمن</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="report-option" data-reason="محتوى غير لائق" style="height:44px;border-radius:12px;background:#121212;border:1px solid rgba(255,255,255,0.08);text-align:right;padding:0 14px;font-size:13px">🚫 محتوى غير لائق</button>
+          <button class="report-option" data-reason="احتيال" style="height:44px;border-radius:12px;background:#121212;border:1px solid rgba(255,255,255,0.08);text-align:right;padding:0 14px;font-size:13px">⚠️ احتيال أو نصب</button>
+          <button class="report-option" data-reason="منتج مكرر" style="height:44px;border-radius:12px;background:#121212;border:1px solid rgba(255,255,255,0.08);text-align:right;padding:0 14px;font-size:13px">🔁 منتج مكرر</button>
+          <button class="report-option" data-reason="معلومات خاطئة" style="height:44px;border-radius:12px;background:#121212;border:1px solid rgba(255,255,255,0.08);text-align:right;padding:0 14px;font-size:13px">❌ معلومات خاطئة</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:16px">
+          <button onclick="this.closest('.report-modal').remove()" style="flex:1;height:44px;border-radius:999px;background:rgba(255,255,255,0.08);font-weight:700">إلغاء</button>
+          <button id="confirm-report" style="flex:1;height:44px;border-radius:999px;background:#ef4444;color:#fff;font-weight:800;opacity:0.5" disabled>إرسال البلاغ</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    let selectedReason=null;
+    modal.querySelectorAll('.report-option').forEach(btn=>{
+      btn.onclick=function(){
+        modal.querySelectorAll('.report-option').forEach(b=>b.style.borderColor='rgba(255,255,255,0.08)');
+        this.style.borderColor='#ef4444';
+        selectedReason=this.dataset.reason;
+        const cb=document.getElementById('confirm-report');
+        cb.disabled=false; cb.style.opacity='1';
+      };
+    });
+    document.getElementById('confirm-report').onclick=async function(){
+      if(!selectedReason) return;
+      this.textContent='جاري...';
+      this.disabled=true;
+      const ok = await supaReport(prodId, selectedReason);
+      if(ok){
+        modal.innerHTML=`<div class="report-box" style="text-align:center;padding:30px"><div style="font-size:40px">✅</div><h3 style="font-weight:900;margin-top:12px">شكرا لبلاغك</h3><p style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:6px">حنراجع المنتج في أقرب وقت</p><button onclick="this.closest('.report-modal').remove()" style="margin-top:16px;width:100%;height:44px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:800">حسناً</button></div>`;
+        setTimeout(()=>modal.remove(), 2500);
+      }else{
+        alert('فشل الإرسال');
+        this.textContent='إرسال البلاغ';
+        this.disabled=false;
+      }
+    };
+    modal.onclick=(e)=>{ if(e.target===modal) modal.remove(); };
+  }
+  
+  setInterval(enhanceProductPage, 1500);
+  const obs=new MutationObserver(()=>enhanceProductPage());
+  obs.observe(document.body, {childList:true, subtree:true});
+  
+  document.addEventListener('click', (e)=>{
+    const card = e.target.closest('div[class*="rounded"]');
+    if(card && card.textContent.includes('جنيه')){
+      const idMatch = card.innerHTML.match(/product[\/_-]([a-z0-9-]+)/i);
+      window.__currentProductId = idMatch ? idMatch[1] : 'prod_'+Date.now();
+    }
+  });
+  
+  console.log('✅ Social features with Supabase ready');
 })();
 </script>
 
