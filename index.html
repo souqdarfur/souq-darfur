@@ -2063,9 +2063,14 @@ window.showAddServiceForm=function(){
             </div>
             <div style="font-size:11px;color:rgba(255,255,255,0.5);">⭐ ${store.rating||5} • ${store.products_count||0} منتج • ${store.category||''}</div>
           </div>
-          <button onclick="window.contactStore('${store.whatsapp||''}', '${store.name}')" style="background:#25D366;border:none;color:#fff;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:4px;">
-            <span>💬</span> واتساب
-          </button>
+          <div style="display:flex;gap:8px;">
+            <button id="add-product-btn" onclick="window.openAddProductInStore('${store.id}')" style="background:#A7F3D0;border:none;color:#000;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:900;cursor:pointer;display:flex;align-items:center;gap:4px;display:none;">
+              <span>➕</span> منتج
+            </button>
+            <button onclick="window.contactStore('${store.whatsapp||''}', '${store.name}')" style="background:#25D366;border:none;color:#fff;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:4px;">
+              <span>💬</span> واتساب
+            </button>
+          </div>
         </div>
         
         <!-- بنر المتجر -->
@@ -2101,6 +2106,19 @@ window.showAddServiceForm=function(){
     `;
     
     document.body.appendChild(storePage);
+    
+    // أظهر زر إضافة منتج لصاحب المتجر أو الأدمن
+    try{
+      const currentUser = JSON.parse(localStorage.getItem('darfur_current_user')||'null');
+      const isAdmin = window.isAdmin ? window.isAdmin() : false;
+      const myStore = JSON.parse(localStorage.getItem('darfur_my_vip_store')||'null');
+      const isOwner = currentUser && (store.owner_id === currentUser.id || (myStore && myStore.id === store.id));
+      
+      if(isAdmin || isOwner){
+        const addBtn = document.getElementById('add-product-btn');
+        if(addBtn) addBtn.style.display='flex';
+      }
+    }catch(e){}
     
     // حمل منتجات المتجر
     window.loadStoreProducts(store);
@@ -2173,8 +2191,11 @@ window.showAddServiceForm=function(){
         }else{
           gridEl.innerHTML = `
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-              <div style="font-size:13px;color:#fff;font-weight:800;">${products.length} منتج</div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.5);">${store.name}</div>
+              <div style="font-size:13px;color:#fff;font-weight:800;">📦 ${products.length} منتج في ${store.name}</div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <div style="font-size:11px;color:rgba(255,255,255,0.5);">VIP ✓</div>
+                <button id="add-product-inline" onclick="window.openAddProductInStore('${store.id}')" style="display:none;background:#A7F3D0;border:none;color:#000;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:800;cursor:pointer;">➕ إضافة منتج</button>
+              </div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
               ${products.map(p => `
@@ -2198,6 +2219,20 @@ window.showAddServiceForm=function(){
       }
       
       // معلومات المتجر
+      // أظهر زر الإضافة المضمن
+      try{
+        const currentUser = JSON.parse(localStorage.getItem('darfur_current_user')||'null');
+        const isAdmin = window.isAdmin ? window.isAdmin() : false;
+        const myStore = JSON.parse(localStorage.getItem('darfur_my_vip_store')||'null');
+        const isOwner = currentUser && (store.owner_id === currentUser.id || (myStore && myStore.id === store.id));
+        if(isAdmin || isOwner){
+          setTimeout(()=>{
+            const inlineBtn = document.getElementById('add-product-inline');
+            if(inlineBtn) inlineBtn.style.display='block';
+          }, 100);
+        }
+      }catch(e){}
+      
       if(infoEl){
         infoEl.innerHTML = `
           <div style="display:flex;flex-direction:column;gap:12px;">
@@ -2928,6 +2963,304 @@ window.showAddServiceForm=function(){
   
   // override old
   window.openVIPModal = window.openVIPStoresScreen;
+
+
+
+  // === إضافة منتج داخل متجر VIP مع كل التفاصيل ===
+  window.openAddProductInStore = function(storeId){
+    const stores = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+    const store = stores.find(s => s.id === storeId);
+    if(!store){
+      alert('المتجر غير موجود');
+      return;
+    }
+    
+    // تحقق من الصلاحية - هل المستخدم صاحب المتجر أو أدمن
+    const currentUser = JSON.parse(localStorage.getItem('darfur_current_user')||'null');
+    const isAdmin = window.isAdmin ? window.isAdmin() : false;
+    const isOwner = currentUser && (store.owner_id === currentUser.id || store.owner_name === currentUser.full_name);
+    const myStore = JSON.parse(localStorage.getItem('darfur_my_vip_store')||'null');
+    const isMyStore = myStore && myStore.id === storeId;
+    
+    if(!isAdmin && !isOwner && !isMyStore){
+      // المستخدم العادي ما يقدر يضيف
+      alert('إضافة المنتجات متاحة لصاحب المتجر VIP فقط\nتواصل مع الإدارة للحصول على متجر VIP');
+      return;
+    }
+    
+    if(document.querySelector('#add-product-in-store')) return;
+    
+    const formPage = document.createElement('div');
+    formPage.id = 'add-product-in-store';
+    formPage.style.cssText = 'position:fixed;inset:0;z-index:99999999;background:#0F0F0F;overflow-y:auto;';
+    
+    formPage.innerHTML = `
+      <div style="position:sticky;top:0;z-index:10;background:#0F0F0F;border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 16px;display:flex;align-items:center;gap:12px;">
+        <button onclick="this.closest('#add-product-in-store').remove()" style="width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:18px;cursor:pointer;">→</button>
+        <div style="width:40px;height:40px;background:linear-gradient(135deg, #0F3D2E 0%, #1A1A1A 100%);border:1px solid #A7F3D0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">${store.logo||'🏪'}</div>
+        <div style="flex:1;">
+          <div style="font-weight:900;color:#fff;font-size:14px;">إضافة منتج في ${store.name}</div>
+          <div style="font-size:11px;color:#A7F3D0;">📦 ${store.category} • VIP</div>
+        </div>
+      </div>
+      
+      <div style="padding:20px 16px;max-width:500px;margin:0 auto;">
+        <div style="background:linear-gradient(135deg, #0F3D2E 0%, #1A1A1A 100%);border:1px solid rgba(167,243,208,0.2);border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;margin-bottom:20px;">
+          <div style="width:44px;height:44px;background:#A7F3D0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">📦</div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#A7F3D0;">منتج جديد في متجرك</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;">حيظهر في صفحة متجرك ولكل المستخدمين</div>
+          </div>
+        </div>
+        
+        <form id="vip-product-form" style="display:flex;flex-direction:column;gap:16px;">
+          <!-- صور المنتج -->
+          <div>
+            <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:8px;display:block;">📸 صور المنتج * (حتى 4 صور)</label>
+            <div id="image-preview-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;"></div>
+            <label for="product-images" style="width:100%;height:90px;background:#1E1E1E;border:2px dashed rgba(167,243,208,0.3);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;">
+              <div style="font-size:24px;margin-bottom:4px;">📷</div>
+              <div style="font-size:12px;color:#A7F3D0;font-weight:700;">اضغط لإضافة صور</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">PNG, JPG حتى 2MB</div>
+            </label>
+            <input id="product-images" type="file" accept="image/*" multiple style="display:none;">
+            <div id="image-count" style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:6px;">0 صور مضافة</div>
+          </div>
+          
+          <div>
+            <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📝 اسم المنتج *</label>
+            <input id="prod-title" type="text" placeholder="مثال: سامسونج A54 جديد" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;">
+          </div>
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div>
+              <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">💰 السعر (SDG) *</label>
+              <input id="prod-price" type="number" placeholder="15000" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;">
+            </div>
+            <div>
+              <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📂 الفئة</label>
+              <select id="prod-category" style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 12px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;">
+                <option value="${store.category}" selected>${store.category}</option>
+                <option value="هواتف">📱 هواتف</option>
+                <option value="سيارات">🚗 سيارات</option>
+                <option value="ملابس">👕 ملابس</option>
+                <option value="مواشي">🐄 مواشي</option>
+                <option value="محاصيل">🌾 محاصيل</option>
+                <option value="أجهزة">💻 أجهزة</option>
+                <option value="عقارات">🏠 عقارات</option>
+                <option value="الخدمات">🔧 الخدمات</option>
+              </select>
+            </div>
+          </div>
+          
+          <div>
+            <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📄 وصف المنتج *</label>
+            <textarea id="prod-desc" placeholder="اكتب تفاصيل المنتج، الحالة، المميزات..." required rows="4" style="width:100%;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#fff;font-size:13px;outline:none;resize:none;box-sizing:border-box;"></textarea>
+          </div>
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div>
+              <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📱 رقم الواتساب *</label>
+              <input id="prod-whatsapp" type="tel" value="${store.whatsapp||''}" placeholder="2499XXXXXXXX" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;direction:ltr;text-align:left;">
+            </div>
+            <div>
+              <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📍 السكن / الولاية *</label>
+              <select id="prod-wilaya" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 12px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;">
+                <option value="">اختر الولاية</option>
+                <option value="شمال دارفور">شمال دارفور</option>
+                <option value="جنوب دارفور" selected>جنوب دارفور</option>
+                <option value="غرب دارفور">غرب دارفور</option>
+                <option value="شرق دارفور">شرق دارفور</option>
+                <option value="وسط دارفور">وسط دارفور</option>
+                <option value="الخرطوم">الخرطوم</option>
+                <option value="الجزيرة">الجزيرة</option>
+                <option value="كسلا">كسلا</option>
+                <option value="القضارف">القضارف</option>
+                <option value="البحر الأحمر">البحر الأحمر</option>
+                <option value="الشمالية">الشمالية</option>
+                <option value="نهر النيل">نهر النيل</option>
+                <option value="النيل الأبيض">النيل الأبيض</option>
+                <option value="النيل الأزرق">النيل الأزرق</option>
+                <option value="سنار">سنار</option>
+                <option value="شمال كردفان">شمال كردفان</option>
+                <option value="جنوب كردفان">جنوب كردفان</option>
+                <option value="غرب كردفان">غرب كردفان</option>
+              </select>
+            </div>
+          </div>
+          
+          <div>
+            <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">🏠 العنوان التفصيلي</label>
+            <input id="prod-address" type="text" placeholder="مثال: نيالا - السوق الكبير" style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;">
+          </div>
+          
+          <div style="background:rgba(167,243,208,0.08);border:1px solid rgba(167,243,208,0.15);border-radius:12px;padding:12px;display:flex;gap:10px;">
+            <div style="font-size:18px;">💡</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;">
+              <div style="font-weight:800;color:#A7F3D0;margin-bottom:2px;">حيظهر باسم متجرك VIP</div>
+              منتجك حيظهر في صفحة <b style="color:#fff;">${store.name}</b> ولكل المستخدمين مع علامة VIP ✓
+            </div>
+          </div>
+          
+          <button type="submit" id="submit-product-btn" style="width:100%;height:52px;background:#A7F3D0;border:none;border-radius:14px;color:#000;font-size:15px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;">
+            <span>🚀</span> نشر المنتج في متجري
+          </button>
+        </form>
+      </div>
+    `;
+    
+    document.body.appendChild(formPage);
+    
+    // معالجة الصور
+    let selectedImages = [];
+    const imagesInput = formPage.querySelector('#product-images');
+    const previewGrid = formPage.querySelector('#image-preview-grid');
+    const countEl = formPage.querySelector('#image-count');
+    
+    imagesInput.onchange = (e)=>{
+      const files = Array.from(e.target.files);
+      if(selectedImages.length + files.length > 4){
+        alert('الحد الأقصى 4 صور');
+        return;
+      }
+      
+      files.forEach(file=>{
+        if(!file.type.startsWith('image/')) return;
+        if(file.size > 2*1024*1024){
+          alert('الصورة '+file.name+' أكبر من 2MB');
+          return;
+        }
+        selectedImages.push(file);
+        
+        const reader = new FileReader();
+        reader.onload = (ev)=>{
+          const div = document.createElement('div');
+          div.style.cssText = 'position:relative;aspect-ratio:1;background:#121212;border:1px solid rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;';
+          div.innerHTML = `
+            <img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;">
+            <button type="button" onclick="this.parentElement.remove(); window._removeVIPImage('${file.name}')" style="position:absolute;top:4px;right:4px;width:24px;height:24px;background:rgba(0,0,0,0.7);border:none;border-radius:50%;color:#fff;font-size:12px;cursor:pointer;">✕</button>
+          `;
+          previewGrid.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+      });
+      
+      countEl.textContent = selectedImages.length + ' صور مضافة';
+    };
+    
+    window._removeVIPImage = function(name){
+      selectedImages = selectedImages.filter(f => f.name !== name);
+      countEl.textContent = selectedImages.length + ' صور مضافة';
+    };
+    
+    // حفظ المنتج
+    const form = formPage.querySelector('#vip-product-form');
+    form.onsubmit = async (e)=>{
+      e.preventDefault();
+      
+      const btn = formPage.querySelector('#submit-product-btn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '⏳ جاري النشر...';
+      btn.disabled = true;
+      
+      try{
+        const currentUser = JSON.parse(localStorage.getItem('darfur_current_user')||'null');
+        
+        // معالجة الصور - تحويل لـ base64 أو رفع
+        let imageUrls = [];
+        if(selectedImages.length>0){
+          // للآن نحفظ كـ base64 محلياً، وSupabase يتكفل بالرفع عبر du
+          for(let file of selectedImages){
+            const base64 = await new Promise((resolve)=>{
+              const reader = new FileReader();
+              reader.onload = (ev)=> resolve(ev.target.result);
+              reader.readAsDataURL(file);
+            });
+            imageUrls.push(base64);
+          }
+        }
+        
+        const productData = {
+          id: 'p_'+Date.now(),
+          title: formPage.querySelector('#prod-title').value.trim(),
+          price: Number(formPage.querySelector('#prod-price').value),
+          category: formPage.querySelector('#prod-category').value,
+          description: formPage.querySelector('#prod-desc').value.trim(),
+          whatsapp: formPage.querySelector('#prod-whatsapp').value.trim(),
+          wilaya: formPage.querySelector('#prod-wilaya').value,
+          address: formPage.querySelector('#prod-address').value.trim(),
+          images: imageUrls,
+          user_id: currentUser?.id || store.owner_id || 'vip_'+Date.now(),
+          store_id: store.id,
+          vip_store_id: store.id,
+          store_name: store.name,
+          store_logo: store.logo,
+          is_vip: true,
+          verified: true,
+          created_at: new Date().toISOString()
+        };
+        
+        if(!productData.title || !productData.price || !productData.description){
+          alert('املأ كل الحقول المطلوبة');
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          return;
+        }
+        
+        // حفظ محلياً
+        let products = JSON.parse(localStorage.getItem('darfur_products')||'[]');
+        products.unshift(productData);
+        localStorage.setItem('darfur_products', JSON.stringify(products));
+        
+        // حاول حفظ في Supabase عبر du الموجودة
+        try{
+          if(typeof du === 'function'){
+            await du('products', productData);
+            console.log('✅ Product saved to Supabase via du');
+          }else{
+            // مباشر
+            const url = SUPABASE_URL + '/rest/v1/darfur_products';
+            const headers = getHeaders();
+            headers['Prefer'] = 'return=representation';
+            const res = await fetch(url, {method:'POST', headers, body: JSON.stringify(productData)});
+            if(res.ok) console.log('✅ Product saved to Supabase direct');
+          }
+        }catch(err){
+          console.log('Supabase save failed, local only', err);
+        }
+        
+        // حدث عدد منتجات المتجر
+        try{
+          const stores = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+          const idx = stores.findIndex(s=>s.id===store.id);
+          if(idx!==-1){
+            stores[idx].products_count = (stores[idx].products_count||0)+1;
+            localStorage.setItem('darfur_vip_stores', JSON.stringify(stores));
+          }
+        }catch(e){}
+        
+        // نجاح
+        const toast=document.createElement('div');
+        toast.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999999999;background:#0F3D2E;color:#A7F3D0;padding:14px 20px;border-radius:999px;font-size:13px;font-weight:800;border:1px solid #A7F3D0;';
+        toast.textContent='✅ تم نشر المنتج في '+store.name+' - '+productData.title;
+        document.body.appendChild(toast);
+        setTimeout(()=>toast.remove(), 4000);
+        
+        formPage.remove();
+        
+        // أعد تحميل صفحة المتجر
+        const storePage = document.querySelector('#vip-store-page-root');
+        if(storePage) storePage.remove();
+        setTimeout(()=>{ window.openStorePage(storeId); }, 500);
+        
+      }catch(err){
+        console.log('Add product error', err);
+        alert('حدث خطأ: '+err.message);
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    };
+  };
 
 
   // === لوحة إدارة VIP (للأدمن فقط - أنت) ===
