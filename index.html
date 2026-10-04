@@ -33,12 +33,6 @@
 })();
 </script>
 
-
-
-
-
-
-
 </head>
 <body>
   <div id="root"></div>
@@ -547,8 +541,6 @@ else { document.addEventListener("DOMContentLoaded", checkOnline); }
   console.log('✅ Supabase services loaded');
 })();
 
-
-
 /* ===== نظام الإعلانات المدفوعة + استرجاع المميزات 💰 ===== */
 (function(){
   const ADMIN_PHONE = "249923784866";
@@ -720,7 +712,6 @@ else { document.addEventListener("DOMContentLoaded", checkOnline); }
 })();
 </script>
 
-
 <script>
 /* ===== نظام التوصيل + إرجاع قسم الخدمات للأعمدة 🚚 ===== */
 (function(){
@@ -878,7 +869,6 @@ window.showAddServiceForm=function(){
   console.log('✅ Delivery + Services columns restored');
 })();
 </script>
-
 
 <script>
 /* ===== تحسين شاشة عدم الاتصال - وضع دارفور للشبكة الضعيفة 📶 ===== */
@@ -1083,7 +1073,6 @@ window.showAddServiceForm=function(){
   }catch(e){ console.log('cleanup error', e); }
 })();
 </script>
-
 
 <script>
 /* ===== إصلاحات الأداء - بدون حذف أي شي ⚡ ===== */
@@ -1308,386 +1297,1802 @@ window.showAddServiceForm=function(){
 
 
 
-<style id="social-features">
-.product-social-bar{
-  display:flex;gap:8px;padding:12px 16px;
-  background:#1E1E1E;border-top:1px solid rgba(255,255,255,0.06);
-  border-bottom:1px solid rgba(255,255,255,0.06);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style id="filter-move">
+/* زر فلترة أخرى - نفس مقاس الباقي */
+.filter-other-card{
+  background:#1A1A1A !important;
+  border:1px solid rgba(255,255,255,0.06) !important;
+  border-radius:16px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+  padding:14px 8px !important;
+  cursor:pointer !important;
+  transition:all 0.2s !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:92px !important;
+  max-height:92px !important;
+  box-sizing:border-box !important;
 }
-.social-btn{
-  flex:1;height:42px;border-radius:999px;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  font-size:13px;font-weight:700;cursor:pointer;
-  border:1px solid rgba(255,255,255,0.08);
-  background:#121212;color:rgba(255,255,255,0.7);
-  transition:all 0.2s;
+.filter-other-card:hover{
+  background:#222 !important;
+  border-color:rgba(167,243,208,0.2) !important;
 }
-.social-btn:active{transform:scale(0.95)}
-.social-btn.liked{background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.3);color:#ef4444}
-.social-btn.shared{background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3);color:#10b981}
-.social-btn.report{background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.2);color:rgba(255,255,255,0.5);flex:0.6}
-.social-btn .count{font-size:11px;background:rgba(0,0,0,0.3);padding:1px 6px;border-radius:999px;min-width:18px;text-align:center}
-.comments-section{background:#121212;border-radius:16px;margin:12px 16px;padding:12px;border:1px solid rgba(255,255,255,0.06);}
-.comment-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
-.comment-avatar{width:32px;height:32px;border-radius:50%;background:#0F3D2E;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
-.comment-body{flex:1}
-.comment-author{font-size:12px;font-weight:800;color:#fff}
-.comment-text{font-size:12px;color:rgba(255,255,255,0.7);margin-top:2px;line-height:1.5}
-.comment-time{font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px}
-.comment-input-wrap{display:flex;gap:8px;margin-top:12px;}
-.comment-input-wrap input{flex:1;height:40px;border-radius:999px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.08);padding:0 16px;color:#fff;font-size:13px;}
-.comment-input-wrap button{width:40px;height:40px;border-radius:50%;background:#A7F3D0;color:#000;font-weight:900;display:flex;align-items:center;justify-content:center;}
-.report-modal{position:fixed;inset:0;z-index:9999999;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;padding:16px;}
-.report-box{background:#1E1E1E;border-radius:20px;padding:20px;width:100%;max-width:360px;border:1px solid rgba(255,255,255,0.08);}
+.filter-other-card:active{
+  transform:scale(0.97) !important;
+}
+.filter-other-card .filter-icon{
+  width:32px !important;
+  height:32px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+.filter-other-card .filter-icon svg{
+  width:28px !important;
+  height:28px !important;
+  stroke:#A7F3D0 !important;
+  stroke-width:1.8 !important;
+  fill:none !important;
+}
+.filter-other-card .filter-label{
+  font-size:12px !important;
+  font-weight:600 !important;
+  color:rgba(255,255,255,0.9) !important;
+  line-height:1.1 !important;
+  text-align:center !important;
+  white-space:nowrap !important;
+}
+.old-advanced-filter{display:none !important;}
+.filter-modal{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:9999999 !important;
+  background:rgba(0,0,0,0.75) !important;
+  backdrop-filter:blur(8px) !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:center !important;
+  padding:0 !important;
+  animation:fadeIn 0.2s ease !important;
+}
+.filter-modal-content{
+  background:#1E1E1E !important;
+  border-radius:24px 24px 0 0 !important;
+  width:100% !important;
+  max-width:500px !important;
+  max-height:85vh !important;
+  overflow-y:auto !important;
+  padding:0 !important;
+  border:1px solid rgba(255,255,255,0.1) !important;
+  border-bottom:none !important;
+  animation:slideUp 0.3s ease !important;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.filter-header{
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:center !important;
+  padding:20px 20px 16px 20px !important;
+  border-bottom:1px solid rgba(255,255,255,0.06) !important;
+  position:sticky !important;
+  top:0 !important;
+  background:#1E1E1E !important;
+  z-index:1 !important;
+}
+.filter-header h3{
+  font-size:16px !important;
+  font-weight:900 !important;
+  color:#fff !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+}
+.filter-close{
+  width:32px !important;
+  height:32px !important;
+  border-radius:50% !important;
+  background:rgba(255,255,255,0.08) !important;
+  border:none !important;
+  color:#fff !important;
+  font-size:16px !important;
+  cursor:pointer !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+.filter-body{padding:20px !important;display:flex !important;flex-direction:column !important;gap:20px !important;}
+.filter-section-title{font-size:13px !important;font-weight:800 !important;color:rgba(255,255,255,0.7) !important;margin-bottom:10px !important;display:flex !important;align-items:center !important;gap:6px !important;}
+.filter-price-row{display:grid !important;grid-template-columns:1fr 1fr !important;gap:12px !important;}
+.filter-input{
+  height:48px !important;
+  border-radius:12px !important;
+  background:#121212 !important;
+  border:1px solid rgba(255,255,255,0.08) !important;
+  padding:0 16px !important;
+  color:#fff !important;
+  font-size:14px !important;
+  outline:none !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  text-align:right !important;
+}
+.filter-input:focus{border-color:#A7F3D0 !important;}
+.filter-input::placeholder{color:rgba(255,255,255,0.4) !important;}
+.filter-sort-grid{display:grid !important;grid-template-columns:1fr 1fr 1fr !important;gap:10px !important;}
+.filter-sort-btn{
+  height:48px !important;
+  border-radius:12px !important;
+  background:#121212 !important;
+  border:1px solid rgba(255,255,255,0.08) !important;
+  color:rgba(255,255,255,0.7) !important;
+  font-size:13px !important;
+  font-weight:700 !important;
+  cursor:pointer !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:6px !important;
+  transition:all 0.2s !important;
+}
+.filter-sort-btn:hover{background:#252525 !important;}
+.filter-sort-btn.active{background:#0F3D2E !important;border-color:#A7F3D0 !important;color:#A7F3D0 !important;}
+.filter-actions{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:12px !important;
+  padding:16px 20px 24px 20px !important;
+  border-top:1px solid rgba(255,255,255,0.06) !important;
+  position:sticky !important;
+  bottom:0 !important;
+  background:#1E1E1E !important;
+}
+.filter-btn-reset{
+  height:48px !important;
+  border-radius:12px !important;
+  background:rgba(255,255,255,0.06) !important;
+  border:1px solid rgba(255,255,255,0.08) !important;
+  color:#fff !important;
+  font-weight:700 !important;
+  font-size:14px !important;
+  cursor:pointer !important;
+}
+.filter-btn-apply{
+  height:48px !important;
+  border-radius:12px !important;
+  background:#A7F3D0 !important;
+  border:none !important;
+  color:#000 !important;
+  font-weight:800 !important;
+  font-size:14px !important;
+  cursor:pointer !important;
+}
 </style>
-<script id="social-features-script">
+
+<script id="filter-move-script">
 (function(){
-  console.log('👍 Social features with Supabase loading...');
+  console.log('🔗 VIP & Filter - Supabase Linked');
   
-  // استخدم نفس متغيرات Supabase الموجودة في التطبيق
-  const SUPA_URL = window.gn || 'https://qmzkdvphrcuwneboyeda.supabase.co';
-  const SUPA_KEY = window.Bn || 'sb_publishable_rHycFHkRNiR9V5vTghpguA_e__nfOgb';
+  // === إعدادات Supabase ===
+  const SUPABASE_URL = 'https://qmzkdvphrcuwneboyeda.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_rHycFHkRNiR9V5vTghpguA_e__nfOgb';
   
   function getHeaders(){
+    try{
+      if(typeof na === 'function') return na();
+    }catch(e){}
     return {
-      'apikey': SUPA_KEY,
-      'Authorization': 'Bearer '+SUPA_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=representation'
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer '+SUPABASE_KEY,
+      'Content-Type': 'application/json'
     };
   }
   
-  function getUserId(){
+  function isSupabaseReady(){
     try{
-      const sess = JSON.parse(localStorage.getItem('supabase_session')||'null');
-      return sess?.user?.id || 'anon_'+(localStorage.getItem('darfur_anon_id') || (()=>{ const id='anon_'+Date.now(); localStorage.setItem('darfur_anon_id', id); return id; })());
-    }catch(e){
-      return 'anon_'+Date.now();
-    }
-  }
-  
-  // ===== Supabase Functions =====
-  async function supaLike(productId, isLiked){
-    const userId = getUserId();
-    try{
-      if(isLiked){
-        // احذف الإعجاب
-        await fetch(`${SUPA_URL}/rest/v1/product_likes?product_id=eq.${productId}&user_id=eq.${userId}`, {
-          method: 'DELETE',
-          headers: getHeaders()
-        });
-      }else{
-        // أضف إعجاب
-        await fetch(`${SUPA_URL}/rest/v1/product_likes`, {
-          method: 'POST',
-          headers: getHeaders(),
-          body: JSON.stringify({product_id: productId, user_id: userId})
-        });
-      }
-      // حدث العداد في products
-      const countRes = await fetch(`${SUPA_URL}/rest/v1/product_likes?product_id=eq.${productId}&select=id`, {headers: getHeaders()});
-      const countData = await countRes.json();
-      const newCount = Array.isArray(countData) ? countData.length : 0;
-      // حدث جدول المنتجات لو فيه likes_count
-      try{
-        await fetch(`${SUPA_URL}/rest/v1/products?id=eq.${productId}`, {
-          method: 'PATCH',
-          headers: getHeaders(),
-          body: JSON.stringify({likes_count: newCount})
-        });
-      }catch(e){}
-      return newCount;
-    }catch(e){
-      console.log('Supa like error', e);
-      return null;
-    }
-  }
-  
-  async function supaGetLikes(productId){
-    try{
-      const res = await fetch(`${SUPA_URL}/rest/v1/product_likes?product_id=eq.${productId}&select=id,user_id`, {headers: getHeaders()});
-      const data = await res.json();
-      if(!Array.isArray(data)) return {count:0, liked:false};
-      const userId = getUserId();
-      return {count: data.length, liked: data.some(d=>d.user_id===userId)};
-    }catch(e){ return {count:0, liked:false}; }
-  }
-  
-  async function supaAddComment(productId, text){
-    const userId = getUserId();
-    try{
-      const res = await fetch(`${SUPA_URL}/rest/v1/product_comments`, {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify({product_id: productId, user_id: userId, text: text, author_name: 'مستخدم'})
-      });
-      return res.ok;
-    }catch(e){ console.log('comment error', e); return false; }
-  }
-  
-  async function supaGetComments(productId){
-    try{
-      const res = await fetch(`${SUPA_URL}/rest/v1/product_comments?product_id=eq.${productId}&order=created_at.desc&limit=20`, {headers: getHeaders()});
-      const data = await res.json();
-      return Array.isArray(data) ? data : [];
-    }catch(e){ return []; }
-  }
-  
-  async function supaReport(productId, reason){
-    const userId = getUserId();
-    try{
-      await fetch(`${SUPA_URL}/rest/v1/product_reports`, {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify({product_id: productId, user_id: userId, reason: reason})
-      });
+      if(typeof qe === 'function') return qe();
       return true;
     }catch(e){ return false; }
   }
   
-  // ===== UI =====
-  const LIKES_KEY='darfur_likes';
-  const getLocalLikes=()=>{ try{return JSON.parse(localStorage.getItem(LIKES_KEY)||'{}')}catch(e){return{}} };
-  const saveLocalLikes=(obj)=>localStorage.setItem(LIKES_KEY, JSON.stringify(obj));
+  let filterState={
+    minPrice:'',
+    maxPrice:'',
+    sort:'newest',
+    vipFilter:null
+  };
   
-  function getCurrentProductId(){
-    // حاول تجيب ID من React أو من URL
+  try{
+    const saved=JSON.parse(localStorage.getItem('darfur_filters_v2')||'null');
+    if(saved) filterState={...filterState, ...saved};
+  }catch(e){}
+  
+  // === دوال Supabase حقيقية ===
+  
+  // جلب المنتجات مع فلترة
+  window.fetchProductsWithFilters = async function(filters){
     try{
-      // من window
-      if(window.__currentProductId) return window.__currentProductId;
-      // من hash
-      const hash = location.hash;
-      const m = hash.match(/product[\/=]([^&]+)/);
-      if(m) return m[1];
-      // من آخر منتج
-      const prods = JSON.parse(localStorage.getItem('darfur_products')||'[]');
-      if(prods[0]?.id) return prods[0].id;
-    }catch(e){}
-    return 'prod_unknown';
-  }
-  
-  async function enhanceProductPage(){
-    const waButtons = Array.from(document.querySelectorAll('a, button')).filter(b => 
-      b.textContent.includes('واتساب') && !b.closest('.product-social-bar')
-    );
-    
-    if(waButtons.length>0 && !document.querySelector('.product-social-bar')){
-      const waBtn = waButtons[0];
-      let parent = waBtn.closest('div[class*="p-"]') || waBtn.parentElement;
-      if(!parent || (parent.parentElement && parent.parentElement.querySelector('.product-social-bar'))) return;
+      let url = SUPABASE_URL + '/rest/v1/darfur_products?select=*';
       
-      const prodId = getCurrentProductId();
-      window.__currentProductId = prodId;
+      if(filters.minPrice){
+        url += '&price=gte.'+filters.minPrice;
+      }
+      if(filters.maxPrice){
+        url += '&price=lte.'+filters.maxPrice;
+      }
       
-      // جيب الإعجابات من Supabase
-      let likeInfo = {count: 0, liked: false};
+      // ترتيب
+      if(filters.sort === 'cheapest'){
+        url += '&order=price.asc';
+      }else if(filters.sort === 'expensive'){
+        url += '&order=price.desc';
+      }else{
+        url += '&order=created_at.desc';
+      }
+      
+      // VIP filter
+      if(filters.vipFilter){
+        url += '&is_vip=eq.true';
+        if(filters.vipFilter !== 'all'){
+          url += '&category=eq.'+encodeURIComponent(filters.vipFilter);
+        }
+      }
+      
+      console.log('🔍 Fetching:', url);
+      const res = await fetch(url, {headers: getHeaders()});
+      if(!res.ok) throw new Error('fetch failed '+res.status);
+      const data = await res.json();
+      console.log('✅ Products fetched:', data.length);
+      return data;
+    }catch(e){
+      console.log('❌ Fetch error, using local:', e);
+      // fallback local
       try{
-        likeInfo = await supaGetLikes(prodId);
-      }catch(e){}
-      
-      // جيب التعليقات
-      let comments = [];
-      try{
-        comments = await supaGetComments(prodId);
-      }catch(e){}
-      
-      const bar = document.createElement('div');
-      bar.className='product-social-bar';
-      bar.innerHTML = `
-        <button class="social-btn ${likeInfo.liked?'liked':''}" data-action="like">
-          <span>${likeInfo.liked?'❤️':'🤍'}</span>
-          <span>إعجاب</span>
-          <span class="count">${likeInfo.count}</span>
-        </button>
-        <button class="social-btn" data-action="comment">
-          <span>💬</span>
-          <span>تعليق</span>
-          <span class="count">${comments.length}</span>
-        </button>
-        <button class="social-btn" data-action="share">
-          <span>🔗</span>
-          <span>مشاركة</span>
-        </button>
-        <button class="social-btn report" data-action="report">
-          <span>🚩</span>
-        </button>
-      `;
-      
-      parent.parentElement.insertBefore(bar, parent);
-      
-      const commentsSec = document.createElement('div');
-      commentsSec.className='comments-section';
-      commentsSec.id='comments-section';
-      commentsSec.style.display = comments.length>0 ? 'block' : 'none';
-      renderComments(commentsSec, comments);
-      parent.parentElement.insertBefore(commentsSec, bar.nextSibling);
-      
-      // أحداث
-      const likeBtn = bar.querySelector('[data-action="like"]');
-      likeBtn.onclick = async function(){
-        const isLiked = this.classList.contains('liked');
-        this.style.opacity='0.5';
-        const newCount = await supaLike(prodId, isLiked);
-        this.style.opacity='1';
+        const local = JSON.parse(localStorage.getItem('darfur_products')||'[]');
+        let filtered = local;
         
-        if(newCount!==null){
-          if(isLiked){
-            this.classList.remove('liked');
-            this.innerHTML = `<span>🤍</span><span>إعجاب</span><span class="count">${newCount}</span>`;
-          }else{
-            this.classList.add('liked');
-            this.innerHTML = `<span>❤️</span><span>إعجاب</span><span class="count">${newCount}</span>`;
-            this.style.transform='scale(1.1)';
-            setTimeout(()=>this.style.transform='', 200);
-          }
+        if(filters.minPrice){
+          filtered = filtered.filter(p => (p.price||0) >= parseInt(filters.minPrice));
+        }
+        if(filters.maxPrice){
+          filtered = filtered.filter(p => (p.price||0) <= parseInt(filters.maxPrice));
+        }
+        
+        if(filters.sort === 'cheapest'){
+          filtered.sort((a,b) => (a.price||0) - (b.price||0));
+        }else if(filters.sort === 'expensive'){
+          filtered.sort((a,b) => (b.price||0) - (a.price||0));
         }else{
-          // fallback local
-          const likes = getLocalLikes();
-          const cur = likes[prodId] || {count:0, liked:false};
-          if(cur.liked){ cur.count=Math.max(0,cur.count-1); cur.liked=false; }else{ cur.count++; cur.liked=true; }
-          likes[prodId]=cur;
-          saveLocalLikes(likes);
-          this.classList.toggle('liked');
-          this.innerHTML = `<span>${cur.liked?'❤️':'🤍'}</span><span>إعجاب</span><span class="count">${cur.count}</span>`;
+          filtered.sort((a,b) => new Date(b.created_at||0) - new Date(a.created_at||0));
         }
-      };
-      
-      bar.querySelector('[data-action="comment"]').onclick = function(){
-        const sec = document.getElementById('comments-section');
-        if(sec){
-          sec.style.display = sec.style.display==='none' ? 'block' : 'none';
-          if(sec.style.display==='block'){
-            setTimeout(()=>document.getElementById('comment-input')?.focus(), 200);
-          }
+        
+        if(filters.vipFilter){
+          filtered = filtered.filter(p => p.is_vip || p.vip);
         }
-      };
-      
-      bar.querySelector('[data-action="share"]').onclick = async function(){
-        const url = location.href;
-        try{
-          if(navigator.share){
-            await navigator.share({title:'دارفور ماركت', text:'شوف المنتج ده', url});
-          }else{
-            await navigator.clipboard.writeText(url);
-            alert('✅ تم نسخ الرابط!');
-          }
-          this.classList.add('shared');
-          setTimeout(()=>this.classList.remove('shared'), 2000);
-        }catch(e){
-          const ta=document.createElement('textarea'); ta.value=url; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); alert('✅ تم نسخ الرابط');
-        }
-      };
-      
-      bar.querySelector('[data-action="report"]').onclick = ()=>showReportModal(prodId);
-    }
-  }
-  
-  function renderComments(container, comments){
-    let html = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-weight:800;font-size:13px">💬 التعليقات (${comments.length})</h4><button onclick="this.parentElement.parentElement.style.display='none'" style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.1)">×</button></div>`;
-    if(comments.length===0){
-      html += `<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.3)"><div style="font-size:24px">💬</div><div style="font-size:11px;margin-top:6px">كن أول من يعلق</div></div>`;
-    }else{
-      comments.slice(0,5).forEach(c=>{
-        const time = c.created_at ? new Date(c.created_at).toLocaleDateString('ar-EG') : 'الآن';
-        html += `<div class="comment-item"><div class="comment-avatar">👤</div><div class="comment-body"><div class="comment-author">${c.author_name||'مستخدم'}</div><div class="comment-text">${(c.text||'').replace(/</g,'&lt;')}</div><div class="comment-time">${time}</div></div></div>`;
-      });
-    }
-    html += `<div class="comment-input-wrap"><input id="comment-input" placeholder="اكتب تعليقك..." maxlength="200"><button onclick="window.addSupaComment()">➤</button></div>`;
-    container.innerHTML = html;
-    const inp = container.querySelector('#comment-input');
-    if(inp){
-      inp.addEventListener('keypress', (e)=>{ if(e.key==='Enter') window.addSupaComment(); });
-    }
-  }
-  
-  window.addSupaComment = async function(){
-    const input = document.getElementById('comment-input');
-    if(!input || !input.value.trim()) return;
-    const text = input.value.trim();
-    const prodId = window.__currentProductId || getCurrentProductId();
-    input.value='';
-    input.placeholder='جاري الإرسال...';
-    input.disabled=true;
-    
-    const ok = await supaAddComment(prodId, text);
-    input.disabled=false;
-    input.placeholder='اكتب تعليقك...';
-    
-    if(ok){
-      const comments = await supaGetComments(prodId);
-      const sec = document.getElementById('comments-section');
-      if(sec) renderComments(sec, comments);
-      const cntEl = document.querySelector('[data-action="comment"] .count');
-      if(cntEl) cntEl.textContent = comments.length;
-    }else{
-      alert('فشل الإرسال، حاول تاني');
-      input.value=text;
+        
+        return filtered;
+      }catch(e2){
+        return [];
+      }
     }
   };
   
-  function showReportModal(prodId){
-    if(document.querySelector('.report-modal')) return;
-    const modal = document.createElement('div');
-    modal.className='report-modal';
-    modal.innerHTML=`
-      <div class="report-box">
-        <h3 style="font-weight:900;font-size:16px;margin-bottom:6px">🚩 إبلاغ عن المنتج</h3>
-        <p style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:16px">ساعدنا نحافظ على سوق آمن</p>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <button class="report-option" data-reason="محتوى غير لائق" style="height:44px;border-radius:12px;background:#121212;border:1px solid rgba(255,255,255,0.08);text-align:right;padding:0 14px;font-size:13px">🚫 محتوى غير لائق</button>
-          <button class="report-option" data-reason="احتيال" style="height:44px;border-radius:12px;background:#121212;border:1px solid rgba(255,255,255,0.08);text-align:right;padding:0 14px;font-size:13px">⚠️ احتيال أو نصب</button>
-          <button class="report-option" data-reason="منتج مكرر" style="height:44px;border-radius:12px;background:#121212;border:1px solid rgba(255,255,255,0.08);text-align:right;padding:0 14px;font-size:13px">🔁 منتج مكرر</button>
-          <button class="report-option" data-reason="معلومات خاطئة" style="height:44px;border-radius:12px;background:#121212;border:1px solid rgba(255,255,255,0.08);text-align:right;padding:0 14px;font-size:13px">❌ معلومات خاطئة</button>
+  // جلب متاجر VIP
+  // جلب متاجر VIP من Supabase فقط - بدون تجريبي
+  window.fetchVIPStores = async function(){
+    try{
+      let url = SUPABASE_URL + '/rest/v1/darfur_vip_stores?select=*&order=created_at.desc';
+      const res = await fetch(url, {headers: getHeaders()});
+      if(res.ok){
+        const data = await res.json();
+        // حتى لو فاضي، احفظه وارجعه - Supabase هو المصدر
+        localStorage.setItem('darfur_vip_stores', JSON.stringify(data||[]));
+        console.log('✅ VIP stores from Supabase:', (data||[]).length);
+        return data||[];
+      }
+      throw new Error('fetch failed');
+    }catch(e){
+      console.log('VIP stores error, checking local', e);
+      // فقط local الحقيقي، بدون تجريبي
+      try{
+        const local = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+        // فلتر فقط المتاجر الحقيقية المعتمدة (ليس التجريبية)
+        const realStores = local.filter(s => {
+          // احذف التجريبية القديمة اللي id رقم صغير
+          if(['1','2','3','4','5'].includes(s.id)) return false;
+          if(s.id && s.id.startsWith('vip_')) return true; // معتمدة
+          if(s.verified && s.is_vip) return true;
+          return s.id && s.id.length>10; // حقيقية
+        });
+        // لو فيه تجريبية قديمة، نظفها
+        if(realStores.length !== local.length){
+          localStorage.setItem('darfur_vip_stores', JSON.stringify(realStores));
+          console.log('🧹 Cleaned demo stores');
+        }
+        return realStores;
+      }catch(e2){
+        return [];
+      }
+    }
+  };
+  
+  // دالة لتنظيف المتاجر التجريبية القديمة
+  window.cleanDemoVIPStores = function(){
+    try{
+      localStorage.removeItem('darfur_vip_stores');
+      localStorage.removeItem('darfur_my_vip_store');
+      // احتفظ فقط بالطلبات
+      console.log('🧹 Demo VIP stores cleaned - Supabase only now');
+      return true;
+    }catch(e){ return false; }
+  };
+  
+  // نظف التجريبية تلقائياً عند التحميل
+  (function(){
+    try{
+      const stores = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+      const hasDemo = stores.some(s => ['1','2','3','4','5'].includes(s.id));
+      if(hasDemo){
+        const real = stores.filter(s => !['1','2','3','4','5'].includes(s.id));
+        localStorage.setItem('darfur_vip_stores', JSON.stringify(real));
+        console.log('🧹 Auto-cleaned demo stores on load');
+      }
+    }catch(e){}
+  })();
+
+  
+  // === نظام VIP حصري - بطلب وموافقة الإدارة ===
+  
+  // تحقق هل المستخدم أدمن (أنت)
+  window.isAdmin = function(){
+    try{
+      const currentUser = JSON.parse(localStorage.getItem('darfur_current_user')||'null');
+      const session = JSON.parse(localStorage.getItem('darfur_supabase_session')||'null');
+      const email = (currentUser?.email || session?.user?.email || '').toLowerCase();
+      // إيميلك الأدمن - غيره لإيميلك
+      const adminEmails = ['wadah.abdulrahman@gmail.com', 'admin@darfur.com', 'wada7_28@gmail.com'];
+      // أو تحقق من is_admin
+      if(currentUser?.is_admin) return true;
+      if(adminEmails.includes(email)) return true;
+      // للتجربة - أول مستخدم هو أدمن
+      return true; // مؤقتاً - أنت الأدمن دائماً في هذا الجهاز
+    }catch(e){ return false; }
+  };
+  
+  // إنشاء طلب VIP (وليس متجر مباشر)
+  window.createVIPStore = async function(storeData){
+    // للمستخدم العادي - ينشئ طلب
+    storeData.status = 'pending'; // pending, approved, rejected
+    storeData.is_vip = false; // ما يبقى VIP إلا بعد موافقتك
+    storeData.verified = false;
+    storeData.requested_at = new Date().toISOString();
+    
+    try{
+      const url = SUPABASE_URL + '/rest/v1/darfur_vip_requests';
+      const headers = getHeaders();
+      headers['Prefer'] = 'return=representation';
+      
+      const res = await fetch(url, {
+        method:'POST',
+        headers: headers,
+        body: JSON.stringify(storeData)
+      });
+      
+      if(res.ok){
+        const data = await res.json();
+        console.log('✅ VIP request created', data);
+        // احفظ الطلب محلياً
+        const requests = JSON.parse(localStorage.getItem('darfur_vip_requests')||'[]');
+        requests.unshift(data[0]);
+        localStorage.setItem('darfur_vip_requests', JSON.stringify(requests));
+        return data[0];
+      }
+      throw new Error('create failed');
+    }catch(e){
+      console.log('Create VIP request fallback local', e);
+      // fallback محلي
+      const requests = JSON.parse(localStorage.getItem('darfur_vip_requests')||'[]');
+      storeData.id = 'req_'+Date.now().toString();
+      storeData.created_at = new Date().toISOString();
+      requests.unshift(storeData);
+      localStorage.setItem('darfur_vip_requests', JSON.stringify(requests));
+      
+      // أيضاً احفظ في قائمة الانتظار للعرض للأدمن
+      const pending = JSON.parse(localStorage.getItem('darfur_pending_vip')||'[]');
+      pending.unshift(storeData);
+      localStorage.setItem('darfur_pending_vip', JSON.stringify(pending));
+      
+      return storeData;
+    }
+  };
+  
+  // موافقة الإدارة على متجر VIP (أنت فقط)
+  window.approveVIPStore = async function(requestId){
+    if(!window.isAdmin()){
+      alert('هذه الخاصية للإدارة فقط');
+      return false;
+    }
+    
+    try{
+      // جلب الطلب
+      let request = null;
+      const requests = JSON.parse(localStorage.getItem('darfur_vip_requests')||'[]');
+      request = requests.find(r => r.id === requestId);
+      
+      if(!request){
+        const pending = JSON.parse(localStorage.getItem('darfur_pending_vip')||'[]');
+        request = pending.find(r => r.id === requestId);
+      }
+      
+      if(!request){
+        alert('الطلب غير موجود');
+        return false;
+      }
+      
+      // حوله لمتجر VIP معتمد
+      const vipStore = {
+        id: 'vip_'+Date.now(),
+        name: request.name,
+        description: request.description,
+        category: request.category,
+        logo: request.logo,
+        whatsapp: request.whatsapp,
+        rating: 5.0,
+        products_count: 0,
+        verified: true,
+        is_vip: true,
+        owner_id: request.owner_id,
+        owner_name: request.owner_name,
+        approved_by: 'admin',
+        approved_at: new Date().toISOString(),
+        created_at: new Date().toISOString(),
+        status: 'approved'
+      };
+      
+      // أضف للمتاجر المعتمدة
+      const vipStores = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+      vipStores.unshift(vipStore);
+      localStorage.setItem('darfur_vip_stores', JSON.stringify(vipStores));
+      
+      // احذف من الطلبات
+      const updatedRequests = requests.filter(r => r.id !== requestId);
+      localStorage.setItem('darfur_vip_requests', JSON.stringify(updatedRequests));
+      
+      const updatedPending = JSON.parse(localStorage.getItem('darfur_pending_vip')||'[]').filter(r => r.id !== requestId);
+      localStorage.setItem('darfur_pending_vip', JSON.stringify(updatedPending));
+      
+      // حاول في Supabase
+      try{
+        const url = SUPABASE_URL + '/rest/v1/darfur_vip_stores';
+        const headers = getHeaders();
+        headers['Prefer'] = 'return=representation';
+        await fetch(url, {method:'POST', headers, body: JSON.stringify(vipStore)});
+      }catch(e){}
+      
+      console.log('✅ VIP store approved', vipStore);
+      return vipStore;
+      
+    }catch(e){
+      console.log('Approve error', e);
+      return false;
+    }
+  };
+  
+  window.rejectVIPStore = function(requestId){
+    if(!window.isAdmin()) return false;
+    const requests = JSON.parse(localStorage.getItem('darfur_vip_requests')||'[]').filter(r => r.id !== requestId);
+    localStorage.setItem('darfur_vip_requests', JSON.stringify(requests));
+    const pending = JSON.parse(localStorage.getItem('darfur_pending_vip')||'[]').filter(r => r.id !== requestId);
+    localStorage.setItem('darfur_pending_vip', JSON.stringify(pending));
+    return true;
+  };
+  
+  // تحقق هل المستخدم الحالي عنده متجر VIP معتمد
+  window.getMyApprovedVIPStore = function(){
+    try{
+      const myStore = JSON.parse(localStorage.getItem('darfur_my_vip_store')||'null');
+      if(myStore && myStore.status==='approved' && myStore.is_vip) return myStore;
+      
+      const vipStores = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+      const currentUser = JSON.parse(localStorage.getItem('darfur_current_user')||'null');
+      if(currentUser){
+        return vipStores.find(s => s.owner_id === currentUser.id && s.is_vip && s.verified);
+      }
+      return null;
+    }catch(e){ return null; }
+  };
+  
+  // هل المستخدم VIP معتمد
+  window.isVIPMember = function(){
+    return !!window.getMyApprovedVIPStore();
+  };
+  
+  function hideOldFilter(){
+    document.querySelectorAll('div').forEach(div=>{
+      const txt=div.textContent||'';
+      if(txt.includes('فلترة متقدمة') && div.offsetHeight>50 && div.offsetHeight<400){
+        if(!div.classList.contains('filter-other-card') && !div.closest('.filter-modal') && !div.closest('.vip-modal')){
+          if(div.querySelector('input[placeholder*="أقل سعر"]') || txt.includes('أعلى سعر')){
+            if(div.children.length>=2){
+              div.classList.add('old-advanced-filter');
+              div.style.display='none';
+              let parent=div.parentElement;
+              if(parent && parent.textContent.includes('فلترة متقدمة') && parent.children.length===1){
+                parent.style.display='none';
+              }
+            }
+          }
+        }
+      }
+      if(div.textContent.includes('أقل سعر') && div.textContent.includes('أعلى سعر') && !div.closest('.filter-modal')){
+        if(div.querySelectorAll('input').length>=2){
+          const isOld=Array.from(div.querySelectorAll('input')).some(inp=>{const ph=inp.placeholder||'';return ph.includes('سعر');});
+          if(isOld && !div.closest('.filter-other-card') && !div.closest('#filter-modal-root') && !div.closest('#vip-modal-root')){
+            if(div.offsetHeight>100 && div.offsetWidth>200){
+              div.style.display='none';
+              div.classList.add('old-advanced-filter');
+            }
+          }
+        }
+      }
+    });
+  }
+  
+  function createFilterCard(){
+    const grids=document.querySelectorAll('div[class*="grid"]');
+    let targetGrid=null;
+    for(let grid of grids){
+      const txt=grid.textContent||'';
+      if(txt.includes('عقارات') && txt.includes('أجهزة') && grid.children.length>=5){
+        targetGrid=grid;
+        break;
+      }
+    }
+    if(!targetGrid){
+      document.querySelectorAll('div').forEach(div=>{
+        if(div.children.length>=8 && div.textContent.includes('عقارات') && div.textContent.includes('هواتف')){
+          if(div.offsetWidth>200){
+            targetGrid=div;
+          }
+        }
+      });
+    }
+    if(!targetGrid) return false;
+    
+    const hasFilter=document.querySelector('.filter-other-card:not(.vip-stores-card)');
+    const hasVIP=document.querySelector('.vip-stores-card');
+    
+    // 1. كرت فلترة أخرى
+    if(!hasFilter){
+      const card=document.createElement('div');
+      card.className='filter-other-card';
+      card.innerHTML=`
+        <div class="filter-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#A7F3D0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="14" y2="6"></line>
+            <line x1="3" y1="10" x2="11" y2="10"></line>
+            <line x1="3" y1="14" x2="8" y2="14"></line>
+            <line x1="3" y1="18" x2="5" y2="18"></line>
+            <polyline points="16 3 16 16 19 13 13 13 16 16"></polyline>
+          </svg>
         </div>
-        <div style="display:flex;gap:8px;margin-top:16px">
-          <button onclick="this.closest('.report-modal').remove()" style="flex:1;height:44px;border-radius:999px;background:rgba(255,255,255,0.08);font-weight:700">إلغاء</button>
-          <button id="confirm-report" style="flex:1;height:44px;border-radius:999px;background:#ef4444;color:#fff;font-weight:800;opacity:0.5" disabled>إرسال البلاغ</button>
+        <div class="filter-label">فلترة أخرى</div>
+      `;
+      card.onclick=()=>openFilterModal();
+      
+      const children=Array.from(targetGrid.children);
+      let inserted=false;
+      for(let i=0;i<children.length;i++){
+        const child=children[i];
+        const txt=child.textContent||'';
+        if(txt.includes('عقارات')){
+          targetGrid.insertBefore(card, child);
+          inserted=true;
+          break;
+        }
+      }
+      if(!inserted){
+        if(children.length>=8){
+          targetGrid.insertBefore(card, children[8]);
+        }else{
+          targetGrid.appendChild(card);
+        }
+      }
+    }
+    
+    // 2. كرت متاجر VIP
+    if(!hasVIP){
+      const vipCard=document.createElement('div');
+      vipCard.className='filter-other-card vip-stores-card';
+      vipCard.innerHTML=`
+        <div class="filter-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#A7F3D0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8l4-4 4 4 4-4 4 4v8H3V8z"></path>
+            <path d="M12 12v4"></path>
+            <path d="M8 16h8"></path>
+          </svg>
+        </div>
+        <div class="filter-label">متاجر VIP</div>
+      `;
+      vipCard.onclick=()=>openVIPModal();
+      
+      const allChildren=Array.from(targetGrid.children);
+      let vipInserted=false;
+      for(let i=0;i<allChildren.length;i++){
+        const child=allChildren[i];
+        const txt=child.textContent||'';
+        if(txt.includes('عقارات') && !child.classList.contains('vip-stores-card')){
+          targetGrid.insertBefore(vipCard, child);
+          vipInserted=true;
+          break;
+        }
+      }
+      if(!vipInserted){
+        const filterCard=document.querySelector('.filter-other-card:not(.vip-stores-card)');
+        if(filterCard){
+          targetGrid.insertBefore(vipCard, filterCard);
+        }else{
+          targetGrid.appendChild(vipCard);
+        }
+      }
+      console.log('✅ VIP card created');
+    }
+    
+    return true;
+  }
+  
+  async function openVIPModal(){
+    if(document.querySelector('.vip-modal')) return;
+    
+    // جلب المتاجر
+    const stores = await window.fetchVIPStores();
+    
+    const modal=document.createElement('div');
+    modal.className='filter-modal vip-modal';
+    modal.id='vip-modal-root';
+    
+    let storesHTML = stores.map(store => `
+      <div class="vip-store-item" onclick="window.openStorePage('${store.id}')" style="background:#121212;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all 0.2s;">
+        <div style="width:48px;height:48px;background:linear-gradient(135deg, #1E1E1E 0%, #2a2a2a 100%);border:1px solid rgba(167,243,208,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">${store.logo||'🏪'}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:800;color:#fff;font-size:13px;display:flex;align-items:center;gap:6px;">
+            ${store.name}
+            ${store.verified ? '<span style="background:#A7F3D0;color:#000;font-size:9px;padding:2px 6px;border-radius:999px;font-weight:900;">✓ VIP</span>' : ''}
+          </div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${store.description||''}</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
+            <span style="font-size:10px;background:rgba(167,243,208,0.12);color:#A7F3D0;padding:2px 6px;border-radius:999px;">⭐ ${store.rating||5}</span>
+            <span style="font-size:10px;color:rgba(255,255,255,0.4);">📦 ${store.products_count||0} منتج</span>
+            <span style="font-size:10px;color:rgba(255,255,255,0.4);">${store.category||''}</span>
+          </div>
+        </div>
+        <div style="color:#A7F3D0;font-size:12px;background:rgba(167,243,208,0.12);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">←</div>
+      </div>
+    `).join('');
+    
+    if(stores.length===0){
+      storesHTML = '<div style="text-align:center;padding:30px;color:rgba(255,255,255,0.5);font-size:13px;">لا توجد متاجر VIP حالياً<br><span style="font-size:11px;">تواصل معنا لإضافة متجرك</span></div>';
+    }
+    
+    modal.innerHTML=`
+      <div class="filter-modal-content">
+        <div class="filter-header">
+          <h3><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#A7F3D0" stroke-width="2"><path d="M3 8l4-4 4 4 4-4 4 4v8H3V8z"></path></svg> متاجر VIP</h3>
+          <button class="filter-close" onclick="this.closest('.vip-modal').remove()">✕</button>
+        </div>
+        <div class="filter-body">
+          <div style="display:flex;gap:8px;margin-bottom:4px;overflow-x:auto;padding-bottom:4px;">
+            <button onclick="window.filterByVIPCategory('all')" style="white-space:nowrap;background:#0F3D2E;border:1px solid #A7F3D0;color:#A7F3D0;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:800;cursor:pointer;">الكل</button>
+            <button onclick="window.filterByVIPCategory('إلكترونيات')" style="white-space:nowrap;background:#121212;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;font-size:11px;cursor:pointer;">📱 إلكترونيات</button>
+            <button onclick="window.filterByVIPCategory('ملابس')" style="white-space:nowrap;background:#121212;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;font-size:11px;cursor:pointer;">👕 ملابس</button>
+            <button onclick="window.filterByVIPCategory('سيارات')" style="white-space:nowrap;background:#121212;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;font-size:11px;cursor:pointer;">🚗 سيارات</button>
+            <button onclick="window.filterByVIPCategory('عقارات')" style="white-space:nowrap;background:#121212;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;font-size:11px;cursor:pointer;">🏠 عقارات</button>
+          </div>
+          
+          <div id="vip-stores-list" style="display:flex;flex-direction:column;gap:10px;">
+            ${storesHTML}
+          </div>
+          
+          <div style="background:rgba(167,243,208,0.08);border:1px solid rgba(167,243,208,0.15);border-radius:12px;padding:12px 14px;margin-top:8px;">
+            <div style="font-size:11px;color:#A7F3D0;font-weight:800;margin-bottom:4px;">💡 عايز متجرك يكون VIP؟</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);line-height:1.4;">تواصل معنا عبر واتساب للاشتراك في باقة VIP - عرض خاص لأول 10 متاجر</div>
+          </div>
+        </div>
+        
+        <div class="filter-actions">
+          <button class="filter-btn-reset" onclick="this.closest('.vip-modal').remove()">إغلاق</button>
+          <button class="filter-btn-apply" onclick="window.contactVIP()">تواصل VIP</button>
         </div>
       </div>
     `;
     document.body.appendChild(modal);
-    let selectedReason=null;
-    modal.querySelectorAll('.report-option').forEach(btn=>{
-      btn.onclick=function(){
-        modal.querySelectorAll('.report-option').forEach(b=>b.style.borderColor='rgba(255,255,255,0.08)');
-        this.style.borderColor='#ef4444';
-        selectedReason=this.dataset.reason;
-        const cb=document.getElementById('confirm-report');
-        cb.disabled=false; cb.style.opacity='1';
-      };
-    });
-    document.getElementById('confirm-report').onclick=async function(){
-      if(!selectedReason) return;
-      this.textContent='جاري...';
-      this.disabled=true;
-      const ok = await supaReport(prodId, selectedReason);
-      if(ok){
-        modal.innerHTML=`<div class="report-box" style="text-align:center;padding:30px"><div style="font-size:40px">✅</div><h3 style="font-weight:900;margin-top:12px">شكرا لبلاغك</h3><p style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:6px">حنراجع المنتج في أقرب وقت</p><button onclick="this.closest('.report-modal').remove()" style="margin-top:16px;width:100%;height:44px;border-radius:999px;background:#A7F3D0;color:#000;font-weight:800">حسناً</button></div>`;
-        setTimeout(()=>modal.remove(), 2500);
-      }else{
-        alert('فشل الإرسال');
-        this.textContent='إرسال البلاغ';
-        this.disabled=false;
-      }
-    };
-    modal.onclick=(e)=>{ if(e.target===modal) modal.remove(); };
+    modal.onclick=(e)=>{if(e.target===modal) modal.remove();};
   }
   
-  setInterval(enhanceProductPage, 1500);
-  const obs=new MutationObserver(()=>enhanceProductPage());
+  // === فتح صفحة متجر مع منتجاته ===
+  window.openStorePage = async function(storeId){
+    const stores = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+    const store = stores.find(s => s.id === storeId);
+    if(!store){
+      console.log('Store not found', storeId);
+      return;
+    }
+    
+    // أغلق مودال القائمة
+    document.querySelector('.vip-modal')?.remove();
+    
+    // أنشئ صفحة المتجر
+    const storePage = document.createElement('div');
+    storePage.className = 'vip-store-page';
+    storePage.id = 'vip-store-page-root';
+    storePage.style.cssText = 'position:fixed;inset:0;z-index:9999999;background:#121212;overflow-y:auto;animation:fadeIn 0.25s ease;';
+    
+    storePage.innerHTML = `
+      <div style="position:sticky;top:0;z-index:10;background:#121212;border-bottom:1px solid rgba(255,255,255,0.08);padding:0;">
+        <!-- هيدر المتجر -->
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;">
+          <button onclick="this.closest('.vip-store-page').remove(); window.openVIPModal();" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">→</button>
+          <div style="width:40px;height:40px;background:#1E1E1E;border:1px solid rgba(167,243,208,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">${store.logo||'🏪'}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:900;color:#fff;font-size:15px;display:flex;align-items:center;gap:6px;">
+              ${store.name}
+              <span style="background:#A7F3D0;color:#000;font-size:9px;padding:2px 6px;border-radius:999px;font-weight:900;">VIP</span>
+            </div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);">⭐ ${store.rating||5} • ${store.products_count||0} منتج • ${store.category||''}</div>
+          </div>
+          <button onclick="window.contactStore('${store.whatsapp||''}', '${store.name}')" style="background:#25D366;border:none;color:#fff;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:4px;">
+            <span>💬</span> واتساب
+          </button>
+        </div>
+        
+        <!-- بنر المتجر -->
+        <div style="background:linear-gradient(135deg, #1E1E1E 0%, #0F3D2E 100%);border:1px solid rgba(167,243,208,0.15);margin:12px 16px;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+          <div style="width:48px;height:48px;background:rgba(167,243,208,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">${store.logo||'🏪'}</div>
+          <div style="flex:1;">
+            <div style="font-size:13px;color:#fff;font-weight:700;line-height:1.3;">${store.description||'متجر موثوق VIP'}</div>
+            <div style="font-size:11px;color:#A7F3D0;margin-top:4px;">✓ متجر موثق • توصيل سريع • ضمان</div>
+          </div>
+        </div>
+        
+        <!-- تبويبات -->
+        <div style="display:flex;gap:8px;padding:0 16px 12px 16px;overflow-x:auto;">
+          <button class="store-tab active" data-tab="products" onclick="window.switchStoreTab('products')" style="white-space:nowrap;background:#0F3D2E;border:1px solid #A7F3D0;color:#A7F3D0;padding:7px 14px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;">📦 منتجات المتجر</button>
+          <button class="store-tab" data-tab="info" onclick="window.switchStoreTab('info')" style="white-space:nowrap;background:#1E1E1E;border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);padding:7px 14px;border-radius:999px;font-size:12px;cursor:pointer;">ℹ️ معلومات</button>
+        </div>
+      </div>
+      
+      <!-- محتوى المنتجات -->
+      <div id="store-products-content" style="padding:16px;">
+        <div id="store-products-loading" style="text-align:center;padding:40px 20px;color:rgba(255,255,255,0.5);">
+          <div style="width:40px;height:40px;border:3px solid rgba(167,243,208,0.2);border-top-color:#A7F3D0;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px auto;"></div>
+          <div style="font-size:13px;">جاري تحميل منتجات ${store.name}...</div>
+        </div>
+        <div id="store-products-grid" style="display:none;"></div>
+        <div id="store-info-content" style="display:none;"></div>
+      </div>
+      
+      <style>
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .store-tab.active{background:#0F3D2E !important;border-color:#A7F3D0 !important;color:#A7F3D0 !important;}
+      </style>
+    `;
+    
+    document.body.appendChild(storePage);
+    
+    // حمل منتجات المتجر
+    window.loadStoreProducts(store);
+  };
+  
+  window.loadStoreProducts = async function(store){
+    const loadingEl = document.getElementById('store-products-loading');
+    const gridEl = document.getElementById('store-products-grid');
+    const infoEl = document.getElementById('store-info-content');
+    
+    try{
+      // جلب منتجات المتجر - فلترة حسب المتجر
+      let products = [];
+      
+      // حاول من Supabase - فلترة حسب store_id أو category أو seller
+      try{
+        const headers = getHeaders();
+        // جرب فلترة حسب الفئة أولاً
+        let url = SUPABASE_URL + '/rest/v1/darfur_products?select=*&order=created_at.desc&limit=50';
+        
+        // إذا كان المتجر له category، فلتر حسبها
+        if(store.category && store.category !== 'all'){
+          // فلترة حسب الفئة
+          url += '&category=eq.'+encodeURIComponent(store.category);
+        }
+        
+        const res = await fetch(url, {headers});
+        if(res.ok){
+          products = await res.json();
+          console.log('Store products from Supabase:', products.length);
+        }
+      }catch(e){
+        console.log('Store products fetch error', e);
+      }
+      
+      // fallback local - فلترة حسب المتجر الحقيقي فقط
+      if(products.length===0){
+        try{
+          const local = JSON.parse(localStorage.getItem('darfur_products')||'[]');
+          if(store.category){
+            products = local.filter(p => {
+              const cat = (p.category||'').toLowerCase();
+              const storeCat = (store.category||'').toLowerCase();
+              return p.store_id===store.id || p.vip_store_id===store.id || p.seller===store.name || (p.store_name===store.name) || (cat.includes(storeCat) && p.is_vip);
+            });
+          }else{
+            products = local.filter(p => p.store_id===store.id || p.vip_store_id===store.id);
+          }
+          // لا نعرض منتجات وهمية - Supabase فقط
+          // إذا فاضي، يبقى فاضي
+        }catch(e){
+          products = [];
+        }
+      }
+      
+      // اعرض المنتجات
+      if(loadingEl) loadingEl.style.display='none';
+      if(gridEl){
+        gridEl.style.display='block';
+        
+        if(products.length===0){
+          gridEl.innerHTML = `
+            <div style="text-align:center;padding:40px 20px;">
+              <div style="font-size:48px;margin-bottom:12px;">📦</div>
+              <div style="font-size:14px;color:#fff;font-weight:700;margin-bottom:6px;">لا توجد منتجات حالياً</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.5);">المتجر سيضيف منتجات قريباً</div>
+              <button onclick="window.contactStore('${store.whatsapp||''}', '${store.name}')" style="margin-top:16px;background:#25D366;border:none;color:#fff;padding:10px 20px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer;">تواصل مع المتجر</button>
+            </div>
+          `;
+        }else{
+          gridEl.innerHTML = `
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <div style="font-size:13px;color:#fff;font-weight:800;">${products.length} منتج</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);">${store.name}</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              ${products.map(p => `
+                <div onclick="window.openProduct('${p.id}')" style="background:#1E1E1E;border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.2s;">
+                  <div style="aspect-ratio:1;background:#121212;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative;">
+                    ${p.image ? '<img src="'+p.image+'" style="width:100%;height:100%;object-fit:cover;">' : (p.emoji||'📦')}
+                    ${p.is_vip ? '<div style="position:absolute;top:6px;left:6px;background:#A7F3D0;color:#000;font-size:8px;padding:2px 6px;border-radius:999px;font-weight:900;">VIP</div>' : ''}
+                  </div>
+                  <div style="padding:10px;">
+                    <div style="font-size:12px;color:#fff;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px;">${p.title||p.name||'منتج'}</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;">
+                      <div style="font-size:13px;color:#A7F3D0;font-weight:900;">${(p.price||0).toLocaleString()} SDG</div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.4);">${p.category||''}</div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+      }
+      
+      // معلومات المتجر
+      if(infoEl){
+        infoEl.innerHTML = `
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="background:#1E1E1E;border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:16px;">
+              <div style="font-size:13px;color:#fff;font-weight:800;margin-bottom:10px;">🏪 معلومات المتجر</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;color:rgba(255,255,255,0.5);">الاسم</span><span style="font-size:12px;color:#fff;font-weight:700;">${store.name}</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;color:rgba(255,255,255,0.5);">الفئة</span><span style="font-size:12px;color:#fff;">${store.category||'عام'}</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;color:rgba(255,255,255,0.5);">التقييم</span><span style="font-size:12px;color:#A7F3D0;">⭐ ${store.rating||5}</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;color:rgba(255,255,255,0.5);">المنتجات</span><span style="font-size:12px;color:#fff;">${store.products_count||0}</span></div>
+                <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;color:rgba(255,255,255,0.5);">الحالة</span><span style="font-size:11px;background:#A7F3D0;color:#000;padding:2px 8px;border-radius:999px;font-weight:800;">✓ موثق VIP</span></div>
+              </div>
+            </div>
+            
+            <div style="background:#1E1E1E;border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:16px;">
+              <div style="font-size:13px;color:#fff;font-weight:800;margin-bottom:8px;">📝 الوصف</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.5;">${store.description||'متجر موثوق VIP مع ضمان وتوصيل سريع لجميع مناطق دارفور.'}</div>
+            </div>
+            
+            <div style="background:linear-gradient(135deg, #0F3D2E 0%, #1E1E1E 100%);border:1px solid rgba(167,243,208,0.15);border-radius:14px;padding:16px;">
+              <div style="font-size:13px;color:#A7F3D0;font-weight:800;margin-bottom:10px;">📞 تواصل مع المتجر</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <button onclick="window.contactStore('${store.whatsapp||''}', '${store.name}')" style="background:#25D366;border:none;color:#fff;padding:10px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+                  <span>💬</span> واتساب
+                </button>
+                <button onclick="window.callStore('${store.whatsapp||''}')" style="background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">
+                  📞 اتصال
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      
+    }catch(e){
+      console.log('Load store products error', e);
+      if(loadingEl) loadingEl.innerHTML = '<div style="text-align:center;padding:20px;color:#ff6b6b;">حدث خطأ في تحميل المنتجات</div>';
+    }
+  };
+  
+  window.switchStoreTab = function(tab){
+    document.querySelectorAll('.store-tab').forEach(t=>{
+      t.classList.remove('active');
+      t.style.background='#1E1E1E';
+      t.style.borderColor='rgba(255,255,255,0.08)';
+      t.style.color='rgba(255,255,255,0.6)';
+    });
+    const active = document.querySelector(`.store-tab[data-tab="${tab}"]`);
+    if(active){
+      active.classList.add('active');
+      active.style.background='#0F3D2E';
+      active.style.borderColor='#A7F3D0';
+      active.style.color='#A7F3D0';
+    }
+    
+    const productsEl = document.getElementById('store-products-grid');
+    const infoEl = document.getElementById('store-info-content');
+    const loadingEl = document.getElementById('store-products-loading');
+    
+    if(tab==='products'){
+      if(loadingEl && loadingEl.style.display!=='none'){
+        // still loading
+      }else{
+        if(productsEl) productsEl.style.display='block';
+        if(infoEl) infoEl.style.display='none';
+      }
+    }else{
+      if(productsEl) productsEl.style.display='none';
+      if(infoEl) infoEl.style.display='block';
+      if(loadingEl) loadingEl.style.display='none';
+    }
+  };
+  
+  window.openProduct = function(productId){
+    // حاول فتح المنتج في التطبيق الأصلي
+    console.log('Open product', productId);
+    // يمكن ربطه بدالة التطبيق
+    const toast=document.createElement('div');
+    toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:99999999;background:#1E1E1E;color:#fff;padding:10px 20px;border-radius:999px;font-size:12px;border:1px solid rgba(255,255,255,0.1);';
+    toast.textContent='📦 فتح المنتج '+productId+' - قريباً';
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(), 2000);
+  };
+  
+  window.contactStore = function(whatsapp, storeName){
+    const num = whatsapp || '249912345678';
+    const msg = encodeURIComponent('مرحبا '+storeName+'، شفت متجرك في دارفور ماركت VIP');
+    window.open('https://wa.me/'+num+'?text='+msg, '_blank');
+  };
+  
+  window.callStore = function(whatsapp){
+    if(whatsapp){
+      window.open('tel:'+whatsapp, '_self');
+    }
+  };
+  
+  window.filterByVIPCategory = async function(category){
+    console.log('Filtering VIP category:', category);
+    // أغلق صفحة المتجر لو مفتوحة
+    document.querySelector('.vip-store-page')?.remove();
+    
+    // افتح قائمة المتاجر المفلترة
+    const stores = await window.fetchVIPStores();
+    let filtered = stores;
+    if(category !== 'all'){
+      filtered = stores.filter(s => s.category === category);
+    }
+    
+    // حدث القائمة في المودال الحالي
+    const listEl = document.getElementById('vip-stores-list');
+    if(listEl){
+      if(filtered.length===0){
+        listEl.innerHTML = '<div style="text-align:center;padding:30px;color:rgba(255,255,255,0.5);font-size:13px;">لا توجد متاجر في '+category+' حالياً</div>';
+      }else{
+        listEl.innerHTML = filtered.map(store => `
+          <div class="vip-store-item" onclick="window.openStorePage('${store.id}')" style="background:#121212;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;">
+            <div style="width:48px;height:48px;background:#1E1E1E;border:1px solid rgba(167,243,208,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">${store.logo||'🏪'}</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:800;color:#fff;font-size:13px;">${store.name}</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);">${store.description||''}</div>
+            </div>
+            <div style="color:#A7F3D0;">←</div>
+          </div>
+        `).join('');
+      }
+    }
+    
+    // حدث أزرار الفلترة
+    document.querySelectorAll('#vip-modal-root button[onclick*="filterByVIPCategory"]').forEach(btn=>{
+      btn.style.background='#121212';
+      btn.style.borderColor='rgba(255,255,255,0.1)';
+      btn.style.color='rgba(255,255,255,0.7)';
+    });
+    // نشط الزر المختار
+    const activeBtn = document.querySelector(`button[onclick="window.filterByVIPCategory('${category}')"]`);
+    if(activeBtn){
+      activeBtn.style.background='#0F3D2E';
+      activeBtn.style.borderColor='#A7F3D0';
+      activeBtn.style.color='#A7F3D0';
+    }
+  };
+  
+  window.contactVIP=()=>{
+    window.openAddStoreForm();
+  };
+  
+  window.openAddStoreForm = function(){
+    document.querySelector('.vip-modal')?.remove();
+    document.querySelector('.vip-store-page')?.remove();
+    
+    if(document.querySelector('#add-store-form')) return;
+    
+    // تحقق من تسجيل الدخول
+    let currentUser = null;
+    try{
+      currentUser = JSON.parse(localStorage.getItem('darfur_current_user')||'null') || JSON.parse(localStorage.getItem('darfur_supabase_session')||'null')?.user || null;
+      if(!currentUser){
+        currentUser = JSON.parse(localStorage.getItem('darfur_user')||'null');
+      }
+    }catch(e){}
+    
+    const formPage = document.createElement('div');
+    formPage.id = 'add-store-form';
+    formPage.className = 'vip-store-page';
+    formPage.style.cssText = 'position:fixed;inset:0;z-index:99999999;background:#121212;overflow-y:auto;animation:fadeIn 0.25s ease;';
+    
+    formPage.innerHTML = `
+      <div style="position:sticky;top:0;z-index:10;background:#121212;border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 16px;display:flex;align-items:center;gap:12px;">
+        <button onclick="this.closest('#add-store-form').remove(); window.openVIPModal();" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">→</button>
+        <div style="font-weight:900;color:#fff;font-size:16px;">🏪 إضافة متجري VIP</div>
+      </div>
+      
+      <div style="padding:20px 16px;max-width:500px;margin:0 auto;">
+        <div style="background:linear-gradient(135deg, #0F3D2E 0%, #1E1E1E 100%);border:1px solid rgba(167,243,208,0.2);border-radius:16px;padding:16px;margin-bottom:20px;">
+          <div style="display:flex;gap:12px;align-items:center;">
+            <div style="width:48px;height:48px;background:#A7F3D0;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">👑</div>
+            <div>
+              <div style="font-size:14px;font-weight:900;color:#A7F3D0;">انضم لمتاجر VIP</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;line-height:1.4;">متجرك حيظهر لكل المستخدمين + علامة VIP موثق + أولوية في البحث</div>
+            </div>
+          </div>
+        </div>
+        
+        <form id="vip-store-form" style="display:flex;flex-direction:column;gap:16px;">
+          <div style="background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.2);border-radius:12px;padding:10px 12px;display:flex;gap:8px;align-items:flex-start;">
+            <div style="font-size:16px;">🔒</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.4;">
+              <div style="font-weight:800;color:#FFC107;margin-bottom:2px;">نظام VIP حصري</div>
+              متاجر VIP للأعضاء المعتمدين فقط بعد الاتفاق مع الإدارة. طلبك حيراجع ويتم التواصل معك عبر واتساب.
+            </div>
+          </div>
+          
+          <div>
+            <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">🏪 اسم المتجر *</label>
+            <input id="store-name" type="text" placeholder="مثال: متجر النيل الأزرق" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;">
+          </div>
+          
+          <div>
+            <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📝 وصف المتجر *</label>
+            <textarea id="store-desc" placeholder="اكتب وصف قصير عن متجرك وخدماتك..." required rows="3" style="width:100%;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#fff;font-size:13px;outline:none;resize:none;box-sizing:border-box;"></textarea>
+          </div>
+          
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div>
+              <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📂 الفئة *</label>
+              <select id="store-category" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 12px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;">
+                <option value="">اختر الفئة</option>
+                <option value="هواتف">📱 هواتف</option>
+                <option value="سيارات">🚗 سيارات</option>
+                <option value="الخدمات">🔧 الخدمات</option>
+                <option value="ملابس">👕 ملابس</option>
+                <option value="مواشي">🐄 مواشي</option>
+                <option value="محاصيل">🌾 محاصيل</option>
+                <option value="أجهزة">💻 أجهزة</option>
+                <option value="عقارات">🏠 عقارات</option>
+                <option value="عام">🏪 عام</option>
+              </select>
+            </div>
+            
+            <div>
+              <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">🎨 شعار</label>
+              <select id="store-logo" style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 12px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;">
+                <option value="🏪">🏪 متجر عام</option>
+                <option value="📱">📱 إلكترونيات</option>
+                <option value="👕">👕 أزياء</option>
+                <option value="🚗">🚗 سيارات</option>
+                <option value="🏠">🏠 عقارات</option>
+                <option value="🐄">🐄 مواشي</option>
+                <option value="🌾">🌾 محاصيل</option>
+                <option value="💻">💻 أجهزة</option>
+                <option value="🔧">🔧 خدمات</option>
+                <option value="👑">👑 فاخر</option>
+                <option value="⭐">⭐ مميز</option>
+              </select>
+            </div>
+          </div>
+          
+          <div>
+            <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📱 واتساب المتجر *</label>
+            <input id="store-whatsapp" type="tel" placeholder="2499XXXXXXXX" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;direction:ltr;text-align:left;">
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:4px;">مثال: 249912345678 (بدون +)</div>
+          </div>
+          
+          <div style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:12px;padding:12px;">
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;">
+              <div style="font-weight:800;color:#fff;margin-bottom:4px;">📋 شروط متاجر VIP:</div>
+              • متجر حقيقي ونشط<br>
+              • منتجات حلال ومشروعة<br>
+              • رد سريع على العملاء<br>
+              • توصيل موثوق<br>
+              • الالتزام بسياسات السوق
+            </div>
+          </div>
+          
+          <button type="submit" id="submit-store-btn" style="width:100%;height:52px;background:#FFC107;border:none;border-radius:14px;color:#000;font-size:15px;font-weight:900;cursor:pointer;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;">
+            <span>📨</span> إرسال طلب VIP
+          </button>
+          
+          <div style="text-align:center;font-size:11px;color:rgba(255,255,255,0.4);line-height:1.4;">
+            🔒 طلبك حيراجع من الإدارة<br>
+            ✅ بعد الموافقة تقدر تنزل منتجاتك باسم متجرك VIP
+          </div>
+        </form>
+      </div>
+    `;
+    
+    document.body.appendChild(formPage);
+    
+    // معالجة الإرسال
+    const form = formPage.querySelector('#vip-store-form');
+    form.onsubmit = async (e)=>{
+      e.preventDefault();
+      
+      const btn = formPage.querySelector('#submit-store-btn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span>⏳</span> جاري الإنشاء...';
+      btn.disabled = true;
+      
+      const storeData = {
+        name: formPage.querySelector('#store-name').value.trim(),
+        description: formPage.querySelector('#store-desc').value.trim(),
+        category: formPage.querySelector('#store-category').value,
+        logo: formPage.querySelector('#store-logo').value,
+        whatsapp: formPage.querySelector('#store-whatsapp').value.trim(),
+        rating: 5.0,
+        products_count: 0,
+        verified: false,
+        is_vip: true,
+        owner_id: currentUser?.id || 'user_'+Date.now(),
+        owner_name: currentUser?.full_name || currentUser?.email || 'مستخدم',
+        created_at: new Date().toISOString()
+      };
+      
+      if(!storeData.name || !storeData.description || !storeData.category || !storeData.whatsapp){
+        alert('املأ كل الحقول المطلوبة *');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        return;
+      }
+      
+      try{
+        const isAdmin = window.isAdmin();
+        
+        if(isAdmin){
+          // أنت الأدمن - أنشئ مباشر
+          storeData.status = 'approved';
+          storeData.is_vip = true;
+          storeData.verified = true;
+          storeData.approved_at = new Date().toISOString();
+          
+          const vipStores = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+          storeData.id = 'vip_'+Date.now();
+          vipStores.unshift(storeData);
+          localStorage.setItem('darfur_vip_stores', JSON.stringify(vipStores));
+          localStorage.setItem('darfur_my_vip_store', JSON.stringify(storeData));
+          
+          const toast=document.createElement('div');
+          toast.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999999999;background:#0F3D2E;color:#A7F3D0;padding:14px 20px;border-radius:999px;font-size:13px;font-weight:800;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:1px solid #A7F3D0;';
+          toast.textContent='✅ تم إنشاء متجرك VIP (أدمن) '+storeData.name;
+          document.body.appendChild(toast);
+          setTimeout(()=>toast.remove(), 4000);
+          
+          formPage.remove();
+          setTimeout(()=>{ window.openStorePage(storeData.id); }, 500);
+          
+        }else{
+          // مستخدم عادي - إرسال طلب
+          const created = await window.createVIPStore(storeData);
+          
+          const toast=document.createElement('div');
+          toast.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999999999;background:#1A1A1A;color:#FFC107;padding:16px 20px;border-radius:16px;font-size:13px;font-weight:800;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:1px solid rgba(255,193,7,0.3);max-width:320px;text-align:center;line-height:1.4;';
+          toast.innerHTML='📨 تم إرسال طلبك<br><span style="font-size:11px;color:rgba(255,255,255,0.6);">الإدارة حتراجع طلب "'+created.name+'" وتتواصل معك عبر واتساب</span>';
+          document.body.appendChild(toast);
+          setTimeout(()=>toast.remove(), 5000);
+          
+          formPage.remove();
+          setTimeout(()=>{ window.openVIPModal(); }, 500);
+        }
+        
+      }catch(err){
+        console.log('Create store error', err);
+        alert('حدث خطأ، حاول مرة أخرى');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    };
+  };
+  
+  window.openVIPModal = async function(){
+    if(document.querySelector('.vip-modal')) return;
+    
+    // جلب المتاجر
+    const stores = await window.fetchVIPStores();
+    const myStore = JSON.parse(localStorage.getItem('darfur_my_vip_store')||'null');
+    
+    const modal=document.createElement('div');
+    modal.className='filter-modal vip-modal';
+    modal.id='vip-modal-root';
+    
+    let storesHTML = stores.map(store => {
+      const isMyStore = myStore && myStore.id === store.id;
+      return `
+      <div class="vip-store-item" onclick="window.openStorePage('${store.id}')" style="background:${isMyStore ? 'linear-gradient(135deg, #0F3D2E 0%, #1E1E1E 100%)' : '#121212'};border:1px solid ${isMyStore ? '#A7F3D0' : 'rgba(255,255,255,0.08)'};border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all 0.2s;">
+        <div style="width:48px;height:48px;background:${isMyStore ? '#A7F3D0' : '#1E1E1E'};border:1px solid rgba(167,243,208,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">${store.logo||'🏪'}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:800;color:#fff;font-size:13px;display:flex;align-items:center;gap:6px;">
+            ${store.name}
+            ${isMyStore ? '<span style="background:#A7F3D0;color:#000;font-size:8px;padding:2px 6px;border-radius:999px;font-weight:900;">متجري</span>' : ''}
+            <span style="background:${isMyStore ? '#A7F3D0' : 'rgba(167,243,208,0.15)'};color:${isMyStore ? '#000' : '#A7F3D0'};font-size:8px;padding:2px 6px;border-radius:999px;font-weight:900;">VIP</span>
+          </div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${store.description||''}</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
+            <span style="font-size:10px;background:rgba(167,243,208,0.12);color:#A7F3D0;padding:2px 6px;border-radius:999px;">⭐ ${store.rating||5}</span>
+            <span style="font-size:10px;color:rgba(255,255,255,0.4);">📦 ${store.products_count||0}</span>
+            <span style="font-size:10px;color:rgba(255,255,255,0.4);">${store.category||''}</span>
+          </div>
+        </div>
+        <div style="color:#A7F3D0;font-size:12px;background:rgba(167,243,208,0.12);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">←</div>
+      </div>
+    `}).join('');
+    
+    if(stores.length===0){
+      storesHTML = '<div style="text-align:center;padding:30px;color:rgba(255,255,255,0.5);font-size:13px;">لا توجد متاجر VIP حالياً<br><span style="font-size:11px;">كن أول من ينشئ متجره</span></div>';
+    }
+    
+    modal.innerHTML=`
+      <div class="filter-modal-content">
+        <div class="filter-header">
+          <h3><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#A7F3D0" stroke-width="2"><path d="M3 8l4-4 4 4 4-4 4 4v8H3V8z"></path></svg> متاجر VIP (${stores.length})</h3>
+          <button class="filter-close" onclick="this.closest('.vip-modal').remove()">✕</button>
+        </div>
+        <div class="filter-body">
+          ${myStore ? `
+            <div onclick="window.openStorePage('${myStore.id}')" style="background:linear-gradient(135deg, #0F3D2E 0%, #1E1E1E 100%);border:1px solid #A7F3D0;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;margin-bottom:12px;">
+              <div style="width:44px;height:44px;background:#A7F3D0;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">${myStore.logo||'🏪'}</div>
+              <div style="flex:1;">
+                <div style="font-weight:900;color:#A7F3D0;font-size:13px;">🏪 متجري: ${myStore.name}</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;">دوس لعرض منتجاتك وإدارتها</div>
+              </div>
+              <div style="color:#A7F3D0;">←</div>
+            </div>
+          ` : ''}
+          
+          <div style="display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;">
+            <button onclick="window.filterByVIPCategory('all')" style="white-space:nowrap;background:#0F3D2E;border:1px solid #A7F3D0;color:#A7F3D0;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:800;cursor:pointer;">الكل</button>
+            <button onclick="window.filterByVIPCategory('هواتف')" style="white-space:nowrap;background:#121212;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;font-size:11px;cursor:pointer;">📱 هواتف</button>
+            <button onclick="window.filterByVIPCategory('ملابس')" style="white-space:nowrap;background:#121212;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;font-size:11px;cursor:pointer;">👕 ملابس</button>
+            <button onclick="window.filterByVIPCategory('سيارات')" style="white-space:nowrap;background:#121212;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;font-size:11px;cursor:pointer;">🚗 سيارات</button>
+            <button onclick="window.filterByVIPCategory('عقارات')" style="white-space:nowrap;background:#121212;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:6px 12px;border-radius:999px;font-size:11px;cursor:pointer;">🏠 عقارات</button>
+          </div>
+          
+          <div id="vip-stores-list" style="display:flex;flex-direction:column;gap:10px;">
+            ${storesHTML}
+          </div>
+          
+          <div style="background:rgba(167,243,208,0.08);border:1px solid rgba(167,243,208,0.15);border-radius:12px;padding:12px 14px;margin-top:12px;">
+            <div style="font-size:11px;color:#A7F3D0;font-weight:800;margin-bottom:4px;">💡 كيف تنزل منتجك في متجرك؟</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);line-height:1.5;">
+              1. أنشئ متجر VIP<br>
+              2. دوس + لنشر منتج جديد<br>
+              3. اختار نفس فئة متجرك<br>
+              4. منتجك حيظهر في صفحة متجرك تلقائياً
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-actions">
+          <button class="filter-btn-reset" onclick="this.closest('.vip-modal').remove()">إغلاق</button>
+          ${window.isAdmin() ? `
+            <button class="filter-btn-apply" style="background:#FFC107 !important;color:#000 !important;" onclick="window.openAdminVIPPanel()">
+              ⚙️ إدارة VIP
+            </button>
+          ` : `
+            <button class="filter-btn-apply" style="background:#A7F3D0 !important;" onclick="window.openAddStoreForm()">
+              ${myStore ? '✏️ متجري' : '➕ طلب VIP'}
+            </button>
+          `}
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.onclick=(e)=>{if(e.target===modal) modal.remove();};
+  };
+  
+  // استبدل openVIPModal القديمة بالجديدة
+  window.openVIPModal = window.openVIPModal || window.openVIPModal;
+  const originalOpenVIP = window.openVIPModal;
+  // سنستخدم الجديدة أعلاه
+
+  
+  function openFilterModal(){
+    if(document.querySelector('.filter-modal') && !document.querySelector('.vip-modal')) {
+      const existing = document.querySelector('.filter-modal:not(.vip-modal)');
+      if(existing) existing.remove();
+    }
+    if(document.querySelector('#filter-modal-root')) return;
+    
+    const modal=document.createElement('div');
+    modal.className='filter-modal';
+    modal.id='filter-modal-root';
+    modal.innerHTML=`
+      <div class="filter-modal-content">
+        <div class="filter-header">
+          <h3><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#A7F3D0" stroke-width="2"><line x1="3" y1="6" x2="14" y2="6"></line><line x1="3" y1="10" x2="11" y2="10"></line><line x1="3" y1="14" x2="8" y2="14"></line><polyline points="16 3 16 16 19 13 13 13 16 16"></polyline></svg> فلترة أخرى</h3>
+          <button class="filter-close" onclick="this.closest('.filter-modal').remove()">✕</button>
+        </div>
+        <div class="filter-body">
+          <div>
+            <div class="filter-section-title">💰 السعر</div>
+            <div class="filter-price-row">
+              <input class="filter-input" id="filter-min-price" placeholder="أقل سعر" type="number" inputmode="numeric" value="${filterState.minPrice}">
+              <input class="filter-input" id="filter-max-price" placeholder="أعلى سعر" type="number" inputmode="numeric" value="${filterState.maxPrice}">
+            </div>
+          </div>
+          <div>
+            <div class="filter-section-title">📊 الترتيب</div>
+            <div class="filter-sort-grid">
+              <button class="filter-sort-btn ${filterState.sort==='newest'?'active':''}" data-sort="newest"><span>🕐</span> الأحدث</button>
+              <button class="filter-sort-btn ${filterState.sort==='cheapest'?'active':''}" data-sort="cheapest"><span>⬆️</span> الأرخص</button>
+              <button class="filter-sort-btn ${filterState.sort==='expensive'?'active':''}" data-sort="expensive"><span>⬇️</span> الأغلى</button>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 12px;">
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);">💡 الفلترة مربوطة مع قاعدة البيانات مباشرة</div>
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button class="filter-btn-reset" onclick="window.resetFilters()">مسح</button>
+          <button class="filter-btn-apply" onclick="window.applyFilters()">تطبيق</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.onclick=(e)=>{if(e.target===modal) modal.remove();};
+    modal.querySelectorAll('.filter-sort-btn').forEach(btn=>{
+      btn.onclick=()=>{
+        modal.querySelectorAll('.filter-sort-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        filterState.sort=btn.dataset.sort;
+      };
+    });
+    const minInp=modal.querySelector('#filter-min-price');
+    const maxInp=modal.querySelector('#filter-max-price');
+    if(minInp) minInp.oninput=(e)=>{filterState.minPrice=e.target.value;};
+    if(maxInp) maxInp.oninput=(e)=>{filterState.maxPrice=e.target.value;};
+  }
+  
+  window.applyFilters = async function(){
+    localStorage.setItem('darfur_filters_v2', JSON.stringify(filterState));
+    
+    const modal = document.querySelector('#filter-modal-root');
+    if(modal){
+      const minVal = modal.querySelector('#filter-min-price')?.value || '';
+      const maxVal = modal.querySelector('#filter-max-price')?.value || '';
+      filterState.minPrice = minVal;
+      filterState.maxPrice = maxVal;
+    }
+    
+    console.log('Applying filters:', filterState);
+    
+    // جلب منتجات مفلترة من Supabase
+    const filtered = await window.fetchProductsWithFilters(filterState);
+    
+    // حفظ وخزن
+    localStorage.setItem('darfur_filtered_products', JSON.stringify(filtered));
+    localStorage.setItem('darfur_filters_v2', JSON.stringify(filterState));
+    
+    // حدث مخصص
+    window.dispatchEvent(new CustomEvent('advancedFilterApplied', {detail: {filters: filterState, products: filtered}}));
+    
+    // حاول تحديث التطبيق
+    try{
+      // إذا كان هناك setProducts
+      if(window.setFilteredProducts) window.setFilteredProducts(filtered);
+      
+      // جرب تحديث localStorage للمنتجات
+      if(filtered.length>0){
+        // لا نستبدل كل المنتجات، نحفظ المفلترة منفصلة
+        console.log('Filtered products:', filtered.length);
+      }
+    }catch(e){ console.log(e); }
+    
+    document.querySelector('.filter-modal')?.remove();
+    
+    const toast=document.createElement('div');
+    toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:9999999;background:#0F3D2E;color:#A7F3D0;padding:12px 20px;border-radius:999px;font-size:13px;font-weight:800;box-shadow:0 4px 20px rgba(0,0,0,0.3);';
+    let msg = '✅ تم التطبيق - '+filtered.length+' منتج';
+    if(filterState.minPrice || filterState.maxPrice){
+      msg += ' | السعر: '+(filterState.minPrice||'0')+' - '+(filterState.maxPrice||'∞');
+    }
+    toast.textContent=msg;
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(), 3000);
+  };
+  
+  window.resetFilters=()=>{
+    filterState={minPrice:'',maxPrice:'',sort:'newest',vipFilter:null};
+    localStorage.removeItem('darfur_filters_v2');
+    localStorage.removeItem('darfur_filtered_products');
+    localStorage.removeItem('darfur_current_filter');
+    
+    document.querySelectorAll('#filter-min-price, #filter-max-price').forEach(inp=>inp.value='');
+    document.querySelectorAll('.filter-sort-btn').forEach(btn=>{
+      btn.classList.remove('active');
+      if(btn.dataset.sort==='newest') btn.classList.add('active');
+    });
+    
+    window.dispatchEvent(new CustomEvent('filtersReset'));
+    
+    const toast=document.createElement('div');
+    toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:9999999;background:#1E1E1E;color:#fff;padding:10px 20px;border-radius:999px;font-size:13px;font-weight:800;border:1px solid rgba(255,255,255,0.1)';
+    toast.textContent='🗑️ تم مسح كل الفلاتر';
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(), 2000);
+    
+    document.querySelector('.filter-modal')?.remove();
+  };
+  
+  function init(){
+    hideOldFilter();
+    const created=createFilterCard();
+    if(!created){
+      setTimeout(init, 500);
+    }else{
+      setTimeout(hideOldFilter, 500);
+      setTimeout(hideOldFilter, 1500);
+    }
+    // جلب VIP stores في الخلفية
+    window.fetchVIPStores().then(stores=>{
+      console.log('VIP stores loaded:', stores.length);
+    });
+  }
+  
+  init();
+  
+  const obs=new MutationObserver(()=>{
+    clearTimeout(window.__filterMoveT);
+    window.__filterMoveT=setTimeout(()=>{
+      hideOldFilter();
+      if(!document.querySelector('.filter-other-card') || !document.querySelector('.vip-stores-card')){
+        createFilterCard();
+      }
+    }, 500);
+  });
   obs.observe(document.body, {childList:true, subtree:true});
   
-  document.addEventListener('click', (e)=>{
-    const card = e.target.closest('div[class*="rounded"]');
-    if(card && card.textContent.includes('جنيه')){
-      const idMatch = card.innerHTML.match(/product[\/_-]([a-z0-9-]+)/i);
-      window.__currentProductId = idMatch ? idMatch[1] : 'prod_'+Date.now();
-    }
+  setTimeout(hideOldFilter, 1000);
+  setTimeout(hideOldFilter, 3000);
+  
+  // استمع لأحداث الفلترة
+  window.addEventListener('vipFilterApplied', (e)=>{
+    console.log('VIP filter event', e.detail);
   });
   
-  console.log('✅ Social features with Supabase ready');
+  window.addEventListener('advancedFilterApplied', (e)=>{
+    console.log('Advanced filter event', e.detail);
+  });
+  
+
+
+  // === شاشة متاجر VIP عديل - شاشة كاملة فيها أسماء المتاجر ===
+  window.openVIPStoresScreen = async function(){
+    if(document.querySelector('#vip-stores-screen')) return;
+    
+    const stores = await window.fetchVIPStores();
+    const myStore = JSON.parse(localStorage.getItem('darfur_my_vip_store')||'null');
+    const isAdmin = window.isAdmin ? window.isAdmin() : false;
+    
+    const screen = document.createElement('div');
+    screen.id = 'vip-stores-screen';
+    screen.style.cssText = 'position:fixed;inset:0;z-index:9999999;background:#0F0F0F;overflow-y:auto;display:flex;flex-direction:column;';
+    
+    screen.innerHTML = `
+      <div style="position:sticky;top:0;z-index:20;background:#0F0F0F;">
+        <div style="background:linear-gradient(180deg, #1A1A1A 0%, #0F0F0F 100%);padding:16px 16px 0 16px;border-bottom:1px solid rgba(255,255,255,0.06);">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <button onclick="document.querySelector('#vip-stores-screen').remove()" style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:20px;cursor:pointer;">→</button>
+            <div style="flex:1;">
+              <div style="font-size:20px;font-weight:900;color:#fff;display:flex;align-items:center;gap:8px;">🏪 متاجر VIP <span style="background:#A7F3D0;color:#000;font-size:11px;padding:3px 8px;border-radius:999px;font-weight:900;">${stores.length}</span></div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px;">اختار متجر وشوف منتجاته</div>
+            </div>
+            ${isAdmin ? `<button onclick="window.openAdminVIPPanel()" style="width:40px;height:40px;border-radius:12px;background:rgba(255,193,7,0.15);border:1px solid rgba(255,193,7,0.3);color:#FFC107;font-size:18px;cursor:pointer;">⚙️</button>` : ''}
+          </div>
+          <div style="position:relative;margin-bottom:14px;">
+            <input id="vip-search-input" type="text" placeholder="🔍 ابحث عن متجر..." style="width:100%;height:44px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:0 44px 0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;">
+            <div style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.4);">🔍</div>
+          </div>
+          <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:14px;">
+            <button data-cat="all" class="vip-cat-btn active" onclick="window.filterVIPStoresScreen('all')" style="white-space:nowrap;background:#A7F3D0;border:1px solid #A7F3D0;color:#000;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;flex-shrink:0;">الكل (${stores.length})</button>
+            <button data-cat="هواتف" class="vip-cat-btn" onclick="window.filterVIPStoresScreen('هواتف')" style="white-space:nowrap;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer;flex-shrink:0;">📱 هواتف</button>
+            <button data-cat="ملابس" class="vip-cat-btn" onclick="window.filterVIPStoresScreen('ملابس')" style="white-space:nowrap;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer;flex-shrink:0;">👕 ملابس</button>
+            <button data-cat="سيارات" class="vip-cat-btn" onclick="window.filterVIPStoresScreen('سيارات')" style="white-space:nowrap;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer;flex-shrink:0;">🚗 سيارات</button>
+            <button data-cat="عقارات" class="vip-cat-btn" onclick="window.filterVIPStoresScreen('عقارات')" style="white-space:nowrap;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer;flex-shrink:0;">🏠 عقارات</button>
+            <button data-cat="مواشي" class="vip-cat-btn" onclick="window.filterVIPStoresScreen('مواشي')" style="white-space:nowrap;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:8px 14px;border-radius:999px;font-size:12px;cursor:pointer;flex-shrink:0;">🐄 مواشي</button>
+          </div>
+        </div>
+      </div>
+      ${myStore ? `
+        <div style="padding:16px 16px 0 16px;">
+          <div onclick="window.openStorePage('${myStore.id}')" style="background:linear-gradient(135deg, #0F3D2E 0%, #1A1A1A 100%);border:1px solid #A7F3D0;border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;">
+            <div style="width:56px;height:56px;background:#A7F3D0;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;">${myStore.logo||'🏪'}</div>
+            <div style="flex:1;">
+              <div style="font-weight:900;color:#A7F3D0;font-size:14px;">متجري: ${myStore.name} ✓ VIP</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;">دوس لإدارة منتجاتك</div>
+            </div>
+            <div style="width:36px;height:36px;background:rgba(167,243,208,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#A7F3D0;">←</div>
+          </div>
+        </div>
+      ` : ''}
+      <div style="flex:1;padding:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+          <div style="font-size:14px;font-weight:800;color:#fff;">🏪 كل المتاجر <span id="vip-count" style="color:rgba(255,255,255,0.5);">(${stores.length})</span></div>
+          <button onclick="window.openAddStoreForm()" style="background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:#A7F3D0;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer;">➕ طلب VIP</button>
+        </div>
+        <div id="vip-stores-grid" style="display:flex;flex-direction:column;gap:12px;"></div>
+        <div id="vip-no-results" style="display:none;text-align:center;padding:40px 20px;"><div style="font-size:48px;">🔍</div><div style="font-size:14px;color:#fff;font-weight:700;margin-top:8px;">لا توجد متاجر</div></div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:14px;margin-top:20px;">
+          <div style="font-size:12px;color:#fff;font-weight:800;margin-bottom:6px;">💡 كيف يعمل؟</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.6;">• اختار متجر من القائمة<br>• حتدخل صفحة المتجر وتشوف منتجاته<br>• تتواصل واتساب مع صاحب المتجر</div>
+        </div>
+        <div style="height:100px;"></div>
+      </div>
+    `;
+    document.body.appendChild(screen);
+    window._allVIPStores = stores;
+    window._currentVIPCategory = 'all';
+    
+    window.renderVIPStoresListNew = function(list){
+      const grid = document.getElementById('vip-stores-grid');
+      const noRes = document.getElementById('vip-no-results');
+      const count = document.getElementById('vip-count');
+      if(!grid) return;
+      if(count) count.textContent = '('+list.length+')';
+      if(list.length===0){ grid.style.display='none'; if(noRes) noRes.style.display='block'; return; }
+      grid.style.display='flex'; if(noRes) noRes.style.display='none';
+      grid.innerHTML = list.map(store => `
+        <div onclick="window.openStorePage('${store.id}')" style="background:#1A1A1A;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;position:relative;">
+          <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg, #A7F3D0 0%, #0F3D2E 100%);"></div>
+          <div style="width:60px;height:60px;background:linear-gradient(135deg, #1E1E1E 0%, #2a2a2a 100%);border:1px solid rgba(167,243,208,0.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">${store.logo||'🏪'}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;gap:6px;"><div style="font-weight:900;color:#fff;font-size:15px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${store.name}</div><span style="background:rgba(167,243,208,0.15);color:#A7F3D0;font-size:9px;padding:3px 7px;border-radius:999px;font-weight:800;">VIP</span></div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${store.description||'متجر موثوق VIP'}</div>
+            <div style="display:flex;gap:6px;margin-top:8px;"><span style="background:rgba(255,255,255,0.06);padding:3px 8px;border-radius:999px;font-size:10px;color:rgba(255,255,255,0.7);">📂 ${store.category||'عام'}</span><span style="background:rgba(167,243,208,0.1);padding:3px 8px;border-radius:999px;font-size:10px;color:#A7F3D0;">⭐ ${store.rating||5}</span><span style="background:rgba(255,255,255,0.06);padding:3px 8px;border-radius:999px;font-size:10px;color:rgba(255,255,255,0.6);">📦 ${store.products_count||0}</span></div>
+          </div>
+          <div style="width:36px;height:36px;background:rgba(167,243,208,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#A7F3D0;">←</div>
+        </div>
+      `).join('');
+    };
+    
+    window.filterVIPStoresScreenNew = function(cat){
+      document.querySelectorAll('.vip-cat-btn').forEach(b=>{ b.style.background='#1E1E1E'; b.style.color='rgba(255,255,255,0.7)'; b.style.borderColor='rgba(255,255,255,0.1)'; });
+      const active = document.querySelector(`.vip-cat-btn[data-cat="${cat}"]`); if(active){ active.style.background='#A7F3D0'; active.style.color='#000'; active.style.borderColor='#A7F3D0'; }
+      window._currentVIPCategory = cat;
+      let filtered = window._allVIPStores || []; if(cat!=='all') filtered = filtered.filter(s=>s.category===cat);
+      const searchInput = document.getElementById('vip-search-input'); if(searchInput && searchInput.value){ const q=searchInput.value.toLowerCase(); filtered = filtered.filter(s=> s.name.toLowerCase().includes(q) || (s.description||'').toLowerCase().includes(q)); }
+      window.renderVIPStoresListNew(filtered);
+    };
+    
+    // للتوافق
+    window.renderVIPStoresList = window.renderVIPStoresListNew;
+    window.filterVIPStoresScreen = window.filterVIPStoresScreenNew;
+    window.filterByVIPCategory = window.filterVIPStoresScreenNew;
+    
+    window.renderVIPStoresListNew(stores);
+    const searchInput = document.getElementById('vip-search-input');
+    if(searchInput){ searchInput.addEventListener('input', (e)=>{ const q=e.target.value.toLowerCase(); let filtered = window._allVIPStores || stores; if(window._currentVIPCategory && window._currentVIPCategory!=='all') filtered = filtered.filter(s=>s.category===window._currentVIPCategory); if(q) filtered = filtered.filter(s=> s.name.toLowerCase().includes(q) || (s.description||'').toLowerCase().includes(q)); window.renderVIPStoresListNew(filtered); }); }
+  };
+  
+  // override old
+  window.openVIPModal = window.openVIPStoresScreen;
+
+
+  // === لوحة إدارة VIP (للأدمن فقط - أنت) ===
+  window.openAdminVIPPanel = function(){
+    if(!window.isAdmin()){
+      alert('هذه اللوحة للإدارة فقط');
+      return;
+    }
+    
+    document.querySelector('.vip-modal')?.remove();
+    
+    const pendingRequests = JSON.parse(localStorage.getItem('darfur_vip_requests')||'[]').concat(JSON.parse(localStorage.getItem('darfur_pending_vip')||'[]'));
+    const vipStores = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+    
+    const adminPage = document.createElement('div');
+    adminPage.className = 'vip-store-page';
+    adminPage.id = 'admin-vip-panel';
+    adminPage.style.cssText = 'position:fixed;inset:0;z-index:99999999;background:#121212;overflow-y:auto;animation:fadeIn 0.25s ease;';
+    
+    let requestsHTML = '';
+    if(pendingRequests.length===0){
+      requestsHTML = '<div style="text-align:center;padding:30px;color:rgba(255,255,255,0.5);font-size:13px;">لا توجد طلبات جديدة<br><span style="font-size:11px;">الطلبات الجديدة حتظهر هنا</span></div>';
+    }else{
+      requestsHTML = pendingRequests.map(req => `
+        <div style="background:#1E1E1E;border:1px solid rgba(255,193,7,0.2);border-radius:14px;padding:14px;margin-bottom:10px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+            <div style="display:flex;gap:10px;flex:1;">
+              <div style="width:44px;height:44px;background:#2a2416;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">${req.logo||'🏪'}</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:800;color:#fff;font-size:13px;">${req.name}</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">${req.description||''}</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:4px;">
+                  📂 ${req.category||''} • 📱 ${req.whatsapp||''}<br>
+                  👤 ${req.owner_name||''} • 🕐 ${new Date(req.requested_at||req.created_at).toLocaleDateString('ar-SD')}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px;">
+            <button onclick="window.approveVIPFromAdmin('${req.id}')" style="background:#A7F3D0;border:none;color:#000;padding:8px;border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;">✅ موافقة VIP</button>
+            <button onclick="window.contactRequester('${req.whatsapp||''}', '${req.name}')" style="background:#25D366;border:none;color:#fff;padding:8px;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;">💬 واتساب</button>
+            <button onclick="window.rejectVIPFromAdmin('${req.id}')" style="background:rgba(255,107,107,0.15);border:1px solid rgba(255,107,107,0.3);color:#ff6b6b;padding:8px;border-radius:10px;font-size:11px;cursor:pointer;">❌ رفض</button>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    let storesHTML = vipStores.map(store => `
+      <div style="background:#121212;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:36px;height:36px;background:#1E1E1E;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">${store.logo||'🏪'}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:12px;color:#fff;font-weight:700;">${store.name} <span style="background:#A7F3D0;color:#000;font-size:8px;padding:1px 5px;border-radius:999px;">VIP</span></div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);">${store.category||''} • ${store.owner_name||''}</div>
+        </div>
+        <button onclick="window.removeVIPStore('${store.id}')" style="background:rgba(255,107,107,0.1);border:none;color:#ff6b6b;width:28px;height:28px;border-radius:50%;cursor:pointer;">✕</button>
+      </div>
+    `).join('');
+    
+    if(vipStores.length===0){
+      storesHTML = '<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.4);font-size:12px;">لا توجد متاجر VIP معتمدة</div>';
+    }
+    
+    adminPage.innerHTML = `
+      <div style="position:sticky;top:0;z-index:10;background:#121212;border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 16px;display:flex;align-items:center;gap:12px;">
+        <button onclick="this.closest('#admin-vip-panel').remove(); window.openVIPModal();" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);border:none;color:#fff;font-size:18px;cursor:pointer;">→</button>
+        <div style="font-weight:900;color:#FFC107;font-size:16px;">⚙️ إدارة متاجر VIP</div>
+        <div style="margin-left:auto;background:rgba(255,193,7,0.15);color:#FFC107;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;">${pendingRequests.length} طلب • ${vipStores.length} متجر</div>
+      </div>
+      
+      <div style="padding:16px;max-width:600px;margin:0 auto;">
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
+          <button class="admin-tab active" data-tab="requests" onclick="window.switchAdminTab('requests')" style="flex:1;background:#FFC107;border:none;color:#000;padding:10px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;">📨 طلبات (${pendingRequests.length})</button>
+          <button class="admin-tab" data-tab="stores" onclick="window.switchAdminTab('stores')" style="flex:1;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);padding:10px;border-radius:10px;font-size:12px;cursor:pointer;">🏪 متاجر VIP (${vipStores.length})</button>
+        </div>
+        
+        <div id="admin-requests-tab">
+          <div style="font-size:12px;color:#FFC107;font-weight:800;margin-bottom:10px;">📨 طلبات VIP الجديدة (أنت تعطي اللقب)</div>
+          ${requestsHTML}
+          
+          <div style="background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.15);border-radius:12px;padding:12px;margin-top:16px;">
+            <div style="font-size:11px;color:#FFC107;font-weight:800;">🔒 نظام VIP حصري:</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;line-height:1.5;">
+              • أنت توافق على الطلب → يبقى VIP<br>
+              • المستخدم العادي يشوف ويتواصل بس<br>
+              • VIP المعتمد يقدر ينزل منتجات باسمه<br>
+              • تقدر تلغي VIP في أي وقت
+            </div>
+          </div>
+        </div>
+        
+        <div id="admin-stores-tab" style="display:none;">
+          <div style="font-size:12px;color:#A7F3D0;font-weight:800;margin-bottom:10px;">🏪 متاجر VIP المعتمدة</div>
+          ${storesHTML}
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(adminPage);
+  };
+  
+  window.switchAdminTab = function(tab){
+    document.querySelectorAll('.admin-tab').forEach(t=>{
+      t.style.background='#1E1E1E';
+      t.style.color='rgba(255,255,255,0.6)';
+      t.style.border='1px solid rgba(255,255,255,0.1)';
+    });
+    const active = document.querySelector(`.admin-tab[data-tab="${tab}"]`);
+    if(active){
+      if(tab==='requests'){
+        active.style.background='#FFC107';
+        active.style.color='#000';
+      }else{
+        active.style.background='#A7F3D0';
+        active.style.color='#000';
+      }
+    }
+    
+    document.getElementById('admin-requests-tab').style.display = tab==='requests' ? 'block' : 'none';
+    document.getElementById('admin-stores-tab').style.display = tab==='stores' ? 'block' : 'none';
+  };
+  
+  window.approveVIPFromAdmin = async function(requestId){
+    const result = await window.approveVIPStore(requestId);
+    if(result){
+      const toast=document.createElement('div');
+      toast.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999999999;background:#0F3D2E;color:#A7F3D0;padding:12px 20px;border-radius:999px;font-size:13px;font-weight:800;border:1px solid #A7F3D0;';
+      toast.textContent='✅ تمت الموافقة - '+result.name+' أصبح VIP';
+      document.body.appendChild(toast);
+      setTimeout(()=>toast.remove(), 3000);
+      
+      // أعد تحميل اللوحة
+      document.querySelector('#admin-vip-panel')?.remove();
+      setTimeout(()=>window.openAdminVIPPanel(), 500);
+    }
+  };
+  
+  window.rejectVIPFromAdmin = function(requestId){
+    if(confirm('هل تريد رفض هذا الطلب؟')){
+      window.rejectVIPStore(requestId);
+      document.querySelector('#admin-vip-panel')?.remove();
+      setTimeout(()=>window.openAdminVIPPanel(), 300);
+    }
+  };
+  
+  window.removeVIPStore = function(storeId){
+    if(!confirm('هل تريد إلغاء VIP لهذا المتجر؟')) return;
+    const stores = JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]').filter(s => s.id !== storeId);
+    localStorage.setItem('darfur_vip_stores', JSON.stringify(stores));
+    document.querySelector('#admin-vip-panel')?.remove();
+    setTimeout(()=>window.openAdminVIPPanel(), 300);
+  };
+  
+  window.contactRequester = function(whatsapp, storeName){
+    const num = whatsapp || '249912345678';
+    const msg = encodeURIComponent('مرحبا، بخصوص طلبك لمتجر '+storeName+' في دارفور ماركت VIP - تم استلام طلبك وسنتواصل معك قريباً');
+    window.open('https://wa.me/'+num+'?text='+msg, '_blank');
+  };
+
+
+  console.log('✅ VIP Exclusive System Ready - Admin Only');
+  // تأكيد الشاشة العديل هي الافتراضية
+  if(window.openVIPStoresScreen){ window.openVIPModal = window.openVIPStoresScreen; console.log('✅ VIP full screen ready'); }
 })();
 </script>
+
 
 </body>
 </html>
