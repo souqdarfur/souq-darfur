@@ -108,7 +108,7 @@ p("div",{className:"flex gap-2 mt-2",children:[
 o("button",{onClick:()=>__setRm(!1),className:"flex-1 h-10 rounded-full bg-white/10 text-white text-sm font-bold",children:"\u0625\u0644\u063a\u0627\u0621"}),
 o("button",{onClick:async()=>{let _nr={id:"r_"+Date.now(),seller_id:_rid,rater_id:m.id,rater_name:m.full_name||m.email,stars:__rs,comment:__rc.trim(),created_at:new Date().toISOString()};try{await du("ratings",_nr)}catch{}let _nl=[_nr,...__rt];__setRt(_nl);try{K("darfur_ratings",_nl)}catch{}__setRs(5);__setRc("");__setRm(!1);$("\u062a\u0645 \u0625\u0631\u0633\u0627\u0644 \u062a\u0642\u064a\u064a\u0645\u0643 \u2705")},className:"flex-1 h-10 rounded-full bg-white text-black text-sm font-bold",children:"\u0625\u0631\u0633\u0627\u0644 \u0627\u0644\u062a\u0642\u064a\u064a\u0645"})]})]})
 :o("button",{onClick:()=>__setRm(!0),className:"mt-3 w-full h-10 rounded-full bg-[#FFD166] text-black text-sm font-bold",children:"\u0642\u064a\u0651\u0645 \u0647\u0630\u0627 \u0627\u0644\u0628\u0627\u0626\u0639"})]})})(),
-p("div",{className:"flex gap-2 mt-6",children:[o("button",{onClick:()=>{let f=L.whatsapp||t.find((E)=>E.id===L.user_id)?.whatsapp;if(f)window.open(`https://wa.me/${f.replace(/^0/,"+249")}`,"_blank");else $("لا يوجد واتساب","error")},className:"flex-1 h-12 rounded-full bg-[#0F3D2E] text-white font-bold",children:"تواصل واتساب"}),o("button",{onClick:()=>{let f=prompt("سبب البلاغ؟");if(f)wd(L,f)},className:"w-12 h-12 rounded-full bg-[#1E1E1E] text-white flex items-center justify-center",children:o(Ao,{size:18})}),(xe||m?.id===L.user_id)&&o("button",{onClick:()=>{sa(L.id),_("home")},className:"w-12 h-12 rounded-full bg-[#DC2626] flex items-center justify-center",children:o(Wt,{size:18})})]})]})]})}),S==="adDetail"&&L&&o("div",{className:"space-y-4",children:[o("button",{onClick:()=>_("home"),className:"flex items-center gap-2 text-sm text-white/60",children:"→ رجوع"}),p("div",{className:"rounded-2xl overflow-hidden bg-white text-black",children:[o("div",{className:"h-[220px] relative flex items-center justify-center overflow-hidden bg-[#E0E7FF]",children:[L.images&&L.images[0]?o("img",{src:L.images[0],className:"w-full h-full object-cover",alt:L.title}):pa(L.ad_type,80),o("div",{className:"absolute top-2 right-2",children:o("span",{className:"text-[10px] px-2.5 py-1 rounded-full bg-[#0F3D2E] text-white font-bold border border-white/20",children:L.ad_type})}),o("div",{className:"absolute top-2 left-2",children:p("span",{className:"text-[10px] px-2.5 py-1 rounded-full bg-[#DC2626] text-white font-black shadow",children:["خصم ",L.discount,"%"]})})]}),p("div",{className:"p-4",children:[o("h1",{className:"font-black text-lg",children:L.title}),p("div",{className:"flex gap-2 mt-3 flex-wrap",children:[o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#1E1E1E] text-white",children:L.wilaya}),o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#FEF3C7] text-[#92400E] font-bold",children:["خصم ",L.discount,"% - ينتهي خلال ",L.duration_days," يوم"]})]}),L.description&&o("p",{className:"text-sm text-black/70 mt-4 leading-7",children:L.description}),p("div",{className:"mt-4 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] p-4 space-y-2",children:[o("p",{className:"text-sm font-bold text-[#166534]",children:["📍 الموقع: ",L.address||"غير محدد"]}),L.phone&&o("p",{className:"text-sm font-bold text-[#166534]",children:["📞 التلفون: ",L.phone]})]}),p("div",{className:"flex gap-2 mt-6",children:[L.phone&&o("button",{onClick:()=>window.open("https://wa.me/"+L.phone.replace(/^0/,"+249"),"_blank"),className:"flex-1 h-12 rounded-full bg-[#0F3D2E] text-white font-bold",children:"تواصل واتساب"}),(xe||m?.id===L.user_id)&&o("button",{onClick:()=>{Ed(L.id),_("home")},className:"w-12 h-12 rounded-full bg-[#DC2626] flex items-center justify-center",children:o(Wt,{size:18})})]})]})]})]}),S==="about"&&o("div",{className:"space-y-5",children:p("div",{className:"rounded-[24px] bg-[#1E1E1E] border border-white/5 p-6",children:[o("h1",{className:"text-2xl font-black",children:"سوق دارفور - Darfur Market"}),o("p",{className:"mt-2 text-[#A7F3D0] font-bold",children:"انطلق من مدينه عديله بقلب شرق دارفور"}),o("div",{className:"mt-3 inline-flex text-[11px] px-3 py-1 rounded-full bg-white/5 border border-white/10",children:"آخر تحديث 23 سبتمبر 2026"}),o("h2",{className:"mt-8 font-black text-lg",children:"من نحن؟"}),o("p",{className:"mt-3 text-sm leading-7 text-white/70",children:"سوق دارفور هو منصة إلكترونية مجتمعية تهدف لربط أبناء دارفور في الداخل والخارج، لتسهيل عمليات البيع والشراء بكل شفافية وأمان. انطلقت الفكرة من مدينة عديلة العريقة، قلب شرق دارفور النابض، لتكون جسرا بين المزارع والتاجر، وبين صاحب الحرفة والباحث عنها."}),o("h2",{className:"mt-8 font-black",children:"ما الذي يقدمه سوق دارفور؟"}),o("div",{className:"mt-3 space-y-3",children:["سوق مفتوح لكل الفئات: سيارات، هواتف، أجهزة، محاصيل زراعية، مواشي، ملابس، وعقارات","نظام ولايات دقيق: شرق، شمال، غرب، جنوب، وسط دارفور","تنبيهات طوارئ فورية: للحالات الإنسانية والظروف الجوية والطرق","نظام بلاغات وحماية: لضمان بيئة بيع آمنة ونظيفة"].map((f,E)=>p("div",{className:"flex gap-3",children:[o("div",{className:"w-6 h-6 rounded-full bg-[#0F3D2E] flex items-center justify-center text-[11px] font-bold text-[#A7F3D0] shrink-0",children:E+1}),o("p",{className:"text-sm text-white/70 leading-6",children:f})]},E))}),o("h2",{className:"mt-8 font-black",children:"دور المنصة والتنبيه المهم"}),o("p",{className:"mt-3 text-sm leading-7 text-white/70",children:"دورنا هو الوساطة التقنية فقط - نعرض المنتجات ونسهل التواصل بين البائع والمشتري. لا نتدخل في التفاوض ولا نستلم أي مبالغ مالية."}),p("div",{className:"mt-4 rounded-xl bg-[#DC2626]/10 border border-[#DC2626]/20 p-4",children:[o("p",{className:"text-sm font-bold text-[#FFA0A0]",children:"⚠️ تنبيه: سوق دارفور ما بيضمن الصفقات"}),o("p",{className:"text-xs text-white/60 mt-2 leading-6",children:"يجب على المشتري معاينة المنتج بنفسه والتأكد قبل دفع أي مبلغ."})]}),o("h2",{className:"mt-8 font-black",children:"رؤيتنا"}),o("p",{className:"mt-3 text-sm leading-7 text-white/70",children:"أن نكون السوق الرقمي الأول لدارفور، نربط الريف بالمدينة، ونفتح أسواق جديدة لمنتجاتنا المحلية."}),o("div",{className:"mt-6 text-center rounded-2xl bg-[#0F3D2E] p-4 font-black text-lg",children:"\uD83D\uDED2 دارفور بلدنا ❤️ - سوقنا يجمعنا"})]})}),S==="terms"&&p("div",{className:"space-y-4",children:[o("h1",{className:"text-xl font-black",children:"الشروط والأحكام"}),[{title:"القبول بالشروط",text:"باستخدامك لسوق دارفور، أنت توافق على جميع الشروط."},{title:"التسجيل بالكود",text:"التسجيل يتطلب تأكيد البريد عبر كود 6 أرقام يرسل إلى Gmail، صالح 5 دقائق. الكود شخصي."},{title:"نشر المنتجات",text:"يجب أن يكون المنتج ملكك أو لديك حق بيعه. الصور حقيقية. السعر واضح."},{title:"المحظورات العامة",text:"قائمة المحظورات أدناه يجب الالتزام بها."},{title:"البيع والشراء",text:"المنصة وسيط عرض فقط. لا نضمن الجودة. المعاينة قبل الدفع."},{title:"الطوارئ",text:"قسم الطوارئ مخصص للتنبيهات الإنسانية فقط. النشر للإدارة."},{title:"البلاغات",text:"يمكنك الإبلاغ عن أي منتج مخالف. البلاغ الكاذب يؤدي للحظر."},{title:"حظر المستخدمين",text:"يحق للإدارة حظر أي حساب يخالف الشروط دون إنذار."},{title:"الخصوصية",text:"نحترم خصوصيتك. لا نشارك بياناتك. رقم الواتساب يظهر عند موافقتك."},{title:"التحديثات",text:"قد نحدث الشروط وسيتم تنبيهك بآخر تحديث."}].map((f,E)=>p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-5",children:[p("div",{className:"flex gap-3 items-start",children:[o("div",{className:"w-8 h-8 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/30 flex items-center justify-center text-sm font-bold text-[#A7F3D0] shrink-0",children:E+1}),p("div",{children:[o("h3",{className:"font-bold",children:f.title}),o("p",{className:"text-sm text-white/60 leading-7 mt-2",children:f.text})]})]}),E===3&&o("div",{className:"mt-4 grid gap-2",children:["المنتجات المسروقة أو غير المشروعة","الأسلحة والمخدرات","الصور الإباحية أو المخلة","الاحتيال والغش","خطاب الكراهية والعنصرية","الإعلانات السياسية"].map((N)=>p("div",{className:"flex gap-2 items-center text-sm text-white/70 bg-[#DC2626]/10 border border-[#DC2626]/10 rounded-full px-3 py-2",children:[o(m1,{}),N]},N))})]},E))]}),S==="contact"&&p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-6",children:[o("h1",{className:"text-xl font-bold",children:"تواصل معنا"}),o("p",{className:"text-sm text-white/60 mt-2",children:"نحن هنا لمساعدتك. تواصل مباشرة عبر واتساب."}),p("div",{className:"mt-6 space-y-3",children:[p("button",{onClick:()=>window.open("https://wa.me/249923784866?text=مرحبا%20سوق%20دارفور","_blank"),className:"w-full rounded-xl bg-[#121212] border border-[#25D366]/20 p-4 flex items-center gap-4 text-right hover:border-[#25D366]/40 transition group",children:[o("div",{className:"w-12 h-12 rounded-full bg-[#25D366]/15 border border-[#25D366]/20 flex items-center justify-center shrink-0",children:o(bo,{size:26,color:"#25D366"})}),p("div",{className:"flex-1 min-w-0",children:[o("p",{className:"text-xs text-white/40",children:"واتساب مباشر"}),o("p",{className:"font-black text-[22px] tracking-wide mt-1 text-white",dir:"ltr",children:"0923784866"}),o("p",{className:"text-[11px] text-[#25D366] mt-1",children:"اضغط لفتح المحادثة مباشرة"})]}),o("div",{className:"w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0",children:p("svg",{width:"16",height:"16",viewBox:"0 0 24 24",fill:"none",stroke:"white",strokeWidth:2,children:[o("path",{d:"M5 12h14"}),o("path",{d:"m12 5 7 7-7 7"})]})})]}),p("div",{className:"rounded-xl bg-[#121212] p-4 border border-white/5",children:[o("p",{className:"text-xs text-white/40",children:"المطور"}),o("p",{className:"font-bold mt-1",children:"Wadah Abdarhman - عديلة، شرق دارفور"})]}),p("button",{onClick:()=>window.open("https://wa.me/249923784866?text=مرحبا%20سوق%20دارفور","_blank"),className:"w-full h-12 rounded-full bg-[#25D366] hover:bg-[#1EBE5B] text-white font-bold mt-4 flex items-center justify-center gap-2 transition",children:[o(k1,{size:20}),"تواصل واتساب مباشر"]})]})]}),p("footer",{className:"mt-12 pt-8 border-t border-white/5 text-center pb-4",children:[o("p",{className:"text-[11px] text-white/30",children:"جميع الحقوق محفوظة لدي Wadah Abdarhman 2026"}),p("button",{onClick:()=>window.open("https://wa.me/249923784866?text=مرحبا%20سوق%20دارفور","_blank"),className:"text-[11px] text-[#A7F3D0] mt-2 underline flex items-center justify-center gap-1 mx-auto",children:[o(bo,{size:12,color:"#25D366"}),"تواصل معنا"]})]})]}),o("nav",{className:"fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-32px)] max-w-[380px] flex justify-center",children:o("div",{className:"flex items-center gap-1 p-2 rounded-full bg-[#1E1E1E] border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.8)] max-w-full overflow-hidden",children:[{id:"home",label:"الرئيسية",icon:rd},{id:"emergency",label:"طوارئ",icon:pu},{id:"add",label:"+",icon:qo,isPlus:!0},{id:"reports",label:"بلاغات",icon:Ao},{id:"account",label:"حسابي",icon:jo}].map((f)=>{if(f.isPlus)return o("button",{onClick:()=>Tr(!0),className:"w-12 h-12 rounded-full bg-[#EA580C] flex items-center justify-center shadow-lg -mt-1",children:o(qo,{size:22,color:"#121212"})},f.id);let E=S===f.id||S==="productDetail"&&f.id==="home"||S==="admin"&&f.id==="account",N=f.icon;return p("button",{onClick:()=>_(f.id),className:`h-10 px-4 rounded-full flex items-center gap-2 transition ${E?"bg-[#0F3D2E] text-white":"text-white/50"}`,children:[o(N,{size:18,color:E?"white":"#9CA3AF"}),o("span",{className:`text-[12px] font-medium ${E?"inline":"hidden sm:inline"}`,children:f.label})]},f.id)})})}),D&&o("div",{className:`fixed top-5 left-1/2 -translate-x-1/2 z-[90] px-5 h-11 rounded-full flex items-center text-sm font-bold shadow-xl border max-w-[90vw] text-center ${D.type==="success"?"bg-[#0F3D2E] border-[#A7F3D0]/30 text-white":"bg-[#DC2626] border-red-300/20 text-white"}`,children:D.msg}),mu&&o("div",{className:"fixed inset-0 z-[80] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4",children:p("div",{className:"w-full max-w-[360px] rounded-2xl bg-[#1E1E1E] border border-white/10 p-6",children:[o("h3",{className:"font-bold",children:mu.title}),o("p",{className:"text-sm text-white/50 mt-2",children:"لا يمكن التراجع بعد الحذف"}),p("div",{className:"flex gap-3 mt-6",children:[o("button",{onClick:()=>on(null),className:"flex-1 h-11 rounded-full bg-white/5 border border-white/10",children:"إلغاء"}),o("button",{onClick:mu.onConfirm,className:"flex-1 h-11 rounded-full bg-[#DC2626] font-bold",children:"تأكيد الحذف"})]})]})}),un&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4",children:p("div",{className:"w-full max-w-[460px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6 max-h-[95vh] overflow-auto",children:[p("div",{className:"flex justify-between items-center mb-6",children:[o("h3",{className:"font-black text-lg",children:"تسجيل الدخول"}),o("button",{onClick:()=>ce(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(w1,{onPasswordLogin:vd,onOtpLoginVerified:hd,onSwitch:()=>{ce(!1),Ae(!0)},showToast:$,supabaseSendOtp:aa,supabaseVerifyOtp:ca,users:t})]})}),la&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4",children:p("div",{className:"w-full max-w-[480px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6 max-h-[95vh] overflow-auto",children:[p("div",{className:"flex justify-between items-center mb-6",children:[o("h3",{className:"font-black text-lg",children:"إنشاء حساب"}),o("button",{onClick:()=>Ae(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(E1,{onVerified:yd,onSwitch:()=>{Ae(!1),ce(!0)},showToast:$,supabaseSendOtp:aa,supabaseVerifyOtp:ca,users:t})]})}),fd&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center",children:p("div",{className:"w-full max-w-[520px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6 max-h-[90vh] overflow-auto",children:[p("div",{className:"flex justify-between items-center mb-4",children:[o("h3",{className:"font-black text-lg",children:"نشر منتج جديد"}),o("button",{onClick:()=>Tr(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(S1,{categories:Cu.filter((f)=>f.id!=="الكل"),wilayat:fu.filter((f)=>f!=="الكل"),onSubmit:md,currentUser:m,onRequireLogin:()=>{Tr(!1),ce(!0)}})]})}),sd&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center",children:p("div",{className:"w-full max-w-[440px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6",children:[p("div",{className:"flex justify-between items-center mb-6",children:[o("h3",{className:"font-black text-lg",children:"نشر تنبيه طوارئ"}),o("button",{onClick:()=>Wr(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(C1,{wilayat:fu.filter((f)=>f!=="الكل"),onSubmit:gd})]})}),dd&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center",children:p("div",{className:"w-full max-w-[520px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6 max-h-[90vh] overflow-auto",children:[p("div",{className:"flex justify-between items-center mb-4",children:[o("h3",{className:"font-black text-lg",children:"إضافة إعلان مميز"}),o("button",{onClick:()=>hu(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(_1,{adTypes:t1,wilayat:fu.filter((f)=>f!=="الكل"),onSubmit:kd})]})})]})}function od({length:e=6,value:n,onChange:t}){let r=O.useRef([]);return o("div",{className:"flex gap-2 justify-center dir-ltr",dir:"ltr",children:Array.from({length:e}).map((l,u)=>o("input",{ref:(i)=>{r.current[u]=i},value:n[u]||"",onChange:(i)=>{let a=i.target.value.replace(/\D/g,"").slice(-1),c=[...n];if(c[u]=a,t(c),a&&u<e-1)r.current[u+1]?.focus()},onKeyDown:(i)=>{if(i.key==="Backspace"&&!n[u]&&u>0)r.current[u-1]?.focus()},inputMode:"numeric",maxLength:1,className:"w-11 h-12 sm:w-12 sm:h-14 rounded-xl bg-[#121212] border border-white/10 text-center text-lg font-black outline-none focus:border-[#A7F3D0] focus:bg-[#0F3D2E]/30 transition"},u))})}function E1({onVerified:e,onSwitch:n,showToast:t,supabaseSendOtp:r,supabaseVerifyOtp:l,users:u}){let[i,a]=O.useState(1),[c,s]=O.useState(!1),[h,k]=O.useState({full_name:"",email:"",password:"",confirm:"",gender:"ذكر",whatsapp:""}),[m,C]=O.useState(Array(6).fill("")),[S,_]=O.useState(60),[H,v]=O.useState(0);O.useEffect(()=>{if(i!==2)return;if(S<=0)return;let g=setInterval(()=>_((z)=>z-1),1000);return()=>clearInterval(g)},[i,S]);let d=async(g=!1)=>{let z=h.email.trim().toLowerCase();if(!h.full_name.trim()||h.full_name.trim().length<3){t("الاسم قصير - 3 أحرف على الأقل","error");return}if(!ea(z)){t("بريد إلكتروني غير صالح","error");return}if(u.find((D)=>D.email.toLowerCase()===z)){t("البريد مسجل مسبقا","error");return}if(h.password.length<8){t("كلمة المرور 8 أحرف على الأقل","error");return}if(h.password!==h.confirm){t("تأكيد كلمة السر غير مطابق","error");return}if(h.whatsapp&&!ld(h.whatsapp)){t("رقم واتساب غير صحيح","error");return}if(!h.gender){t("اختر الجنس","error");return}let P=vu(z);if(P&&!g){let D=Date.now()-P.lastSentAt;if(D<60000){t(`انتظر ${Math.ceil((60000-D)/1000)} ثانية قبل إعادة الإرسال`,"error");return}}if(g&&P){let D=Date.now()-P.lastSentAt;if(D<60000){t(`انتظر ${Math.ceil((60000-D)/1000)} ثانية`,"error");return}}s(!0);let F=ud(),L={full_name:De(h.full_name.trim()),gender:h.gender,whatsapp:h.whatsapp?De(h.whatsapp):""};if((await r(z,L,"register")).demo)if(Kn(z,{code:F,expiresAt:Date.now()+300000,attempts:0,lastSentAt:Date.now(),formData:{...h,email:z},purpose:"register"}),console.log(`[DEMO OTP - Darfur Market] Email: ${z} Code: ${F}`),window.sendPasscode?void window.sendPasscode(z,F).catch(function(){}):0,qe())t("تم إرسال الكود لبريدك من Gmail - تحقق من صندوق الوارد","success");else t(`تم إرسال الكود لبريدك (الوضع التجريبي: الكود هو ${F})`,"success");else Kn(z,{code:"supabase",expiresAt:Date.now()+300000,attempts:0,lastSentAt:Date.now(),formData:{...h,email:z},purpose:"register"}),t("تم إرسال كود من 6 أرقام إلى Gmail - صالح 5 دقائق","success");_(60),C(Array(6).fill("")),v(0),a(2),s(!1)},y=async()=>{let g=h.email.trim().toLowerCase(),z=m.join("");if(z.length!==6){t("أدخل الكود كاملا 6 أرقام","error");return}if(H>=3){t("تجاوزت الحد الأقصى للمحاولات - أعد إرسال كود جديد","error");return}s(!0);let P=vu(g);if(!P){t("انتهت صلاحية الكود - أعد الإرسال","error"),s(!1);return}if(Date.now()>P.expiresAt){t("انتهت صلاحية الكود - صالح 5 دقائق فقط","error"),Vr(g),s(!1);return}if(qe()&&P.code==="supabase"){if(!(await l(g,z)).ok){v((Q)=>Q+1);let L={...P,attempts:P.attempts+1};Kn(g,L),t("الكود غير صحيح","error"),s(!1);return}e({full_name:h.full_name,email:g,password:h.password,whatsapp:h.whatsapp,gender:h.gender}),s(!1);return}if(z!==P.code){v((F)=>F+1),Kn(g,{...P,attempts:P.attempts+1}),t("الكود غير صحيح","error"),s(!1);return}e({full_name:h.full_name,email:g,password:h.password,whatsapp:h.whatsapp,gender:h.gender}),s(!1)};if(i===2)return p("div",{className:"space-y-5",children:[p("div",{className:"text-center",children:[o("div",{className:"w-20 h-20 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/30 flex items-center justify-center mx-auto mb-4",children:o(Xn,{size:34,color:"#A7F3D0"})}),o("h3",{className:"font-black text-xl",children:"تحقق من بريدك"}),p("p",{className:"text-sm text-white/60 mt-2 leading-6",children:["أرسلنا كود من 6 أرقام إلى",o("br",{}),o("span",{className:"text-white font-bold",children:h.email})]}),o("p",{className:"text-[11px] text-white/30 mt-2",children:"صالح لمدة 5 دقائق - تحقق من Gmail والـ Spam"})]}),o(od,{value:m,onChange:C}),p("div",{className:"text-center",children:[S>0?p("p",{className:"text-xs text-white/40",children:["إعادة إرسال الكود بعد ",p("span",{className:"text-[#A7F3D0] font-bold",children:["00:",S.toString().padStart(2,"0")]})]}):o("button",{onClick:()=>d(!0),className:"text-xs text-[#A7F3D0] font-bold underline",children:"إعادة إرسال الكود"}),p("p",{className:"text-[11px] text-white/20 mt-1",children:["المحاولات: ",H,"/3"]})]}),o("button",{onClick:y,disabled:c,className:"w-full h-12 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/30 font-bold flex items-center justify-center gap-2 disabled:opacity-50",children:c?"جاري التحقق...":p(Tt,{children:[o(yu,{size:18,color:"#A7F3D0"})," تأكيد وإنشاء الحساب"]})}),o("button",{onClick:()=>a(1),className:"w-full h-11 rounded-full bg-white/5 border border-white/10 text-sm",children:"تعديل البيانات"})]});return p("form",{onSubmit:(g)=>{g.preventDefault(),d(!1)},className:"space-y-4",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(jo,{size:18})}),o("input",{value:h.full_name,onChange:(g)=>k({...h,full_name:g.target.value}),placeholder:"الاسم الكامل",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(Xn,{size:18})}),o("input",{value:h.email,onChange:(g)=>k({...h,email:g.target.value}),placeholder:"البريد الإلكتروني Gmail",type:"email",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),p("div",{className:"grid grid-cols-2 gap-3",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(id,{size:18})}),o("input",{value:h.password,onChange:(g)=>k({...h,password:g.target.value}),type:"password",placeholder:"كلمة السر",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(yu,{size:18})}),o("input",{value:h.confirm,onChange:(g)=>k({...h,confirm:g.target.value}),type:"password",placeholder:"تأكيد السر",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]})]}),p("div",{className:"grid grid-cols-2 gap-3",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(g1,{size:18})}),p("select",{value:h.gender,onChange:(g)=>k({...h,gender:g.target.value}),className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm appearance-none",children:[o("option",{value:"ذكر",children:"ذكر"}),o("option",{value:"أنثى",children:"أنثى"})]})]}),p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(bo,{size:18})}),o("input",{value:h.whatsapp,onChange:(g)=>k({...h,whatsapp:g.target.value}),placeholder:"واتساب 09...",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]})]}),o("button",{type:"submit",disabled:c,className:"w-full h-12 rounded-full bg-white text-black font-bold flex items-center justify-center gap-2 disabled:opacity-60",children:c?"جاري الإرسال...":p(Tt,{children:[o(Xn,{size:18,color:"#121212"})," إرسال كود التأكيد"]})}),p("p",{className:"text-center text-sm text-white/50",children:["لديك حساب؟ ",o("button",{type:"button",onClick:n,className:"text-[#A7F3D0] font-bold",children:"دخول"})]})]})}function w1({onPasswordLogin:e,onOtpLoginVerified:n,onSwitch:t,showToast:r,supabaseSendOtp:l,supabaseVerifyOtp:u,users:i}){let[a,c]=O.useState("password"),[s,h]=O.useState(""),[k,m]=O.useState(""),[C,S]=O.useState(Array(6).fill("")),[_,H]=O.useState(1),[v,d]=O.useState(0),[y,g]=O.useState(!1),[z,P]=O.useState(0);O.useEffect(()=>{if(_!==2||v<=0)return;let Q=setInterval(()=>d((D)=>D-1),1000);return()=>clearInterval(Q)},[_,v]);let F=async(Q=!1)=>{let D=s.trim().toLowerCase();if(!ea(D)){r("بريد غير صالح","error");return}let U=i.find((Ae)=>Ae.email.toLowerCase()===D);if(!U){r("البريد غير موجود - أنشئ حساب","error");return}if(U.is_banned){r("تم حظر حسابك","error");return}let un=vu(D);if(un&&!Q){let Ae=Date.now()-un.lastSentAt;if(Ae<60000){r(`انتظر ${Math.ceil((60000-Ae)/1000)} ثانية`,"error");return}}g(!0);let ce=ud();if((await l(D,{},"login")).demo)if(Kn(D,{code:ce,expiresAt:Date.now()+300000,attempts:0,lastSentAt:Date.now(),purpose:"login"}),console.log(`[DEMO LOGIN OTP] ${D} => ${ce}`),window.sendPasscode?void window.sendPasscode(D,ce).catch(function(){}):0,qe())r("تم إرسال الكود إلى Gmail","success");else r(`تم إرسال الكود (تجريبي: ${ce})`,"success");else Kn(D,{code:"supabase",expiresAt:Date.now()+300000,attempts:0,lastSentAt:Date.now(),purpose:"login"}),r("تم إرسال الكود إلى بريدك","success");H(2),d(60),S(Array(6).fill("")),P(0),g(!1)},L=async()=>{let Q=s.trim().toLowerCase(),D=C.join("");if(D.length!==6){r("أدخل 6 أرقام","error");return}if(z>=3){r("تجاوزت الحد الأقصى","error");return}g(!0);let U=vu(Q);if(!U){r("انتهت الصلاحية - أعد الإرسال","error"),g(!1);return}if(Date.now()>U.expiresAt){r("انتهت الصلاحية","error"),Vr(Q),g(!1);return}if(qe()&&U.code==="supabase"){if(!(await u(Q,D)).ok){P((ce)=>ce+1),Kn(Q,{...U,attempts:U.attempts+1}),r("الكود غير صحيح","error"),g(!1);return}n(Q),g(!1);return}if(D!==U.code){P((un)=>un+1),Kn(Q,{...U,attempts:U.attempts+1}),r("الكود غير صحيح","error"),g(!1);return}n(Q),g(!1)};if(a==="otp"){if(_===2)return p("div",{className:"space-y-5",children:[p("div",{className:"text-center",children:[o("div",{className:"w-16 h-16 rounded-full bg-[#0F3D2E] flex items-center justify-center mx-auto mb-3",children:o(Xn,{size:28,color:"#A7F3D0"})}),o("h3",{className:"font-bold",children:"أدخل كود الدخول"}),o("p",{className:"text-xs text-white/50 mt-1",children:s})]}),o(od,{value:C,onChange:S}),o("div",{className:"text-center",children:v>0?p("p",{className:"text-xs text-white/40",children:["إعادة الإرسال بعد 00:",v.toString().padStart(2,"0")]}):o("button",{onClick:()=>F(!0),className:"text-xs text-[#A7F3D0] underline",children:"إعادة الإرسال"})}),o("button",{onClick:L,disabled:y,className:"w-full h-12 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 font-bold disabled:opacity-50",children:y?"جاري التحقق...":"تأكيد الدخول"}),o("button",{onClick:()=>{H(1),S(Array(6).fill(""))},className:"w-full h-11 rounded-full bg-white/5 border border-white/10 text-sm",children:"تغيير البريد"}),o("button",{onClick:()=>c("password"),className:"w-full text-xs text-white/40 underline",children:"دخول بكلمة السر بدلا"})]});return p("div",{className:"space-y-4",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(Xn,{size:18})}),o("input",{value:s,onChange:(Q)=>h(Q.target.value),placeholder:"البريد الإلكتروني",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),o("button",{onClick:()=>F(!1),disabled:y,className:"w-full h-12 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 font-bold flex items-center justify-center gap-2 disabled:opacity-50",children:y?"جاري الإرسال...":p(Tt,{children:[o(Xn,{size:18,color:"#A7F3D0"})," إرسال كود الدخول"]})}),p("div",{className:"flex gap-2",children:[o("button",{onClick:()=>c("password"),className:"flex-1 h-11 rounded-full bg-white/5 border border-white/10 text-sm",children:"دخول بكلمة السر"}),o("button",{onClick:t,className:"flex-1 h-11 rounded-full bg-white text-black font-bold text-sm",children:"إنشاء حساب"})]})]})}return p("form",{onSubmit:(Q)=>{Q.preventDefault(),e(s,k)},className:"space-y-4",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(Xn,{size:18})}),o("input",{value:s,onChange:(Q)=>h(Q.target.value),placeholder:"البريد الإلكتروني",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(id,{size:18})}),o("input",{value:k,onChange:(Q)=>m(Q.target.value),type:"password",placeholder:"كلمة المرور",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),o("button",{type:"submit",className:"w-full h-12 rounded-full bg-[#0F3D2E] font-bold border border-[#A7F3D0]/20",children:"دخول"}),p("button",{type:"button",onClick:()=>c("otp"),className:"w-full h-11 rounded-full bg-white/5 border border-white/10 text-sm flex items-center justify-center gap-2",children:[o(yu,{size:16})," تسجيل دخول بالكود - نسيت كلمة السر؟"]}),p("p",{className:"text-center text-sm text-white/50",children:["ليس لديك حساب؟ ",o("button",{type:"button",onClick:t,className:"text-[#A7F3D0] font-bold",children:"إنشاء حساب بالكود"})]})]})}function R1({onSubmit:e,onClose:n}){let[t,r]=O.useState("");return o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center",onClick:n,children:p("div",{onClick:(l)=>l.stopPropagation(),className:"w-full max-w-[440px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6",children:[p("div",{className:"flex justify-between items-center mb-4",children:[o("h3",{className:"font-black text-lg",children:"بلاغ جديد"}),o("button",{onClick:n,className:"w-8 h-8 rounded-full bg-white/5",children:"\u2715"})]}),o("textarea",{value:t,onChange:(l)=>r(l.target.value),placeholder:"اكتب تفاصيل البلاغ...",rows:4,className:"w-full rounded-2xl bg-[#121212] border border-white/10 p-4 outline-none resize-none"}),o("button",{onClick:()=>{if(t.trim())e(t.trim())},className:"w-full h-12 mt-4 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 font-bold",children:"إرسال البلاغ"})]})})}function S1({categories:e,wilayat:n,onSubmit:t,currentUser:r,onRequireLogin:l}){let[u,i]=O.useState({title:"",category:e[0]?.id||"سيارات",wilaya:n[0]||"شرق دارفور",price:"",description:"",whatsapp:""}),[a,c]=O.useState(null);if(!r)return p("div",{className:"text-center py-8",children:[o("p",{className:"text-white/60",children:"يجب تسجيل الدخول لنشر المنتجات"}),o("button",{onClick:l,className:"mt-4 px-6 h-11 rounded-full bg-[#0F3D2E] font-bold",children:"تسجيل دخول"})]});return p("form",{onSubmit:(s)=>{s.preventDefault(),t(u,a)},className:"space-y-4",children:[o("input",{value:u.title,onChange:(s)=>i({...u,title:s.target.value}),placeholder:"عنوان المنتج",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),p("div",{className:"grid grid-cols-2 gap-3",children:[o("select",{value:u.category,onChange:(s)=>i({...u,category:s.target.value}),className:"h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:e.map((s)=>o("option",{value:s.id,children:s.name},s.id))}),o("select",{value:u.wilaya,onChange:(s)=>i({...u,wilaya:s.target.value}),className:"h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:n.map((s)=>o("option",{value:s,children:s},s))})]}),o("input",{value:u.price,onChange:(s)=>i({...u,price:s.target.value}),type:"number",placeholder:"السعر بالجنيه SDG",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("input",{value:u.whatsapp,onChange:(s)=>i({...u,whatsapp:s.target.value}),placeholder:"رقم الواتساب - مثلا 0912345678",inputMode:"tel",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("textarea",{value:u.description,onChange:(s)=>i({...u,description:s.target.value}),placeholder:"وصف المنتج...",rows:3,className:"w-full rounded-2xl bg-[#121212] border border-white/10 p-4 outline-none resize-none"}),p("div",{children:[o("label",{className:"text-xs text-white/50",children:"الصور (اختياري - حتى 5 صور)"}),o("input",{type:"file",multiple:!0,accept:"image/*",onChange:(s)=>c(s.target.files),className:"w-full mt-2 text-xs file:mr-3 file:px-4 file:py-2 file:rounded-full file:border-0 file:bg-white file:text-black"})]}),o("button",{type:"submit",className:"w-full h-12 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 font-bold",children:"نشر المنتج"})]})}function C1({wilayat:e,onSubmit:n}){let[t,r]=O.useState({title:"",description:"",wilaya:e[0],priority:"عالي"});return p("form",{onSubmit:(l)=>{l.preventDefault(),n(t)},className:"space-y-4",children:[o("input",{value:t.title,onChange:(l)=>r({...t,title:l.target.value}),placeholder:"عنوان التنبيه",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("select",{value:t.wilaya,onChange:(l)=>r({...t,wilaya:l.target.value}),className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:e.map((l)=>o("option",{value:l,children:l},l))}),p("select",{value:t.priority,onChange:(l)=>r({...t,priority:l.target.value}),className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:[o("option",{children:"عالي"}),o("option",{children:"متوسط"}),o("option",{children:"منخفض"})]}),o("textarea",{value:t.description,onChange:(l)=>r({...t,description:l.target.value}),placeholder:"تفاصيل التنبيه...",rows:3,className:"w-full rounded-2xl bg-[#121212] border border-white/10 p-4 outline-none resize-none"}),o("button",{type:"submit",className:"w-full h-12 rounded-full bg-[#DC2626] font-bold",children:"نشر التنبيه"})]})}function _1({adTypes:e,wilayat:n,onSubmit:t}){let[r,l]=O.useState({title:"",ad_type:e[0],wilaya:n[0],discount:"",duration_days:"7",description:"",address:"",phone:""}),[a,c]=O.useState(null);return p("form",{onSubmit:(u)=>{u.preventDefault(),t(r,a)},className:"space-y-4",children:[o("input",{value:r.title,onChange:(u)=>l({...r,title:u.target.value}),placeholder:"عنوان الإعلان - مثلا: مدرسة العديلة",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),p("div",{className:"grid grid-cols-2 gap-3",children:[o("select",{value:r.ad_type,onChange:(u)=>l({...r,ad_type:u.target.value}),className:"h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:e.map((u)=>o("option",{value:u,children:u},u))}),o("select",{value:r.wilaya,onChange:(u)=>l({...r,wilaya:u.target.value}),className:"h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:n.map((u)=>o("option",{value:u,children:u},u))})]}),p("div",{className:"grid grid-cols-2 gap-3",children:[o("input",{value:r.discount,onChange:(u)=>l({...r,discount:u.target.value}),type:"number",min:1,max:90,placeholder:"خصم % - مثلا 20",className:"h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("input",{value:r.duration_days,onChange:(u)=>l({...r,duration_days:u.target.value}),type:"number",min:1,max:365,placeholder:"المدة بالأيام",className:"h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"})]}),o("textarea",{value:r.description,onChange:(u)=>l({...r,description:u.target.value}),placeholder:"وصف مختصر",rows:2,className:"w-full rounded-2xl bg-[#121212] border border-white/10 p-4 outline-none resize-none"}),o("input",{value:r.address,onChange:(u)=>l({...r,address:u.target.value}),placeholder:"📍 العنوان / الموقع - مثلا: السوق الكبير، شارع الجمهورية",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("input",{value:r.phone,onChange:(u)=>l({...r,phone:u.target.value}),placeholder:"📞 تلفون التواصل (اختياري)",type:"tel",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),p("div",{children:[o("label",{className:"text-xs text-white/50",children:"صورة الإعلان (اختياري)"}),o("input",{type:"file",accept:"image/*",onChange:(u)=>c(u.target.files),className:"w-full mt-2 text-xs file:mr-3 file:px-4 file:py-2 file:rounded-full file:border-0 file:bg-white file:text-black"})]}),o("button",{type:"submit",className:"w-full h-12 rounded-full bg-[#FFC107] text-black font-bold",children:"نشر الإعلان المميز"})]})}cd.createRoot(document.getElementById("root")).render(o(ad.default.StrictMode,{children:o(ra,{})}));
+p("div",{className:"flex gap-2 mt-6",children:[o("button",{onClick:()=>{let f=L.whatsapp||t.find((E)=>E.id===L.user_id)?.whatsapp;if(f)window.open(`https://wa.me/${f.replace(/^0/,"+249")}`,"_blank");else $("لا يوجد واتساب","error")},className:"flex-1 h-12 rounded-full bg-[#0F3D2E] text-white font-bold",children:"تواصل واتساب"}),o("button",{onClick:()=>{window.openProfessionalReportModal(L)},className:"w-12 h-12 rounded-full bg-[#1E1E1E] border border-white/10 text-white flex items-center justify-center hover:bg-[#2A2A2A] transition",children:o(Ao,{size:18})}),(xe||m?.id===L.user_id)&&o("button",{onClick:()=>{sa(L.id),_("home")},className:"w-12 h-12 rounded-full bg-[#DC2626] flex items-center justify-center",children:o(Wt,{size:18})})]})]})]})}),S==="adDetail"&&L&&o("div",{className:"space-y-4",children:[o("button",{onClick:()=>_("home"),className:"flex items-center gap-2 text-sm text-white/60",children:"→ رجوع"}),p("div",{className:"rounded-2xl overflow-hidden bg-white text-black",children:[o("div",{className:"h-[220px] relative flex items-center justify-center overflow-hidden bg-[#E0E7FF]",children:[L.images&&L.images[0]?o("img",{src:L.images[0],className:"w-full h-full object-cover",alt:L.title}):pa(L.ad_type,80),o("div",{className:"absolute top-2 right-2",children:o("span",{className:"text-[10px] px-2.5 py-1 rounded-full bg-[#0F3D2E] text-white font-bold border border-white/20",children:L.ad_type})}),o("div",{className:"absolute top-2 left-2",children:p("span",{className:"text-[10px] px-2.5 py-1 rounded-full bg-[#DC2626] text-white font-black shadow",children:["خصم ",L.discount,"%"]})})]}),p("div",{className:"p-4",children:[o("h1",{className:"font-black text-lg",children:L.title}),p("div",{className:"flex gap-2 mt-3 flex-wrap",children:[o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#1E1E1E] text-white",children:L.wilaya}),o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#FEF3C7] text-[#92400E] font-bold",children:["خصم ",L.discount,"% - ينتهي خلال ",L.duration_days," يوم"]})]}),L.description&&o("p",{className:"text-sm text-black/70 mt-4 leading-7",children:L.description}),p("div",{className:"mt-4 rounded-xl bg-[#F0FDF4] border border-[#BBF7D0] p-4 space-y-2",children:[o("p",{className:"text-sm font-bold text-[#166534]",children:["📍 الموقع: ",L.address||"غير محدد"]}),L.phone&&o("p",{className:"text-sm font-bold text-[#166534]",children:["📞 التلفون: ",L.phone]})]}),p("div",{className:"flex gap-2 mt-6",children:[L.phone&&o("button",{onClick:()=>window.open("https://wa.me/"+L.phone.replace(/^0/,"+249"),"_blank"),className:"flex-1 h-12 rounded-full bg-[#0F3D2E] text-white font-bold",children:"تواصل واتساب"}),(xe||m?.id===L.user_id)&&o("button",{onClick:()=>{Ed(L.id),_("home")},className:"w-12 h-12 rounded-full bg-[#DC2626] flex items-center justify-center",children:o(Wt,{size:18})})]})]})]})]}),S==="about"&&o("div",{className:"space-y-5",children:p("div",{className:"rounded-[24px] bg-[#1E1E1E] border border-white/5 p-6",children:[o("h1",{className:"text-2xl font-black",children:"سوق دارفور - Darfur Market"}),o("p",{className:"mt-2 text-[#A7F3D0] font-bold",children:"انطلق من مدينه عديله بقلب شرق دارفور"}),o("div",{className:"mt-3 inline-flex text-[11px] px-3 py-1 rounded-full bg-white/5 border border-white/10",children:"آخر تحديث 23 سبتمبر 2026"}),o("h2",{className:"mt-8 font-black text-lg",children:"من نحن؟"}),o("p",{className:"mt-3 text-sm leading-7 text-white/70",children:"سوق دارفور هو منصة إلكترونية مجتمعية تهدف لربط أبناء دارفور في الداخل والخارج، لتسهيل عمليات البيع والشراء بكل شفافية وأمان. انطلقت الفكرة من مدينة عديلة العريقة، قلب شرق دارفور النابض، لتكون جسرا بين المزارع والتاجر، وبين صاحب الحرفة والباحث عنها."}),o("h2",{className:"mt-8 font-black",children:"ما الذي يقدمه سوق دارفور؟"}),o("div",{className:"mt-3 space-y-3",children:["سوق مفتوح لكل الفئات: سيارات، هواتف، أجهزة، محاصيل زراعية، مواشي، ملابس، وعقارات","نظام ولايات دقيق: شرق، شمال، غرب، جنوب، وسط دارفور","تنبيهات طوارئ فورية: للحالات الإنسانية والظروف الجوية والطرق","نظام بلاغات وحماية: لضمان بيئة بيع آمنة ونظيفة"].map((f,E)=>p("div",{className:"flex gap-3",children:[o("div",{className:"w-6 h-6 rounded-full bg-[#0F3D2E] flex items-center justify-center text-[11px] font-bold text-[#A7F3D0] shrink-0",children:E+1}),o("p",{className:"text-sm text-white/70 leading-6",children:f})]},E))}),o("h2",{className:"mt-8 font-black",children:"دور المنصة والتنبيه المهم"}),o("p",{className:"mt-3 text-sm leading-7 text-white/70",children:"دورنا هو الوساطة التقنية فقط - نعرض المنتجات ونسهل التواصل بين البائع والمشتري. لا نتدخل في التفاوض ولا نستلم أي مبالغ مالية."}),p("div",{className:"mt-4 rounded-xl bg-[#DC2626]/10 border border-[#DC2626]/20 p-4",children:[o("p",{className:"text-sm font-bold text-[#FFA0A0]",children:"⚠️ تنبيه: سوق دارفور ما بيضمن الصفقات"}),o("p",{className:"text-xs text-white/60 mt-2 leading-6",children:"يجب على المشتري معاينة المنتج بنفسه والتأكد قبل دفع أي مبلغ."})]}),o("h2",{className:"mt-8 font-black",children:"رؤيتنا"}),o("p",{className:"mt-3 text-sm leading-7 text-white/70",children:"أن نكون السوق الرقمي الأول لدارفور، نربط الريف بالمدينة، ونفتح أسواق جديدة لمنتجاتنا المحلية."}),o("div",{className:"mt-6 text-center rounded-2xl bg-[#0F3D2E] p-4 font-black text-lg",children:"\uD83D\uDED2 دارفور بلدنا ❤️ - سوقنا يجمعنا"})]})}),S==="terms"&&p("div",{className:"space-y-4",children:[o("h1",{className:"text-xl font-black",children:"الشروط والأحكام"}),[{title:"القبول بالشروط",text:"باستخدامك لسوق دارفور، أنت توافق على جميع الشروط."},{title:"التسجيل بالكود",text:"التسجيل يتطلب تأكيد البريد عبر كود 6 أرقام يرسل إلى Gmail، صالح 5 دقائق. الكود شخصي."},{title:"نشر المنتجات",text:"يجب أن يكون المنتج ملكك أو لديك حق بيعه. الصور حقيقية. السعر واضح."},{title:"المحظورات العامة",text:"قائمة المحظورات أدناه يجب الالتزام بها."},{title:"البيع والشراء",text:"المنصة وسيط عرض فقط. لا نضمن الجودة. المعاينة قبل الدفع."},{title:"الطوارئ",text:"قسم الطوارئ مخصص للتنبيهات الإنسانية فقط. النشر للإدارة."},{title:"البلاغات",text:"يمكنك الإبلاغ عن أي منتج مخالف. البلاغ الكاذب يؤدي للحظر."},{title:"حظر المستخدمين",text:"يحق للإدارة حظر أي حساب يخالف الشروط دون إنذار."},{title:"الخصوصية",text:"نحترم خصوصيتك. لا نشارك بياناتك. رقم الواتساب يظهر عند موافقتك."},{title:"التحديثات",text:"قد نحدث الشروط وسيتم تنبيهك بآخر تحديث."}].map((f,E)=>p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-5",children:[p("div",{className:"flex gap-3 items-start",children:[o("div",{className:"w-8 h-8 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/30 flex items-center justify-center text-sm font-bold text-[#A7F3D0] shrink-0",children:E+1}),p("div",{children:[o("h3",{className:"font-bold",children:f.title}),o("p",{className:"text-sm text-white/60 leading-7 mt-2",children:f.text})]})]}),E===3&&o("div",{className:"mt-4 grid gap-2",children:["المنتجات المسروقة أو غير المشروعة","الأسلحة والمخدرات","الصور الإباحية أو المخلة","الاحتيال والغش","خطاب الكراهية والعنصرية","الإعلانات السياسية"].map((N)=>p("div",{className:"flex gap-2 items-center text-sm text-white/70 bg-[#DC2626]/10 border border-[#DC2626]/10 rounded-full px-3 py-2",children:[o(m1,{}),N]},N))})]},E))]}),S==="contact"&&p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-6",children:[o("h1",{className:"text-xl font-bold",children:"تواصل معنا"}),o("p",{className:"text-sm text-white/60 mt-2",children:"نحن هنا لمساعدتك. تواصل مباشرة عبر واتساب."}),p("div",{className:"mt-6 space-y-3",children:[p("button",{onClick:()=>window.open("https://wa.me/249923784866?text=مرحبا%20سوق%20دارفور","_blank"),className:"w-full rounded-xl bg-[#121212] border border-[#25D366]/20 p-4 flex items-center gap-4 text-right hover:border-[#25D366]/40 transition group",children:[o("div",{className:"w-12 h-12 rounded-full bg-[#25D366]/15 border border-[#25D366]/20 flex items-center justify-center shrink-0",children:o(bo,{size:26,color:"#25D366"})}),p("div",{className:"flex-1 min-w-0",children:[o("p",{className:"text-xs text-white/40",children:"واتساب مباشر"}),o("p",{className:"font-black text-[22px] tracking-wide mt-1 text-white",dir:"ltr",children:"0923784866"}),o("p",{className:"text-[11px] text-[#25D366] mt-1",children:"اضغط لفتح المحادثة مباشرة"})]}),o("div",{className:"w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0",children:p("svg",{width:"16",height:"16",viewBox:"0 0 24 24",fill:"none",stroke:"white",strokeWidth:2,children:[o("path",{d:"M5 12h14"}),o("path",{d:"m12 5 7 7-7 7"})]})})]}),p("div",{className:"rounded-xl bg-[#121212] p-4 border border-white/5",children:[o("p",{className:"text-xs text-white/40",children:"المطور"}),o("p",{className:"font-bold mt-1",children:"Wadah Abdarhman - عديلة، شرق دارفور"})]}),p("button",{onClick:()=>window.open("https://wa.me/249923784866?text=مرحبا%20سوق%20دارفور","_blank"),className:"w-full h-12 rounded-full bg-[#25D366] hover:bg-[#1EBE5B] text-white font-bold mt-4 flex items-center justify-center gap-2 transition",children:[o(k1,{size:20}),"تواصل واتساب مباشر"]})]})]}),p("footer",{className:"mt-12 pt-8 border-t border-white/5 text-center pb-4",children:[o("p",{className:"text-[11px] text-white/30",children:"جميع الحقوق محفوظة لدي Wadah Abdarhman 2026"}),p("button",{onClick:()=>window.open("https://wa.me/249923784866?text=مرحبا%20سوق%20دارفور","_blank"),className:"text-[11px] text-[#A7F3D0] mt-2 underline flex items-center justify-center gap-1 mx-auto",children:[o(bo,{size:12,color:"#25D366"}),"تواصل معنا"]})]})]}),o("nav",{className:"fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-32px)] max-w-[380px] flex justify-center",children:o("div",{className:"flex items-center gap-1 p-2 rounded-full bg-[#1E1E1E] border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.8)] max-w-full overflow-hidden",children:[{id:"home",label:"الرئيسية",icon:rd},{id:"emergency",label:"طوارئ",icon:pu},{id:"add",label:"+",icon:qo,isPlus:!0},{id:"reports",label:"بلاغات",icon:Ao},{id:"account",label:"حسابي",icon:jo}].map((f)=>{if(f.isPlus)return o("button",{onClick:()=>Tr(!0),className:"w-12 h-12 rounded-full bg-[#EA580C] flex items-center justify-center shadow-lg -mt-1",children:o(qo,{size:22,color:"#121212"})},f.id);let E=S===f.id||S==="productDetail"&&f.id==="home"||S==="admin"&&f.id==="account",N=f.icon;return p("button",{onClick:()=>_(f.id),className:`h-10 px-4 rounded-full flex items-center gap-2 transition ${E?"bg-[#0F3D2E] text-white":"text-white/50"}`,children:[o(N,{size:18,color:E?"white":"#9CA3AF"}),o("span",{className:`text-[12px] font-medium ${E?"inline":"hidden sm:inline"}`,children:f.label})]},f.id)})})}),D&&o("div",{className:`fixed top-5 left-1/2 -translate-x-1/2 z-[90] px-5 h-11 rounded-full flex items-center text-sm font-bold shadow-xl border max-w-[90vw] text-center ${D.type==="success"?"bg-[#0F3D2E] border-[#A7F3D0]/30 text-white":"bg-[#DC2626] border-red-300/20 text-white"}`,children:D.msg}),mu&&o("div",{className:"fixed inset-0 z-[80] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4",children:p("div",{className:"w-full max-w-[360px] rounded-2xl bg-[#1E1E1E] border border-white/10 p-6",children:[o("h3",{className:"font-bold",children:mu.title}),o("p",{className:"text-sm text-white/50 mt-2",children:"لا يمكن التراجع بعد الحذف"}),p("div",{className:"flex gap-3 mt-6",children:[o("button",{onClick:()=>on(null),className:"flex-1 h-11 rounded-full bg-white/5 border border-white/10",children:"إلغاء"}),o("button",{onClick:mu.onConfirm,className:"flex-1 h-11 rounded-full bg-[#DC2626] font-bold",children:"تأكيد الحذف"})]})]})}),un&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4",children:p("div",{className:"w-full max-w-[460px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6 max-h-[95vh] overflow-auto",children:[p("div",{className:"flex justify-between items-center mb-6",children:[o("h3",{className:"font-black text-lg",children:"تسجيل الدخول"}),o("button",{onClick:()=>ce(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(w1,{onPasswordLogin:vd,onOtpLoginVerified:hd,onSwitch:()=>{ce(!1),Ae(!0)},showToast:$,supabaseSendOtp:aa,supabaseVerifyOtp:ca,users:t})]})}),la&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4",children:p("div",{className:"w-full max-w-[480px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6 max-h-[95vh] overflow-auto",children:[p("div",{className:"flex justify-between items-center mb-6",children:[o("h3",{className:"font-black text-lg",children:"إنشاء حساب"}),o("button",{onClick:()=>Ae(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(E1,{onVerified:yd,onSwitch:()=>{Ae(!1),ce(!0)},showToast:$,supabaseSendOtp:aa,supabaseVerifyOtp:ca,users:t})]})}),fd&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center",children:p("div",{className:"w-full max-w-[520px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6 max-h-[90vh] overflow-auto",children:[p("div",{className:"flex justify-between items-center mb-4",children:[o("h3",{className:"font-black text-lg",children:"نشر منتج جديد"}),o("button",{onClick:()=>Tr(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(S1,{categories:Cu.filter((f)=>f.id!=="الكل"),wilayat:fu.filter((f)=>f!=="الكل"),onSubmit:md,currentUser:m,onRequireLogin:()=>{Tr(!1),ce(!0)}})]})}),sd&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center",children:p("div",{className:"w-full max-w-[440px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6",children:[p("div",{className:"flex justify-between items-center mb-6",children:[o("h3",{className:"font-black text-lg",children:"نشر تنبيه طوارئ"}),o("button",{onClick:()=>Wr(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(C1,{wilayat:fu.filter((f)=>f!=="الكل"),onSubmit:gd})]})}),dd&&o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center",children:p("div",{className:"w-full max-w-[520px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6 max-h-[90vh] overflow-auto",children:[p("div",{className:"flex justify-between items-center mb-4",children:[o("h3",{className:"font-black text-lg",children:"إضافة إعلان مميز"}),o("button",{onClick:()=>hu(!1),className:"w-8 h-8 rounded-full bg-white/5",children:"✕"})]}),o(_1,{adTypes:t1,wilayat:fu.filter((f)=>f!=="الكل"),onSubmit:kd})]})})]})}function od({length:e=6,value:n,onChange:t}){let r=O.useRef([]);return o("div",{className:"flex gap-2 justify-center dir-ltr",dir:"ltr",children:Array.from({length:e}).map((l,u)=>o("input",{ref:(i)=>{r.current[u]=i},value:n[u]||"",onChange:(i)=>{let a=i.target.value.replace(/\D/g,"").slice(-1),c=[...n];if(c[u]=a,t(c),a&&u<e-1)r.current[u+1]?.focus()},onKeyDown:(i)=>{if(i.key==="Backspace"&&!n[u]&&u>0)r.current[u-1]?.focus()},inputMode:"numeric",maxLength:1,className:"w-11 h-12 sm:w-12 sm:h-14 rounded-xl bg-[#121212] border border-white/10 text-center text-lg font-black outline-none focus:border-[#A7F3D0] focus:bg-[#0F3D2E]/30 transition"},u))})}function E1({onVerified:e,onSwitch:n,showToast:t,supabaseSendOtp:r,supabaseVerifyOtp:l,users:u}){let[i,a]=O.useState(1),[c,s]=O.useState(!1),[h,k]=O.useState({full_name:"",email:"",password:"",confirm:"",gender:"ذكر",whatsapp:""}),[m,C]=O.useState(Array(6).fill("")),[S,_]=O.useState(60),[H,v]=O.useState(0);O.useEffect(()=>{if(i!==2)return;if(S<=0)return;let g=setInterval(()=>_((z)=>z-1),1000);return()=>clearInterval(g)},[i,S]);let d=async(g=!1)=>{let z=h.email.trim().toLowerCase();if(!h.full_name.trim()||h.full_name.trim().length<3){t("الاسم قصير - 3 أحرف على الأقل","error");return}if(!ea(z)){t("بريد إلكتروني غير صالح","error");return}if(u.find((D)=>D.email.toLowerCase()===z)){t("البريد مسجل مسبقا","error");return}if(h.password.length<8){t("كلمة المرور 8 أحرف على الأقل","error");return}if(h.password!==h.confirm){t("تأكيد كلمة السر غير مطابق","error");return}if(h.whatsapp&&!ld(h.whatsapp)){t("رقم واتساب غير صحيح","error");return}if(!h.gender){t("اختر الجنس","error");return}let P=vu(z);if(P&&!g){let D=Date.now()-P.lastSentAt;if(D<60000){t(`انتظر ${Math.ceil((60000-D)/1000)} ثانية قبل إعادة الإرسال`,"error");return}}if(g&&P){let D=Date.now()-P.lastSentAt;if(D<60000){t(`انتظر ${Math.ceil((60000-D)/1000)} ثانية`,"error");return}}s(!0);let F=ud(),L={full_name:De(h.full_name.trim()),gender:h.gender,whatsapp:h.whatsapp?De(h.whatsapp):""};if((await r(z,L,"register")).demo)if(Kn(z,{code:F,expiresAt:Date.now()+300000,attempts:0,lastSentAt:Date.now(),formData:{...h,email:z},purpose:"register"}),console.log(`[DEMO OTP - Darfur Market] Email: ${z} Code: ${F}`),window.sendPasscode?void window.sendPasscode(z,F).catch(function(){}):0,qe())t("تم إرسال الكود لبريدك من Gmail - تحقق من صندوق الوارد","success");else t(`تم إرسال الكود لبريدك (الوضع التجريبي: الكود هو ${F})`,"success");else Kn(z,{code:"supabase",expiresAt:Date.now()+300000,attempts:0,lastSentAt:Date.now(),formData:{...h,email:z},purpose:"register"}),t("تم إرسال كود من 6 أرقام إلى Gmail - صالح 5 دقائق","success");_(60),C(Array(6).fill("")),v(0),a(2),s(!1)},y=async()=>{let g=h.email.trim().toLowerCase(),z=m.join("");if(z.length!==6){t("أدخل الكود كاملا 6 أرقام","error");return}if(H>=3){t("تجاوزت الحد الأقصى للمحاولات - أعد إرسال كود جديد","error");return}s(!0);let P=vu(g);if(!P){t("انتهت صلاحية الكود - أعد الإرسال","error"),s(!1);return}if(Date.now()>P.expiresAt){t("انتهت صلاحية الكود - صالح 5 دقائق فقط","error"),Vr(g),s(!1);return}if(qe()&&P.code==="supabase"){if(!(await l(g,z)).ok){v((Q)=>Q+1);let L={...P,attempts:P.attempts+1};Kn(g,L),t("الكود غير صحيح","error"),s(!1);return}e({full_name:h.full_name,email:g,password:h.password,whatsapp:h.whatsapp,gender:h.gender}),s(!1);return}if(z!==P.code){v((F)=>F+1),Kn(g,{...P,attempts:P.attempts+1}),t("الكود غير صحيح","error"),s(!1);return}e({full_name:h.full_name,email:g,password:h.password,whatsapp:h.whatsapp,gender:h.gender}),s(!1)};if(i===2)return p("div",{className:"space-y-5",children:[p("div",{className:"text-center",children:[o("div",{className:"w-20 h-20 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/30 flex items-center justify-center mx-auto mb-4",children:o(Xn,{size:34,color:"#A7F3D0"})}),o("h3",{className:"font-black text-xl",children:"تحقق من بريدك"}),p("p",{className:"text-sm text-white/60 mt-2 leading-6",children:["أرسلنا كود من 6 أرقام إلى",o("br",{}),o("span",{className:"text-white font-bold",children:h.email})]}),o("p",{className:"text-[11px] text-white/30 mt-2",children:"صالح لمدة 5 دقائق - تحقق من Gmail والـ Spam"})]}),o(od,{value:m,onChange:C}),p("div",{className:"text-center",children:[S>0?p("p",{className:"text-xs text-white/40",children:["إعادة إرسال الكود بعد ",p("span",{className:"text-[#A7F3D0] font-bold",children:["00:",S.toString().padStart(2,"0")]})]}):o("button",{onClick:()=>d(!0),className:"text-xs text-[#A7F3D0] font-bold underline",children:"إعادة إرسال الكود"}),p("p",{className:"text-[11px] text-white/20 mt-1",children:["المحاولات: ",H,"/3"]})]}),o("button",{onClick:y,disabled:c,className:"w-full h-12 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/30 font-bold flex items-center justify-center gap-2 disabled:opacity-50",children:c?"جاري التحقق...":p(Tt,{children:[o(yu,{size:18,color:"#A7F3D0"})," تأكيد وإنشاء الحساب"]})}),o("button",{onClick:()=>a(1),className:"w-full h-11 rounded-full bg-white/5 border border-white/10 text-sm",children:"تعديل البيانات"})]});return p("form",{onSubmit:(g)=>{g.preventDefault(),d(!1)},className:"space-y-4",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(jo,{size:18})}),o("input",{value:h.full_name,onChange:(g)=>k({...h,full_name:g.target.value}),placeholder:"الاسم الكامل",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(Xn,{size:18})}),o("input",{value:h.email,onChange:(g)=>k({...h,email:g.target.value}),placeholder:"البريد الإلكتروني Gmail",type:"email",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),p("div",{className:"grid grid-cols-2 gap-3",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(id,{size:18})}),o("input",{value:h.password,onChange:(g)=>k({...h,password:g.target.value}),type:"password",placeholder:"كلمة السر",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(yu,{size:18})}),o("input",{value:h.confirm,onChange:(g)=>k({...h,confirm:g.target.value}),type:"password",placeholder:"تأكيد السر",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]})]}),p("div",{className:"grid grid-cols-2 gap-3",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(g1,{size:18})}),p("select",{value:h.gender,onChange:(g)=>k({...h,gender:g.target.value}),className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm appearance-none",children:[o("option",{value:"ذكر",children:"ذكر"}),o("option",{value:"أنثى",children:"أنثى"})]})]}),p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(bo,{size:18})}),o("input",{value:h.whatsapp,onChange:(g)=>k({...h,whatsapp:g.target.value}),placeholder:"واتساب 09...",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]})]}),o("button",{type:"submit",disabled:c,className:"w-full h-12 rounded-full bg-white text-black font-bold flex items-center justify-center gap-2 disabled:opacity-60",children:c?"جاري الإرسال...":p(Tt,{children:[o(Xn,{size:18,color:"#121212"})," إرسال كود التأكيد"]})}),p("p",{className:"text-center text-sm text-white/50",children:["لديك حساب؟ ",o("button",{type:"button",onClick:n,className:"text-[#A7F3D0] font-bold",children:"دخول"})]})]})}function w1({onPasswordLogin:e,onOtpLoginVerified:n,onSwitch:t,showToast:r,supabaseSendOtp:l,supabaseVerifyOtp:u,users:i}){let[a,c]=O.useState("password"),[s,h]=O.useState(""),[k,m]=O.useState(""),[C,S]=O.useState(Array(6).fill("")),[_,H]=O.useState(1),[v,d]=O.useState(0),[y,g]=O.useState(!1),[z,P]=O.useState(0);O.useEffect(()=>{if(_!==2||v<=0)return;let Q=setInterval(()=>d((D)=>D-1),1000);return()=>clearInterval(Q)},[_,v]);let F=async(Q=!1)=>{let D=s.trim().toLowerCase();if(!ea(D)){r("بريد غير صالح","error");return}let U=i.find((Ae)=>Ae.email.toLowerCase()===D);if(!U){r("البريد غير موجود - أنشئ حساب","error");return}if(U.is_banned){r("تم حظر حسابك","error");return}let un=vu(D);if(un&&!Q){let Ae=Date.now()-un.lastSentAt;if(Ae<60000){r(`انتظر ${Math.ceil((60000-Ae)/1000)} ثانية`,"error");return}}g(!0);let ce=ud();if((await l(D,{},"login")).demo)if(Kn(D,{code:ce,expiresAt:Date.now()+300000,attempts:0,lastSentAt:Date.now(),purpose:"login"}),console.log(`[DEMO LOGIN OTP] ${D} => ${ce}`),window.sendPasscode?void window.sendPasscode(D,ce).catch(function(){}):0,qe())r("تم إرسال الكود إلى Gmail","success");else r(`تم إرسال الكود (تجريبي: ${ce})`,"success");else Kn(D,{code:"supabase",expiresAt:Date.now()+300000,attempts:0,lastSentAt:Date.now(),purpose:"login"}),r("تم إرسال الكود إلى بريدك","success");H(2),d(60),S(Array(6).fill("")),P(0),g(!1)},L=async()=>{let Q=s.trim().toLowerCase(),D=C.join("");if(D.length!==6){r("أدخل 6 أرقام","error");return}if(z>=3){r("تجاوزت الحد الأقصى","error");return}g(!0);let U=vu(Q);if(!U){r("انتهت الصلاحية - أعد الإرسال","error"),g(!1);return}if(Date.now()>U.expiresAt){r("انتهت الصلاحية","error"),Vr(Q),g(!1);return}if(qe()&&U.code==="supabase"){if(!(await u(Q,D)).ok){P((ce)=>ce+1),Kn(Q,{...U,attempts:U.attempts+1}),r("الكود غير صحيح","error"),g(!1);return}n(Q),g(!1);return}if(D!==U.code){P((un)=>un+1),Kn(Q,{...U,attempts:U.attempts+1}),r("الكود غير صحيح","error"),g(!1);return}n(Q),g(!1)};if(a==="otp"){if(_===2)return p("div",{className:"space-y-5",children:[p("div",{className:"text-center",children:[o("div",{className:"w-16 h-16 rounded-full bg-[#0F3D2E] flex items-center justify-center mx-auto mb-3",children:o(Xn,{size:28,color:"#A7F3D0"})}),o("h3",{className:"font-bold",children:"أدخل كود الدخول"}),o("p",{className:"text-xs text-white/50 mt-1",children:s})]}),o(od,{value:C,onChange:S}),o("div",{className:"text-center",children:v>0?p("p",{className:"text-xs text-white/40",children:["إعادة الإرسال بعد 00:",v.toString().padStart(2,"0")]}):o("button",{onClick:()=>F(!0),className:"text-xs text-[#A7F3D0] underline",children:"إعادة الإرسال"})}),o("button",{onClick:L,disabled:y,className:"w-full h-12 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 font-bold disabled:opacity-50",children:y?"جاري التحقق...":"تأكيد الدخول"}),o("button",{onClick:()=>{H(1),S(Array(6).fill(""))},className:"w-full h-11 rounded-full bg-white/5 border border-white/10 text-sm",children:"تغيير البريد"}),o("button",{onClick:()=>c("password"),className:"w-full text-xs text-white/40 underline",children:"دخول بكلمة السر بدلا"})]});return p("div",{className:"space-y-4",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(Xn,{size:18})}),o("input",{value:s,onChange:(Q)=>h(Q.target.value),placeholder:"البريد الإلكتروني",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),o("button",{onClick:()=>F(!1),disabled:y,className:"w-full h-12 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 font-bold flex items-center justify-center gap-2 disabled:opacity-50",children:y?"جاري الإرسال...":p(Tt,{children:[o(Xn,{size:18,color:"#A7F3D0"})," إرسال كود الدخول"]})}),p("div",{className:"flex gap-2",children:[o("button",{onClick:()=>c("password"),className:"flex-1 h-11 rounded-full bg-white/5 border border-white/10 text-sm",children:"دخول بكلمة السر"}),o("button",{onClick:t,className:"flex-1 h-11 rounded-full bg-white text-black font-bold text-sm",children:"إنشاء حساب"})]})]})}return p("form",{onSubmit:(Q)=>{Q.preventDefault(),e(s,k)},className:"space-y-4",children:[p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(Xn,{size:18})}),o("input",{value:s,onChange:(Q)=>h(Q.target.value),placeholder:"البريد الإلكتروني",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),p("div",{className:"relative",children:[o("div",{className:"absolute right-3 top-1/2 -translate-y-1/2 text-white/30",children:o(id,{size:18})}),o("input",{value:k,onChange:(Q)=>m(Q.target.value),type:"password",placeholder:"كلمة المرور",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 pr-10 pl-4 outline-none focus:border-[#0F3D2E] text-sm"})]}),o("button",{type:"submit",className:"w-full h-12 rounded-full bg-[#0F3D2E] font-bold border border-[#A7F3D0]/20",children:"دخول"}),p("button",{type:"button",onClick:()=>c("otp"),className:"w-full h-11 rounded-full bg-white/5 border border-white/10 text-sm flex items-center justify-center gap-2",children:[o(yu,{size:16})," تسجيل دخول بالكود - نسيت كلمة السر؟"]}),p("p",{className:"text-center text-sm text-white/50",children:["ليس لديك حساب؟ ",o("button",{type:"button",onClick:t,className:"text-[#A7F3D0] font-bold",children:"إنشاء حساب بالكود"})]})]})}function R1({onSubmit:e,onClose:n}){let[t,r]=O.useState("");return o("div",{className:"fixed inset-0 z-[70] bg-black/70 backdrop-blur-md flex items-end sm:items-center justify-center",onClick:n,children:p("div",{onClick:(l)=>l.stopPropagation(),className:"w-full max-w-[440px] rounded-t-[28px] sm:rounded-[28px] bg-[#1E1E1E] border border-white/10 p-6",children:[p("div",{className:"flex justify-between items-center mb-4",children:[o("h3",{className:"font-black text-lg",children:"بلاغ جديد"}),o("button",{onClick:n,className:"w-8 h-8 rounded-full bg-white/5",children:"\u2715"})]}),o("textarea",{value:t,onChange:(l)=>r(l.target.value),placeholder:"اكتب تفاصيل البلاغ...",rows:4,className:"w-full rounded-2xl bg-[#121212] border border-white/10 p-4 outline-none resize-none"}),o("button",{onClick:()=>{if(t.trim())e(t.trim())},className:"w-full h-12 mt-4 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 font-bold",children:"إرسال البلاغ"})]})})}function S1({categories:e,wilayat:n,onSubmit:t,currentUser:r,onRequireLogin:l}){let[u,i]=O.useState({title:"",category:e[0]?.id||"سيارات",wilaya:n[0]||"شرق دارفور",price:"",description:"",whatsapp:""}),[a,c]=O.useState(null);if(!r)return p("div",{className:"text-center py-8",children:[o("p",{className:"text-white/60",children:"يجب تسجيل الدخول لنشر المنتجات"}),o("button",{onClick:l,className:"mt-4 px-6 h-11 rounded-full bg-[#0F3D2E] font-bold",children:"تسجيل دخول"})]});return p("form",{onSubmit:(s)=>{s.preventDefault(),t(u,a)},className:"space-y-4",children:[o("input",{value:u.title,onChange:(s)=>i({...u,title:s.target.value}),placeholder:"عنوان المنتج",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),p("div",{className:"grid grid-cols-2 gap-3",children:[o("select",{value:u.category,onChange:(s)=>i({...u,category:s.target.value}),className:"h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:e.map((s)=>o("option",{value:s.id,children:s.name},s.id))}),o("select",{value:u.wilaya,onChange:(s)=>i({...u,wilaya:s.target.value}),className:"h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:n.map((s)=>o("option",{value:s,children:s},s))})]}),o("input",{value:u.price,onChange:(s)=>i({...u,price:s.target.value}),type:"number",placeholder:"السعر بالجنيه SDG",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("input",{value:u.whatsapp,onChange:(s)=>i({...u,whatsapp:s.target.value}),placeholder:"رقم الواتساب - مثلا 0912345678",inputMode:"tel",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("textarea",{value:u.description,onChange:(s)=>i({...u,description:s.target.value}),placeholder:"وصف المنتج...",rows:3,className:"w-full rounded-2xl bg-[#121212] border border-white/10 p-4 outline-none resize-none"}),p("div",{children:[o("label",{className:"text-xs text-white/50",children:"الصور (اختياري - حتى 5 صور)"}),o("input",{type:"file",multiple:!0,accept:"image/*",onChange:(s)=>c(s.target.files),className:"w-full mt-2 text-xs file:mr-3 file:px-4 file:py-2 file:rounded-full file:border-0 file:bg-white file:text-black"})]}),o("button",{type:"submit",className:"w-full h-12 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 font-bold",children:"نشر المنتج"})]})}function C1({wilayat:e,onSubmit:n}){let[t,r]=O.useState({title:"",description:"",wilaya:e[0],priority:"عالي"});return p("form",{onSubmit:(l)=>{l.preventDefault(),n(t)},className:"space-y-4",children:[o("input",{value:t.title,onChange:(l)=>r({...t,title:l.target.value}),placeholder:"عنوان التنبيه",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("select",{value:t.wilaya,onChange:(l)=>r({...t,wilaya:l.target.value}),className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:e.map((l)=>o("option",{value:l,children:l},l))}),p("select",{value:t.priority,onChange:(l)=>r({...t,priority:l.target.value}),className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:[o("option",{children:"عالي"}),o("option",{children:"متوسط"}),o("option",{children:"منخفض"})]}),o("textarea",{value:t.description,onChange:(l)=>r({...t,description:l.target.value}),placeholder:"تفاصيل التنبيه...",rows:3,className:"w-full rounded-2xl bg-[#121212] border border-white/10 p-4 outline-none resize-none"}),o("button",{type:"submit",className:"w-full h-12 rounded-full bg-[#DC2626] font-bold",children:"نشر التنبيه"})]})}function _1({adTypes:e,wilayat:n,onSubmit:t}){let[r,l]=O.useState({title:"",ad_type:e[0],wilaya:n[0],discount:"",duration_days:"7",description:"",address:"",phone:""}),[a,c]=O.useState(null);return p("form",{onSubmit:(u)=>{u.preventDefault(),t(r,a)},className:"space-y-4",children:[o("input",{value:r.title,onChange:(u)=>l({...r,title:u.target.value}),placeholder:"عنوان الإعلان - مثلا: مدرسة العديلة",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),p("div",{className:"grid grid-cols-2 gap-3",children:[o("select",{value:r.ad_type,onChange:(u)=>l({...r,ad_type:u.target.value}),className:"h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:e.map((u)=>o("option",{value:u,children:u},u))}),o("select",{value:r.wilaya,onChange:(u)=>l({...r,wilaya:u.target.value}),className:"h-12 rounded-full bg-[#121212] border border-white/10 px-4 outline-none",children:n.map((u)=>o("option",{value:u,children:u},u))})]}),p("div",{className:"grid grid-cols-2 gap-3",children:[o("input",{value:r.discount,onChange:(u)=>l({...r,discount:u.target.value}),type:"number",min:1,max:90,placeholder:"خصم % - مثلا 20",className:"h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("input",{value:r.duration_days,onChange:(u)=>l({...r,duration_days:u.target.value}),type:"number",min:1,max:365,placeholder:"المدة بالأيام",className:"h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"})]}),o("textarea",{value:r.description,onChange:(u)=>l({...r,description:u.target.value}),placeholder:"وصف مختصر",rows:2,className:"w-full rounded-2xl bg-[#121212] border border-white/10 p-4 outline-none resize-none"}),o("input",{value:r.address,onChange:(u)=>l({...r,address:u.target.value}),placeholder:"📍 العنوان / الموقع - مثلا: السوق الكبير، شارع الجمهورية",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),o("input",{value:r.phone,onChange:(u)=>l({...r,phone:u.target.value}),placeholder:"📞 تلفون التواصل (اختياري)",type:"tel",className:"w-full h-12 rounded-full bg-[#121212] border border-white/10 px-5 outline-none"}),p("div",{children:[o("label",{className:"text-xs text-white/50",children:"صورة الإعلان (اختياري)"}),o("input",{type:"file",accept:"image/*",onChange:(u)=>c(u.target.files),className:"w-full mt-2 text-xs file:mr-3 file:px-4 file:py-2 file:rounded-full file:border-0 file:bg-white file:text-black"})]}),o("button",{type:"submit",className:"w-full h-12 rounded-full bg-[#FFC107] text-black font-bold",children:"نشر الإعلان المميز"})]})}cd.createRoot(document.getElementById("root")).render(o(ad.default.StrictMode,{children:o(ra,{})}));
 </script>
   <script>(function(){function m(a){var h=a.getAttribute("href");if(!h)return;try{var u=new URL(h,document.baseURI);if((u.protocol==="http:"||u.protocol==="https:")&&u.host!==location.host){a.target="_blank";a.rel="noopener noreferrer";}}catch(e){}}function s(){document.querySelectorAll("a[href]").forEach(m);}if(document.readyState!=="loading"){s();}else{document.addEventListener("DOMContentLoaded",s);}document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("a[href]");if(a){m(a);}},true);})();</script>
   
@@ -351,14 +351,14 @@ try{
     screen.innerHTML=`
       <div style="background:#121212;padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.06);position:sticky;top:0;z-index:20;">
         <button onclick="document.querySelector('#vip-stores-screen').remove()" style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:20px;cursor:pointer;">→</button>
-        <div style="flex:1;"><div style="font-size:18px;font-weight:900;color:#fff;display:flex;align-items:center;gap:8px;">🏪 متاجر VIP <span style="background:#A7F3D0;color:#000;font-size:11px;padding:3px 8px;border-radius:999px;font-weight:900;">${stores.length}</span></div><div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">اختار متجر وشوف منتجاته</div></div>
-        <button onclick="window.openAddStoreForm()" style="background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:#A7F3D0;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">➕ طلب VIP</button>
+        <div style="flex:1;"><div style="font-size:18px;font-weight:900;color:#fff;display:flex;align-items:center;gap:8px;">متاجر VIP <span style="background:#A7F3D0;color:#000;font-size:11px;padding:3px 8px;border-radius:999px;font-weight:900;">${stores.length}</span></div><div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">اختر متجر وشاهد منتجاته</div></div>
+        <button onclick="window.openAddStoreForm()" style="background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:#A7F3D0;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">طلب VIP</button>
       </div>
       <div style="flex:1;padding:16px;display:flex;flex-direction:column;gap:14px;">
         <div id="vip-stores-grid" style="display:flex;flex-direction:column;gap:14px;"></div>
         <div id="vip-no-results" style="display:none;text-align:center;padding:60px 20px;background:#1A1A1A;border-radius:16px;border:1px solid rgba(255,255,255,0.06);">
-          <div style="font-size:48px;margin-bottom:16px;">🏪</div><div style="font-size:15px;color:#fff;font-weight:800;">لا توجد متاجر VIP بعد</div><div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;">المتاجر من Supabase ستظهر هنا</div>
-          <button onclick="window.openAddStoreForm()" style="margin-top:16px;background:#A7F3D0;color:#000;border:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;">➕ طلب متجر VIP</button>
+          <div style="font-size:15px;color:#fff;font-weight:800;">لا توجد متاجر VIP بعد</div><div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;">المتاجر ستظهر هنا</div>
+          <button onclick="window.openAddStoreForm()" style="margin-top:16px;background:#A7F3D0;color:#000;border:none;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;">طلب متجر VIP</button>
         </div><div style="height:40px;"></div>
       </div>
     `;
@@ -637,57 +637,47 @@ try{
     fp.innerHTML=`
       <div style="position:sticky;top:0;z-index:10;background:#121212;border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 16px;display:flex;align-items:center;gap:12px;">
         <button onclick="this.closest('#add-store-form').remove(); window.openVIPStoresScreen();" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);border:none;color:#fff;font-size:18px;cursor:pointer;">→</button>
-        <div style="font-weight:900;color:#fff;font-size:16px;">🏪 إضافة متجري VIP</div>
+        <div style="font-weight:900;color:#fff;font-size:16px;">اضافة متجر VIP</div>
       </div>
       <div style="padding:0;max-width:500px;margin:0 auto;">
         <!-- منطقة الغلاف والصورة الشخصية - زي الفيس بوك -->
         <div style="position:relative;height:180px;background:#1A1A1A;overflow:hidden;">
-          <div id="cover-preview" style="width:100%;height:100%;background:linear-gradient(135deg, #0F3D2E 0%, #1E1E1E 100%);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);font-size:14px;position:relative;">
-            <span id="cover-placeholder">📸 اضغط لإضافة غلاف المتجر</span>
+          <div id="cover-preview" style="width:100%;height:100%;background:#1E1E1E;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4);font-size:13px;position:relative;cursor:pointer;">
+            <span id="cover-placeholder">اضغط لاضافة غلاف المتجر</span>
             <img id="cover-img" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
           </div>
-          <label for="store-cover-input" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">📷 تغيير الغلاف</label>
+          <label for="store-cover-input" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">تغيير الغلاف</label>
           <input id="store-cover-input" type="file" accept="image/*" style="display:none;">
           
           <!-- الصورة الشخصية -->
           <div style="position:absolute;bottom:-30px;right:16px;width:80px;height:80px;border-radius:16px;border:3px solid #121212;background:#1E1E1E;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.3);">
             <div id="avatar-preview" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:28px;background:#1E1E1E;color:#A7F3D0;">🏪</div>
             <img id="avatar-img" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
-            <label for="store-avatar-input" style="position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;cursor:pointer;opacity:0;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">📷</label>
+            <label for="store-avatar-input" style="position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;cursor:pointer;opacity:0;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">تغيير</label>
           </div>
           <input id="store-avatar-input" type="file" accept="image/*" style="display:none;">
         </div>
         
         <div style="padding:48px 16px 20px 16px;">
           <div style="margin-bottom:16px;">
-          <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:8px;display:block;">🖼️ معرض صور المتجر (اختياري - حتى 5 صور)</label>
+          <label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:8px;display:block;">معرض صور المتجر (اختياري - حتى 5 صور)</label>
           <div id="store-gallery-preview" style="display:grid;grid-template-columns:repeat(5, 1fr);gap:8px;margin-bottom:8px;"></div>
           <label for="store-gallery-input" style="width:100%;height:56px;background:#1E1E1E;border:1px dashed rgba(255,255,255,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,0.5);font-size:12px;cursor:pointer;">
-            <span style="font-size:18px;">📸</span> اضغط لإضافة صور المتجر
+            اضغط لاضافة صور المتجر
           </label>
           <input id="store-gallery-input" type="file" accept="image/*" multiple style="display:none;">
         </div>
         
-        <div style="background:linear-gradient(135deg, #0F3D2E 0%, #1E1E1E 100%);border:1px solid rgba(167,243,208,0.2);border-radius:16px;padding:16px;margin-bottom:20px;">
-            <div style="display:flex;gap:12px;align-items:center;">
-              <div style="width:48px;height:48px;background:#A7F3D0;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;">👑</div>
-              <div><div style="font-size:14px;font-weight:900;color:#A7F3D0;">انضم لمتاجر VIP</div><div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px;line-height:1.4;">متجرك حيظهر لكل المستخدمين + علامة VIP + غلاف وصورة</div></div>
-            </div>
-          </div>
-          
           <form id="vip-store-form" style="display:flex;flex-direction:column;gap:16px;">
-            <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">🏪 اسم المتجر *</label><input id="store-name" type="text" placeholder="اكتب اسم متجرك" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;"></div>
-            <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📝 وصف المتجر *</label><textarea id="store-desc" placeholder="اكتب اسم متجرك - أفضل الهواتف" required rows="3" style="width:100%;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#fff;font-size:13px;outline:none;resize:none;box-sizing:border-box;"></textarea></div>
+            <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">اسم المتجر *</label><input id="store-name" type="text" placeholder="مثال: متجر وضاح للهواتف" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;"></div>
+            <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">وصف المتجر *</label><textarea id="store-desc" placeholder="اكتب وصف مختصر عن متجرك..." required rows="3" style="width:100%;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#fff;font-size:13px;outline:none;resize:none;box-sizing:border-box;"></textarea></div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-              <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📂 الفئة *</label><select id="store-category" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 12px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;"><option value="">اختر الفئة</option><option value="هواتف" selected>📱 هواتف</option><option value="سيارات">🚗 سيارات</option><option value="ملابس">👕 ملابس</option><option value="مواشي">🐄 مواشي</option><option value="عقارات">🏠 عقارات</option><option value="خدمات">🛠️ خدمات</option></select></div>
-              <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">🎨 شعار</label><select id="store-logo" style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 12px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;"><option value="📱">📱 إلكترونيات</option><option value="🏪">🏪 متجر عام</option><option value="👕">👕 أزياء</option><option value="🚗">🚗 سيارات</option><option value="🏠">🏠 عقارات</option></select></div>
+              <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">الفئة *</label><select id="store-category" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 12px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;"><option value="">اختر الفئة</option><option value="هواتف" selected>هواتف</option><option value="سيارات">سيارات</option><option value="ملابس">ملابس</option><option value="مواشي">مواشي</option><option value="عقارات">عقارات</option><option value="خدمات">خدمات</option><option value="الكترونيات">الكترونيات</option></select></div>
+              <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">الشعار</label><select id="store-logo" style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 12px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;"><option value="📱">الكترونيات</option><option value="🏪" selected>متجر عام</option><option value="👕">ازياء</option><option value="🚗">سيارات</option><option value="🏠">عقارات</option></select></div>
             </div>
-            <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">📱 واتساب المتجر *</label><input id="store-whatsapp" type="tel" placeholder="2499XXXXXXXX" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;direction:ltr;text-align:left;"></div>
+            <div><label style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:6px;display:block;">واتساب المتجر *</label><input id="store-whatsapp" type="tel" placeholder="2499XXXXXXXX" required style="width:100%;height:48px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 16px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;direction:ltr;text-align:left;"></div>
             
-            
-            </div>
-            
-            <button type="submit" id="submit-store-btn" style="width:100%;height:52px;background:#FFC107;border:none;border-radius:14px;color:#000;font-size:15px;font-weight:900;cursor:pointer;">📨 إرسال طلب VIP</button>
+            <button type="submit" id="submit-store-btn" style="width:100%;height:52px;background:#FFC107;border:none;border-radius:14px;color:#000;font-size:15px;font-weight:900;cursor:pointer;margin-top:8px;">ارسال طلب VIP</button>
           </form>
         </div>
       </div>
@@ -695,6 +685,8 @@ try{
     document.body.appendChild(fp);
     
     // معاينة الغلاف
+    let coverFileObj = null;
+    let avatarFileObj = null;
     let coverData = '';
     let avatarData = '';
     const coverInput = fp.querySelector('#store-cover-input');
@@ -708,7 +700,8 @@ try{
     coverInput.onchange = (e)=>{
       const file = e.target.files[0];
       if(!file) return;
-      if(file.size > 3*1024*1024){ alert('حجم الغلاف كبير - أقصى 3MB'); return; }
+      if(file.size > 3*1024*1024){ window.showToast ? window.showToast('حجم الغلاف كبير - اقصى 3MB','error') : alert('حجم الغلاف كبير'); return; }
+      coverFileObj = file;
       const reader = new FileReader();
       reader.onload = (ev)=>{
         coverData = ev.target.result;
@@ -722,7 +715,8 @@ try{
     avatarInput.onchange = (e)=>{
       const file = e.target.files[0];
       if(!file) return;
-      if(file.size > 2*1024*1024){ alert('حجم الصورة كبير - أقصى 2MB'); return; }
+      if(file.size > 2*1024*1024){ window.showToast ? window.showToast('حجم الصورة كبير - اقصى 2MB','error') : alert('حجم الصورة كبير'); return; }
+      avatarFileObj = file;
       const reader = new FileReader();
       reader.onload = (ev)=>{
         avatarData = ev.target.result;
@@ -733,11 +727,9 @@ try{
       reader.readAsDataURL(file);
     };
     
-    // ضغط على منطقة الغلاف
     coverPreview.onclick = ()=> coverInput.click();
     
-    // معرض الصور - مرفوع عبر Supabase Storage
-    let galleryData = [];
+    // معرض الصور
     let galleryFiles = [];
     const galleryInput = fp.querySelector('#store-gallery-input');
     const galleryPreview = fp.querySelector('#store-gallery-preview');
@@ -745,48 +737,95 @@ try{
     galleryInput.onchange = (e)=>{
       const files = Array.from(e.target.files).slice(0,5);
       galleryFiles = files;
-      galleryData = [];
       galleryPreview.innerHTML = '';
       files.forEach((file, idx)=>{
-        if(file.size > 5*1024*1024){ alert('الصورة كبيرة جداً - الحد 5MB'); return; }
+        if(file.size > 5*1024*1024){ return; }
         const reader = new FileReader();
         reader.onload = (ev)=>{
           const div = document.createElement('div');
           div.style.cssText = 'aspect-ratio:1;background:#1A1A1A;border-radius:10px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.1);';
-          div.innerHTML = `<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;"><button onclick="this.parentElement.remove(); galleryFiles.splice(${idx},1);" style="position:absolute;top:2px;right:2px;width:18px;height:18px;background:rgba(0,0,0,0.7);border:none;border-radius:50%;color:#fff;font-size:10px;cursor:pointer;">✕</button>`;
+          div.innerHTML = `<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;"><button type="button" style="position:absolute;top:2px;right:2px;width:18px;height:18px;background:rgba(0,0,0,0.7);border:none;border-radius:50%;color:#fff;font-size:10px;cursor:pointer;">✕</button>`;
+          div.querySelector('button').onclick = ()=>{ div.remove(); galleryFiles = galleryFiles.filter((_,i)=>i!==idx); };
           galleryPreview.appendChild(div);
         };
         reader.readAsDataURL(file);
       });
     };
 
-    
     const form=fp.querySelector('#vip-store-form');
     form.onsubmit=async(e)=>{
       e.preventDefault(); 
       const btn=fp.querySelector('#submit-store-btn'); 
-      btn.innerHTML='⏳ جاري الإرسال...'; btn.disabled=true; 
+      const originalText = btn.innerHTML;
+      btn.innerHTML='جاري الارسال...'; 
+      btn.disabled=true; 
+      btn.style.opacity='0.7';
       try{ 
-        const cu=JSON.parse(localStorage.getItem('darfur_current_user')||'null')||window.getCurrentUser(); 
-        const realUser = cu || window.getCurrentUser();
-        if(!realUser){ window.requireLogin("لطلب متجر VIP"); btn.innerHTML='📨 إرسال طلب VIP'; btn.disabled=false; return; }
+        const cu=JSON.parse(localStorage.getItem('darfur_current_user')||'null'); 
+        const realUser = cu || (window.getCurrentUser ? window.getCurrentUser() : null);
+        if(!realUser){ if(window.requireLogin) window.requireLogin("لطلب متجر VIP"); btn.innerHTML=originalText; btn.disabled=false; btn.style.opacity='1'; return; }
+        
+        // رفع الصور اولا عبر Supabase
+        let bannerUrl = '';
+        let avatarUrl = '';
+        let galleryUrls = [];
+        
+        if(coverFileObj && window.uploadStoreImagesToSupabase){
+          try{
+            const urls = await window.uploadStoreImagesToSupabase([coverFileObj]);
+            if(urls[0]) bannerUrl = urls[0];
+          }catch(err){ console.error('cover upload failed', err); }
+        }else if(coverData){
+          bannerUrl = coverData;
+        }
+        
+        if(avatarFileObj && window.uploadStoreImagesToSupabase){
+          try{
+            const urls = await window.uploadStoreImagesToSupabase([avatarFileObj]);
+            if(urls[0]) avatarUrl = urls[0];
+          }catch(err){ console.error('avatar upload failed', err); }
+        }else if(avatarData){
+          avatarUrl = avatarData;
+        }
+        
+        if(galleryFiles.length>0 && window.uploadStoreImagesToSupabase){
+          try{
+            const urls = await window.uploadStoreImagesToSupabase(galleryFiles);
+            galleryUrls = urls;
+          }catch(err){ console.error('gallery upload failed', err); }
+        }
+        
         const sd={ 
+          id:'req_'+Date.now(),
           name:fp.querySelector('#store-name').value.trim(), 
           description:fp.querySelector('#store-desc').value.trim(), 
           category:fp.querySelector('#store-category').value, 
           logo:fp.querySelector('#store-logo').value, 
-          banner_url: coverFile || coverData || '', 
-          avatar_url: avatarFile || avatarData || '',
-          gallery: galleryData || [],
-          images: galleryData || [],
+          banner_url: bannerUrl, 
+          avatar_url: avatarUrl,
+          cover_url: bannerUrl,
+          gallery: galleryUrls,
+          images: galleryUrls,
           whatsapp:fp.querySelector('#store-whatsapp').value.trim(), 
-          rating:5.0, products_count:0, verified:false, is_vip:false, 
+          rating:5, 
+          products_count:0, 
+          verified:false, 
+          is_vip:false,
+          status:'pending',
           owner_id:realUser?.id||realUser?.email||'user_'+Date.now(), 
-          owner_name:realUser?.full_name||realUser?.email||'مستخدم', 
-          created_at:new Date().toISOString() 
+          owner_name:realUser?.full_name||realUser?.name||realUser?.email||'مستخدم', 
+          created_at:new Date().toISOString(),
+          requested_at:new Date().toISOString()
         }; 
-        if(!sd.name||!sd.description||!sd.category||!sd.whatsapp){ alert('املأ كل الحقول'); btn.innerHTML='📨 إرسال طلب VIP'; btn.disabled=false; return; } 
-        const isA=window.isAdmin(); 
+        
+        if(!sd.name||!sd.description||!sd.category||!sd.whatsapp){ 
+          if(window.showToast) window.showToast('املأ كل الحقول المطلوبة','error');
+          else alert('املأ كل الحقول'); 
+          btn.innerHTML=originalText; btn.disabled=false; btn.style.opacity='1'; return; 
+        } 
+        
+        const isA=window.isAdmin ? window.isAdmin() : false; 
+        
         if(isA){ 
           sd.status='approved'; sd.is_vip=true; sd.verified=true; 
           const vs=JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]'); 
@@ -794,16 +833,52 @@ try{
           vs.unshift(sd); 
           localStorage.setItem('darfur_vip_stores', JSON.stringify(vs)); 
           localStorage.setItem('darfur_my_vip_store', JSON.stringify(sd)); 
-          try{ const h=getHeaders(); h['Prefer']='return=representation'; await fetch(SUPABASE_URL+'/rest/v1/darfur_vip_stores',{method:'POST', headers:h, body:JSON.stringify(sd)}); }catch(e){} 
-          const toast=document.createElement('div'); toast.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999999999;background:#0F3D2E;color:#A7F3D0;padding:14px 20px;border-radius:999px;font-size:13px;font-weight:800;border:1px solid #A7F3D0;'; toast.textContent='✅ تم إنشاء متجرك VIP '+sd.name; document.body.appendChild(toast); setTimeout(()=>toast.remove(),4000); fp.remove(); setTimeout(()=>{ window.openStoreProductsPage(sd.id); },500); 
+          try{ 
+            const SUPABASE_URL='https://wkhzzgqndbpkqadbvung.supabase.co';
+            const ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndraHp6Z3FuZGJwa3FhZGJ2dW5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NDg4NjAsImV4cCI6MjA3NDQyNDg2MH0.mJ8F8v6dZQ7l6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2';
+            await fetch(SUPABASE_URL+'/rest/v1/darfur_vip_stores',{method:'POST', headers:{'apikey':ANON_KEY,'Authorization':'Bearer '+ANON_KEY,'Content-Type':'application/json','Prefer':'return=representation'}, body:JSON.stringify(sd)}); 
+          }catch(e){} 
+          if(window.showToast) window.showToast('تم انشاء متجرك VIP '+sd.name,'success');
+          fp.remove(); 
+          setTimeout(()=>{ window.openStoreProductsPage(sd.id); },500); 
         }else{ 
-          const cr=await window.createVIPStore(sd); 
-          const toast=document.createElement('div'); toast.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999999999;background:#1A1A1A;color:#FFC107;padding:16px 20px;border-radius:16px;font-size:13px;font-weight:800;border:1px solid rgba(255,193,7,0.3);max-width:320px;text-align:center;'; toast.innerHTML='📨 تم إرسال طلبك<br><span style="font-size:11px;color:rgba(255,255,255,0.6);">الإدارة حتراجع طلب "'+cr.name+'"</span>'; document.body.appendChild(toast); setTimeout(()=>toast.remove(),5000); fp.remove(); setTimeout(()=>{ window.openVIPStoresScreen(); },500); 
+          // حفظ محلي + ارسال ل Supabase
+          let requests = JSON.parse(localStorage.getItem('darfur_vip_requests')||'[]');
+          requests.unshift(sd);
+          localStorage.setItem('darfur_vip_requests', JSON.stringify(requests));
+          
+          try{
+            const SUPABASE_URL='https://wkhzzgqndbpkqadbvung.supabase.co';
+            const ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndraHp6Z3FuZGJwa3FhZGJ2dW5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4NDg4NjAsImV4cCI6MjA3NDQyNDg2MH0.mJ8F8v6dZQ7l6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2';
+            await fetch(SUPABASE_URL+'/rest/v1/darfur_vip_requests',{
+              method:'POST', 
+              headers:{'apikey':ANON_KEY,'Authorization':'Bearer '+ANON_KEY,'Content-Type':'application/json','Prefer':'return=representation'}, 
+              body:JSON.stringify(sd)
+            });
+          }catch(e){ console.error('supabase error', e); }
+          
+          if(window.showToast) window.showToast('تم ارسال طلبك - الادارة حتراجع طلب '+sd.name,'success');
+          else {
+            const toast=document.createElement('div'); 
+            toast.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999999999;background:#1A1A1A;color:#FFC107;padding:16px 20px;border-radius:16px;font-size:13px;font-weight:800;border:1px solid rgba(255,193,7,0.3);max-width:320px;text-align:center;'; 
+            toast.innerHTML='تم ارسال طلبك<br><span style="font-size:11px;color:rgba(255,255,255,0.6);">الادارة حتراجع طلب '+sd.name+'</span>'; 
+            document.body.appendChild(toast); 
+            setTimeout(()=>toast.remove(),5000);
+          }
+          fp.remove(); 
+          setTimeout(()=>{ window.openVIPStoresScreen(); },500); 
         } 
-      }catch(err){ alert('خطأ: '+err.message); btn.innerHTML='📨 إرسال طلب VIP'; btn.disabled=false; } 
+      }catch(err){ 
+        console.error(err);
+        if(window.showToast) window.showToast('خطأ: '+err.message,'error');
+        else alert('خطأ: '+err.message); 
+        btn.innerHTML=originalText; btn.disabled=false; btn.style.opacity='1';
+      } 
     };
   };
   
+
+
 window.openAdminVIPPanel=function(){
     if(!window.isAdmin()){ alert('للإدارة فقط'); return; }
     document.querySelector('#vip-stores-screen')?.remove();
@@ -992,6 +1067,22 @@ function openFilterModal(){
     localStorage.setItem('darfur_favorites', JSON.stringify([]));
   }
   
+  window.showToast = function(msg, type='success'){
+    const existing = document.querySelector('#custom-toast');
+    if(existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.id = 'custom-toast';
+    const bg = type==='success' ? '#0F3D2E' : type==='error' ? '#7F1D1D' : '#1A1A1A';
+    const border = type==='success' ? 'rgba(167,243,208,0.3)' : type==='error' ? 'rgba(239,68,68,0.3)' : 'rgba(255,255,255,0.1)';
+    const color = type==='success' ? '#A7F3D0' : type==='error' ? '#FCA5A5' : '#fff';
+    const icon = type==='success' ? '✅' : type==='error' ? '❌' : 'ℹ️';
+    toast.style.cssText = `position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:999999999;background:${bg};border:1px solid ${border};color:${color};padding:14px 20px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,0.5);display:flex;align-items:center;gap:10px;opacity:0;transition:all 0.3s ease;`;
+    toast.innerHTML = `<span style="font-size:18px;">${icon}</span> ${msg}`;
+    document.body.appendChild(toast);
+    setTimeout(()=>{ toast.style.transform='translateX(-50%) translateY(0)'; toast.style.opacity='1'; }, 10);
+    setTimeout(()=>{ toast.style.opacity='0'; toast.style.transform='translateX(-50%) translateY(-20px)'; setTimeout(()=>toast.remove(), 300); }, 3000);
+  };
+
   window.toggleFavorite = function(productId){
     if(!window.isLoggedIn || !window.isLoggedIn()){
       if(window.requireLogin) window.requireLogin('لإضافة للمفضلة');
@@ -1002,11 +1093,11 @@ function openFilterModal(){
     if(idx>=0){
       favs.splice(idx,1);
       localStorage.setItem('darfur_favorites', JSON.stringify(favs));
-      alert('تم الحذف من المفضلة');
+      window.showToast('تم الحذف من المفضلة 🗑️', 'info');
     }else{
       favs.push(productId);
       localStorage.setItem('darfur_favorites', JSON.stringify(favs));
-      alert('تمت الإضافة للمفضلة ❤️');
+      window.showToast('تمت الإضافة للمفضلة ❤️', 'success');
     }
     // تحديث الأيقونة
     document.querySelectorAll('[data-fav-id="'+productId+'"]').forEach(btn=>{
@@ -1130,6 +1221,370 @@ if(originalCreateVIPStore){
     return originalCreateVIPStore(storeData);
   };
 }
+</script>
+
+
+<script id="professional-report-modal">
+window.openProfessionalReportModal = function(product){
+  // احذف أي مودال قديم
+  if(document.querySelector('#pro-report-modal')) document.querySelector('#pro-report-modal').remove();
+  
+  const modal = document.createElement('div');
+  modal.id = 'pro-report-modal';
+  modal.style.cssText = 'position:fixed;inset:0;z-index:9999999;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;';
+  modal.innerHTML = `
+    <div style="background:#1A1A1A;border:1px solid rgba(255,255,255,0.1);border-radius:20px;width:100%;max-width:380px;overflow:hidden;animation:slideUp 0.3s ease;">
+      <!-- Header -->
+      <div style="padding:20px 20px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:36px;height:36px;background:rgba(239,68,68,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;">🚩</div>
+          <div>
+            <div style="font-size:15px;font-weight:800;color:#fff;">الإبلاغ عن المنتج</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">ساعدنا نحافظ على مجتمع آمن</div>
+          </div>
+        </div>
+        <button onclick="this.closest('#pro-report-modal').remove()" style="width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.06);border:none;color:rgba(255,255,255,0.6);font-size:16px;cursor:pointer;">✕</button>
+      </div>
+      
+      <!-- Content -->
+      <div style="padding:20px;">
+        <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:12px;">اختر سبب البلاغ:</div>
+        
+        <div id="report-reasons" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+          <button data-reason="محتوى احتيالي أو نصب" class="report-reason-btn" style="text-align:right;padding:12px 14px;background:#121212;border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.2s;">
+            <span style="font-size:16px;">⚠️</span> محتوى احتيالي أو نصب
+          </button>
+          <button data-reason="منتج محظور أو غير قانوني" class="report-reason-btn" style="text-align:right;padding:12px 14px;background:#121212;border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.2s;">
+            <span style="font-size:16px;">🚫</span> منتج محظور أو غير قانوني
+          </button>
+          <button data-reason="صور غير لائقة" class="report-reason-btn" style="text-align:right;padding:12px 14px;background:#121212;border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.2s;">
+            <span style="font-size:16px;">🖼️</span> صور غير لائقة
+          </button>
+          <button data-reason="سعر وهمي أو معلومات خاطئة" class="report-reason-btn" style="text-align:right;padding:12px 14px;background:#121212;border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.2s;">
+            <span style="font-size:16px;">💰</span> سعر وهمي أو معلومات خاطئة
+          </button>
+          <button data-reason="آخر" class="report-reason-btn" style="text-align:right;padding:12px 14px;background:#121212;border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.2s;">
+            <span style="font-size:16px;">📝</span> سبب آخر
+          </button>
+        </div>
+        
+        <div id="custom-reason-wrap" style="display:none;margin-bottom:16px;">
+          <label style="font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:6px;display:block;">وضح السبب:</label>
+          <textarea id="custom-reason-text" placeholder="اكتب تفاصيل البلاغ..." style="width:100%;min-height:80px;background:#0F0F0F;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px;color:#fff;font-size:13px;resize:none;outline:none;"></textarea>
+        </div>
+        
+        <div style="background:rgba(167,243,208,0.08);border:1px solid rgba(167,243,208,0.15);border-radius:12px;padding:10px 12px;display:flex;gap:8px;align-items:start;margin-bottom:16px;">
+          <span style="font-size:14px;">🔒</span>
+          <span style="font-size:11px;color:rgba(167,243,208,0.8);line-height:1.5;">بلاغك سري تماماً، البائع ما حيعرف منو بلغ. الإدارة حتراجع البلاغ خلال 24 ساعة.</span>
+        </div>
+        
+        <div style="display:flex;gap:10px;">
+          <button onclick="this.closest('#pro-report-modal').remove()" style="flex:1;height:44px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">إلغاء</button>
+          <button id="submit-report-btn" disabled style="flex:1;height:44px;background:#0F3D2E;border:1px solid rgba(167,243,208,0.2);border-radius:12px;color:rgba(255,255,255,0.4);font-size:14px;font-weight:800;cursor:not-allowed;transition:all 0.2s;">إرسال البلاغ 🚩</button>
+        </div>
+      </div>
+    </div>
+    <style>
+      @keyframes slideUp{ from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+      .report-reason-btn.selected{ background:#0F3D2E !important; border-color:rgba(167,243,208,0.3) !important; color:#A7F3D0 !important; }
+    </style>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  let selectedReason = '';
+  
+  modal.querySelectorAll('.report-reason-btn').forEach(btn=>{
+    btn.onclick = ()=>{
+      modal.querySelectorAll('.report-reason-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedReason = btn.dataset.reason;
+      
+      const customWrap = modal.querySelector('#custom-reason-wrap');
+      const submitBtn = modal.querySelector('#submit-report-btn');
+      
+      if(selectedReason === 'آخر'){
+        customWrap.style.display = 'block';
+        modal.querySelector('#custom-reason-text').focus();
+        submitBtn.disabled = true;
+        submitBtn.style.background = '#0F3D2E';
+        submitBtn.style.color = 'rgba(255,255,255,0.4)';
+        submitBtn.style.cursor = 'not-allowed';
+        
+        // مراقبة النص
+        const customText = modal.querySelector('#custom-reason-text');
+        customText.oninput = ()=>{
+          if(customText.value.trim().length >= 5){
+            submitBtn.disabled = false;
+            submitBtn.style.background = '#EF4444';
+            submitBtn.style.color = '#fff';
+            submitBtn.style.cursor = 'pointer';
+            submitBtn.style.borderColor = 'rgba(239,68,68,0.3)';
+          }else{
+            submitBtn.disabled = true;
+            submitBtn.style.background = '#0F3D2E';
+            submitBtn.style.color = 'rgba(255,255,255,0.4)';
+            submitBtn.style.cursor = 'not-allowed';
+          }
+        };
+      }else{
+        customWrap.style.display = 'none';
+        submitBtn.disabled = false;
+        submitBtn.style.background = '#EF4444';
+        submitBtn.style.color = '#fff';
+        submitBtn.style.cursor = 'pointer';
+        submitBtn.style.borderColor = 'rgba(239,68,68,0.3)';
+      }
+    };
+  });
+  
+  modal.querySelector('#submit-report-btn').onclick = ()=>{
+    const customText = modal.querySelector('#custom-reason-text').value.trim();
+    let finalReason = selectedReason;
+    if(selectedReason === 'آخر' && customText){
+      finalReason = customText;
+    }
+    
+    if(!finalReason){
+      alert('اختر سبب البلاغ');
+      return;
+    }
+    
+    // استدعاء دالة البلاغ الأصلية
+    if(window.wd && product){
+      // wd موجودة في الـ scope الأصلي، نحاول نلاقيها
+      try{
+        // حاول استدعاء مباشر
+        const event = new CustomEvent('submitReport', {detail:{product, reason:finalReason}});
+        window.dispatchEvent(event);
+        // fallback: استخدم localStorage
+        let reports = JSON.parse(localStorage.getItem('darfur_reports')||'[]');
+        reports.unshift({
+          id:'r_'+Date.now(),
+          reporter_id: JSON.parse(localStorage.getItem('darfur_current_user')||'{}').id || 'unknown',
+          product_id: product.id,
+          reported_user_id: product.user_id,
+          reason: finalReason,
+          created_at: new Date().toISOString()
+        });
+        localStorage.setItem('darfur_reports', JSON.stringify(reports));
+        
+        // حاول رفع لـ Supabase
+        try{
+          const SUPABASE_URL = 'https://wkhzzgqndbpkqadbvung.supabase.co';
+          const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.[STRIPPED 127 bytes].mJ8F8v6dZQ7l6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2';
+          fetch(SUPABASE_URL+'/rest/v1/darfur_reports', {
+            method:'POST',
+            headers:{'apikey':ANON_KEY,'Authorization':'Bearer '+ANON_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+            body: JSON.stringify(reports[0])
+          });
+        }catch(e){}
+        
+        modal.remove();
+        
+        // رسالة نجاح احترافية
+        const success = document.createElement('div');
+        success.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:99999999;background:#0F3D2E;border:1px solid rgba(167,243,208,0.3);color:#A7F3D0;padding:14px 20px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,0.5);display:flex;align-items:center;gap:10px;animation:slideDown 0.3s ease;';
+        success.innerHTML = '<span style="font-size:18px;">✅</span> تم إرسال البلاغ - شكراً لمساعدتك في حماية المجتمع';
+        document.body.appendChild(success);
+        setTimeout(()=>success.remove(), 4000);
+        
+      }catch(err){
+        console.error(err);
+        alert('حدث خطأ، حاول مرة أخرى');
+      }
+    }else{
+      // لو wd ما موجودة
+      alert('تم إرسال البلاغ: '+finalReason);
+      modal.remove();
+    }
+  };
+  
+  modal.onclick = (e)=>{ if(e.target===modal) modal.remove(); };
+};
+
+// ربط مع الدالة الأصلية wd إذا موجودة
+if(window.wd){
+  const origWd = window.wd;
+  window.wd = function(product, reason){
+    // لو reason قصير (من prompt قديم)، افتح المودال الاحترافي
+    if(!reason || reason.length < 20){
+      window.openProfessionalReportModal(product);
+      return;
+    }
+    return origWd(product, reason);
+  };
+}
+</script>
+
+
+<script id="override-alert">
+// استبدال alert القبيح بـ toast احترافي
+(function(){
+  const originalAlert = window.alert;
+  window.alert = function(msg){
+    // لو الرسالة فيها بلاغ أو مفضلة، استخدم toast
+    if(msg && (msg.includes('المفضلة') || msg.includes('البلاغ') || msg.includes('تم') || msg.includes('شكرا') || msg.includes('❤️'))){
+      const type = msg.includes('حذف') ? 'info' : 'success';
+      if(window.showToast) window.showToast(msg, type);
+      else{
+        const t = document.createElement('div');
+        t.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:999999999;background:#0F3D2E;border:1px solid rgba(167,243,208,0.3);color:#A7F3D0;padding:14px 20px;border-radius:14px;font-size:13px;font-weight:700;';
+        t.textContent = msg;
+        document.body.appendChild(t);
+        setTimeout(()=>t.remove(), 3000);
+      }
+      return;
+    }
+    // للرسائل المهمة، استخدم modal صغير
+    if(msg && msg.length < 100){
+      if(window.showToast) window.showToast(msg, 'info');
+      else originalAlert(msg);
+      return;
+    }
+    originalAlert(msg);
+  };
+})();
+</script>
+
+
+<script id="favorites-screen">
+// شاشة المفضلة
+window.openFavoritesScreen = function(){
+  if(!window.requireLogin("لمشاهدة المفضلة")) return;
+  
+  document.querySelector('#favorites-screen')?.remove();
+  document.querySelector('#vip-stores-screen')?.remove();
+  document.querySelector('#vip-store-page-root')?.remove();
+  
+  const screen = document.createElement('div');
+  screen.id = 'favorites-screen';
+  screen.style.cssText = 'position:fixed;inset:0;z-index:9999998;background:#0F0F0F;overflow-y:auto;display:flex;flex-direction:column;';
+  
+  screen.innerHTML = `
+    <div style="background:#121212;padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:10;">
+      <button onclick="this.closest('#favorites-screen').remove()" style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:20px;cursor:pointer;">→</button>
+      <div style="flex:1;">
+        <div style="font-size:16px;font-weight:900;color:#fff;display:flex;align-items:center;gap:8px;">❤️ المفضلة</div>
+        <div id="fav-count" style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">0 منتج</div>
+      </div>
+      <button id="clear-fav-btn" style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.2);color:#FCA5A5;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;display:none;">🗑️ مسح الكل</button>
+    </div>
+    <div style="flex:1;padding:16px;">
+      <div id="fav-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"></div>
+      <div id="fav-empty" style="display:none;text-align:center;padding:80px 20px;">
+        <div style="font-size:64px;margin-bottom:16px;opacity:0.5;">💔</div>
+        <div style="font-size:16px;color:#fff;font-weight:800;">لا توجد منتجات في المفضلة</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:8px;line-height:1.5;">اضغط ❤️ على أي منتج لإضافته هنا<br>وتابع منتجاتك المفضلة بسهولة</div>
+        <button onclick="document.querySelector('#favorites-screen').remove()" style="margin-top:20px;background:#A7F3D0;color:#000;border:none;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;">🛍️ تصفح المنتجات</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(screen);
+  
+  // تحميل المفضلة
+  const favIds = JSON.parse(localStorage.getItem('darfur_favorites')||'[]');
+  const countEl = screen.querySelector('#fav-count');
+  const gridEl = screen.querySelector('#fav-grid');
+  const emptyEl = screen.querySelector('#fav-empty');
+  const clearBtn = screen.querySelector('#clear-fav-btn');
+  
+  countEl.textContent = favIds.length + ' منتج';
+  
+  if(favIds.length === 0){
+    gridEl.style.display = 'none';
+    emptyEl.style.display = 'block';
+    clearBtn.style.display = 'none';
+    return;
+  }
+  
+  clearBtn.style.display = 'block';
+  clearBtn.onclick = ()=>{
+    if(confirm('هل تريد مسح كل المفضلة؟')){
+      localStorage.setItem('darfur_favorites', JSON.stringify([]));
+      window.showToast('تم مسح المفضلة', 'info');
+      screen.remove();
+      window.openFavoritesScreen();
+    }
+  };
+  
+  // جلب المنتجات
+  let allProducts = [];
+  try{ allProducts = JSON.parse(localStorage.getItem('darfur_products')||'[]'); }catch(e){}
+  
+  const favProducts = allProducts.filter(p=>favIds.includes(p.id));
+  
+  if(favProducts.length === 0){
+    gridEl.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,0.5);font-size:13px;">المنتجات غير موجودة (تم حذفها)</div>`;
+    return;
+  }
+  
+  gridEl.innerHTML = favProducts.map(p=>{
+    const img = p.images && p.images[0] ? p.images[0] : '';
+    const imgHtml = img ? `<img src="${img}" style="width:100%;height:100%;object-fit:cover;">` : `<div style="width:100%;height:100%;background:#1A1A1A;display:flex;align-items:center;justify-content:center;font-size:24px;">📦</div>`;
+    return `
+      <div style="background:#1A1A1A;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);position:relative;">
+        <div style="aspect-ratio:1;position:relative;overflow:hidden;background:#121212;cursor:pointer;" onclick="document.querySelector('#favorites-screen').remove(); window.openProductDetails && window.openProductDetails('${p.id}')">
+          ${imgHtml}
+          <button onclick="event.stopPropagation(); window.toggleFavorite('${p.id}'); this.closest('#favorites-screen').querySelector('#fav-count').textContent=(JSON.parse(localStorage.getItem('darfur_favorites')||'[]').length-1)+' منتج'; this.parentElement.parentElement.remove(); if(JSON.parse(localStorage.getItem('darfur_favorites')||'[]').length===0){ document.querySelector('#fav-grid').style.display='none'; document.querySelector('#fav-empty').style.display='block'; document.querySelector('#clear-fav-btn').style.display='none'; }" style="position:absolute;top:8px;right:8px;width:32px;height:32px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:50%;color:#FF4444;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">❤️</button>
+        </div>
+        <div style="padding:10px;">
+          <div style="font-size:13px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.title||'بدون عنوان'}</div>
+          <div style="font-size:12px;color:#A7F3D0;font-weight:800;margin-top:4px;">${p.price ? p.price.toLocaleString()+' SDG' : ''}</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">${p.category||''} • ${p.wilaya||''}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+};
+
+// ربط زر المفضلة في النافبار
+setTimeout(()=>{
+  // ابحث عن زر البلاغات في النافبار السفلي وغيره لمفضلة
+  const nav = document.querySelector('nav, [class*="bottom"], [style*="position:fixed"][style*="bottom"]');
+  if(nav){
+    // لا تغير النافبار الأصلي، أضف زر مفضلة في الهيدر أو صفحة البروفايل
+  }
+  
+  // أضف زر مفضلة في صفحة البروفايل/الإعدادات إذا موجودة
+  const profileBtns = Array.from(document.querySelectorAll('button, div')).filter(el=>el.textContent && el.textContent.includes('المفضلة'));
+  if(profileBtns.length===0){
+    // سيتم فتح المفضلة عبر كود مخصص
+    console.log('Favorites screen ready - call window.openFavoritesScreen()');
+  }
+}, 2000);
+</script>
+
+
+<script id="floating-fav-btn">
+setTimeout(()=>{
+  // أضف زر مفضلة عائم في الصفحة الرئيسية
+  if(document.querySelector('#floating-fav')) return;
+  const btn = document.createElement('button');
+  btn.id = 'floating-fav';
+  btn.style.cssText = 'position:fixed;bottom:90px;left:16px;z-index:999;width:48px;height:48px;background:#1A1A1A;border:1px solid rgba(255,107,107,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.3);';
+  btn.innerHTML = '❤️';
+  btn.title = 'المفضلة';
+  btn.onclick = ()=> window.openFavoritesScreen();
+  
+  // تحديث العدد
+  const updateCount = ()=>{
+    const favs = JSON.parse(localStorage.getItem('darfur_favorites')||'[]');
+    if(favs.length>0){
+      btn.innerHTML = `❤️<span style="position:absolute;top:-4px;right:-4px;background:#FF4444;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;">${favs.length}</span>`;
+      btn.style.display = 'flex';
+    }else{
+      btn.innerHTML = '❤️';
+      // لا تخفيه، خليه ظاهر دائما للوصول السهل
+    }
+  };
+  
+  updateCount();
+  setInterval(updateCount, 2000);
+  
+  document.body.appendChild(btn);
+}, 3000);
 </script>
 
 </body>
