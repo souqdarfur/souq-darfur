@@ -386,18 +386,19 @@ try{
     const stores=JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]'); let store=stores.find(s=>s.id===storeId); if(!store){ const all=window._allVIPStores||[]; store=all.find(s=>s.id===storeId); } if(!store) return;
     document.querySelector('#vip-stores-screen')?.remove(); document.querySelector('#vip-store-page-root')?.remove();
     const page=document.createElement('div'); page.id='vip-store-page-root'; page.style.cssText='position:fixed;inset:0;z-index:9999999;background:#0F0F0F;overflow-y:auto;display:flex;flex-direction:column;';
-    const bUrl=store.banner_url||store.cover_url||store.banner; const aUrl=store.avatar_url||store.avatar; const col=store.category==='هواتف'?'#3B9DFF':store.category==='خدمات'?'#000':'#0F3D2E';
-    const isBannerReal = bUrl && (bUrl.startsWith('http') || bUrl.startsWith('data:image') || bUrl.startsWith('blob:'));
-    const banner = isBannerReal ? `<img src="${bUrl}" style="width:100%;height:100%;object-fit:cover;">` : (bUrl && bUrl.startsWith('#') ? `<div style="width:100%;height:100%;background:${bUrl};display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:900;">${store.logo||store.name.charAt(0)}</div>` : `<div style="width:100%;height:100%;background:${col};display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:900;">${store.logo||store.name.charAt(0)}</div>`);
-    const isAvatarReal = aUrl && (aUrl.startsWith('http') || aUrl.startsWith('data:image') || aUrl.startsWith('blob:'));
-    const avatar = isAvatarReal ? `<img src="${aUrl}" style="width:100%;height:100%;object-fit:cover;">` : `<div style="width:100%;height:100%;background:#0F3D2E;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;">${store.logo||store.name.charAt(0)}</div>`;
+    const bUrl=store.banner_url||store.cover_url||store.banner||store.cover||''; const aUrl=store.avatar_url||store.avatar||''; const col=store.category==='هواتف'?'#3B9DFF':store.category==='خدمات'?'#000':'#0F3D2E';
+    const isBannerReal = bUrl && (bUrl.startsWith('http') || bUrl.startsWith('data:') || bUrl.startsWith('blob:'));
+    const banner = isBannerReal ? `<img src="${bUrl}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';">` : (bUrl && bUrl.startsWith('#') ? `<div style="width:100%;height:100%;background:${bUrl};display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:900;">${store.logo||store.name.charAt(0)}</div>` : `<div style="width:100%;height:100%;background:${col};display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;font-weight:900;">${store.logo||store.name.charAt(0)}</div>`);
+    const isAvatarReal = aUrl && (aUrl.startsWith('http') || aUrl.startsWith('data:') || aUrl.startsWith('blob:'));
+    const avatar = isAvatarReal ? `<img src="${aUrl}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';">` : `<div style="width:100%;height:100%;background:#0F3D2E;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;">${store.logo||store.name.charAt(0)}</div>`;
     
     page.innerHTML=`
       <div style="background:#121212;padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:20;">
         <button onclick="this.closest('#vip-store-page-root').remove(); window.openVIPStoresScreen();" style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:20px;cursor:pointer;">→</button>
         <div style="width:40px;height:40px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);">${avatar}</div>
         <div style="flex:1;"><div style="font-size:14px;font-weight:900;color:#fff;">${store.name}</div><div style="font-size:11px;color:rgba(255,255,255,0.5);">${store.products_count||0} منتج • ${store.category||''}</div></div>
-        <button id="add-product-btn" onclick="window.openAddProductInStore('${store.id}')" style="display:none;background:#A7F3D0;color:#000;border:none;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;">➕ منتج</button>
+        <button id="add-product-btn" onclick="window.openAddProductInStore('${store.id}')" style="display:none;background:#A7F3D0;color:#000;border:none;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;">منتج +</button>
+        <button id="delete-store-btn" onclick="window.deleteCurrentStore('${store.id}')" style="display:none;background:rgba(255,107,107,0.15);border:1px solid rgba(255,107,107,0.3);color:#ff6b6b;padding:8px 12px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">حذف المتجر</button>
         <button onclick="window.contactStore('${store.whatsapp||''}', '${store.name}')" style="width:40px;height:40px;background:#25D366;border:none;border-radius:12px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;">💬</button>
       </div>
       
@@ -441,7 +442,7 @@ try{
       <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
     `;
     document.body.appendChild(page);
-    try{ const u=JSON.parse(localStorage.getItem('darfur_current_user')||'null'); const isA=window.isAdmin?window.isAdmin():false; const my=JSON.parse(localStorage.getItem('darfur_my_vip_store')||'null'); const isO=u&&(store.owner_id===u.id||(my&&my.id===store.id)); if(isA||isO){ setTimeout(()=>{ const b1=document.getElementById('add-product-btn'); const b2=document.getElementById('add-product-inline'); if(b1) b1.style.display='block'; if(b2) b2.style.display='block'; },100); } }catch(e){}
+    try{ const u=JSON.parse(localStorage.getItem('darfur_current_user')||'null'); const isA=window.isAdmin?window.isAdmin():false; const my=JSON.parse(localStorage.getItem('darfur_my_vip_store')||'null'); const isO=u&&(store.owner_id===u.id||store.owner_id===u.email||(my&&my.id===store.id)); if(isA||isO){ setTimeout(()=>{ const b1=document.getElementById('add-product-btn'); const b2=document.getElementById('add-product-inline'); const b3=document.getElementById('delete-store-btn'); if(b1) b1.style.display='block'; if(b2) b2.style.display='block'; if(b3) b3.style.display='block'; },100); } }catch(e){}
     // عرض معرض صور المتجر
     setTimeout(()=>{
       const gallery = store.gallery || store.images || [];
@@ -835,35 +836,38 @@ try{
         const realUser = cu || (window.getCurrentUser ? window.getCurrentUser() : null);
         if(!realUser){ if(window.requireLogin) window.requireLogin("لطلب متجر VIP"); btn.innerHTML=originalText; btn.disabled=false; btn.style.opacity='1'; return; }
         
-        // رفع الصور اولا عبر Supabase
-        let bannerUrl = '';
-        let avatarUrl = '';
+        // احفظ الصور كـ data URLs مباشرة (مضمون يظهر) + حاول رفع لـ Supabase
+        let bannerUrl = coverData || '';
+        let avatarUrl = avatarData || '';
         let galleryUrls = [];
         
-        if(coverFileObj && window.uploadStoreImagesToSupabase){
-          try{
+        // حول ملفات المعرض لـ data URLs
+        if(galleryFiles.length>0){
+          for(let file of galleryFiles){
+            try{
+              const b64 = await new Promise(res=>{
+                const r=new FileReader(); r.onload=e=>res(e.target.result); r.readAsDataURL(file);
+              });
+              galleryUrls.push(b64);
+            }catch(e){}
+          }
+        }
+        
+        // حاول رفع لـ Supabase كتحسين (لو نجح، استخدم الروابط الجديدة)
+        try{
+          if(coverFileObj && window.uploadStoreImagesToSupabase){
             const urls = await window.uploadStoreImagesToSupabase([coverFileObj]);
             if(urls[0]) bannerUrl = urls[0];
-          }catch(err){ console.error('cover upload failed', err); }
-        }else if(coverData){
-          bannerUrl = coverData;
-        }
-        
-        if(avatarFileObj && window.uploadStoreImagesToSupabase){
-          try{
+          }
+          if(avatarFileObj && window.uploadStoreImagesToSupabase){
             const urls = await window.uploadStoreImagesToSupabase([avatarFileObj]);
             if(urls[0]) avatarUrl = urls[0];
-          }catch(err){ console.error('avatar upload failed', err); }
-        }else if(avatarData){
-          avatarUrl = avatarData;
-        }
-        
-        if(galleryFiles.length>0 && window.uploadStoreImagesToSupabase){
-          try{
+          }
+          if(galleryFiles.length>0 && window.uploadStoreImagesToSupabase){
             const urls = await window.uploadStoreImagesToSupabase(galleryFiles);
-            galleryUrls = urls;
-          }catch(err){ console.error('gallery upload failed', err); }
-        }
+            if(urls.length>0) galleryUrls = urls;
+          }
+        }catch(err){ console.log('Supabase upload optional failed, using data URLs', err); }
         
         const sd={ 
           id:'req_'+Date.now(),
@@ -955,14 +959,107 @@ window.openAdminVIPPanel=function(){
     const pending=JSON.parse(localStorage.getItem('darfur_vip_requests')||'[]').concat(JSON.parse(localStorage.getItem('darfur_pending_vip')||'[]')); const vipStores=JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
     const ap=document.createElement('div'); ap.id='admin-vip-panel'; ap.style.cssText='position:fixed;inset:0;z-index:99999999;background:#121212;overflow-y:auto;';
     let reqH=''; if(pending.length===0){ reqH='<div style="text-align:center;padding:30px;color:rgba(255,255,255,0.5);font-size:13px;">لا توجد طلبات جديدة</div>'; } else{ reqH=pending.map(req=>`<div style="background:#1E1E1E;border:1px solid rgba(255,193,7,0.2);border-radius:14px;padding:14px;margin-bottom:10px;"><div style="display:flex;gap:10px;"><div style="width:44px;height:44px;background:#2a2416;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">${req.logo||'🏪'}</div><div style="flex:1;"><div style="font-weight:800;color:#fff;font-size:13px;">${req.name}</div><div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">${req.description||''}</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:4px;"> ${req.category||''} • 📱 ${req.whatsapp||''}<br>👤 ${req.owner_name||''}</div></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px;"><button onclick="window.approveVIPFromAdmin('${req.id}')" style="background:#A7F3D0;border:none;color:#000;padding:8px;border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;">✅ موافقة VIP</button><button onclick="window.contactRequester('${req.whatsapp||''}', '${req.name}')" style="background:#25D366;border:none;color:#fff;padding:8px;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;">💬 واتساب</button><button onclick="window.rejectVIPFromAdmin('${req.id}')" style="background:rgba(255,107,107,0.15);border:1px solid rgba(255,107,107,0.3);color:#ff6b6b;padding:8px;border-radius:10px;font-size:11px;cursor:pointer;">❌ رفض</button></div></div>`).join(''); }
-    let storesH=vipStores.map(s=>`<div style="background:#121212;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:8px;"><div style="width:36px;height:36px;background:#1E1E1E;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">${s.logo||'🏪'}</div><div style="flex:1;min-width:0;"><div style="font-size:12px;color:#fff;font-weight:700;">${s.name} <span style="background:#A7F3D0;color:#000;font-size:8px;padding:1px 5px;border-radius:999px;">VIP</span></div><div style="font-size:10px;color:rgba(255,255,255,0.4);">${s.category||''} • ${s.owner_name||''}</div></div><button onclick="window.removeVIPStore('${s.id}')" style="background:rgba(255,107,107,0.1);border:none;color:#ff6b6b;width:28px;height:28px;border-radius:50%;cursor:pointer;">✕</button></div>`).join(''); if(vipStores.length===0) storesH='<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.4);font-size:12px;">لا توجد متاجر VIP معتمدة</div>';
+    let storesH=vipStores.map(s=>{
+      const bUrl=s.banner_url||s.cover_url||'';
+      const hasImg = bUrl && (bUrl.startsWith('http')||bUrl.startsWith('data:'));
+      const imgHtml = hasImg ? `<img src="${bUrl}" style="width:100%;height:100%;object-fit:cover;">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">${s.logo||'🏪'}</div>`;
+      return `<div style="background:#121212;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:48px;height:48px;background:#1E1E1E;border-radius:10px;overflow:hidden;flex-shrink:0;">${imgHtml}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:13px;color:#fff;font-weight:800;display:flex;align-items:center;gap:6px;">${s.name} <span style="background:#A7F3D0;color:#000;font-size:8px;padding:2px 6px;border-radius:999px;font-weight:900;">VIP</span></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;">${s.category||''} • ${s.owner_name||''}</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;">${s.products_count||0} منتج • ${s.whatsapp||''}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <button onclick="window.openStoreProductsPage('${s.id}')" style="background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:#A7F3D0;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">عرض</button>
+          <button onclick="window.removeVIPStore('${s.id}')" style="background:rgba(255,107,107,0.15);border:1px solid rgba(255,107,107,0.3);color:#ff6b6b;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">حذف</button>
+        </div>
+      </div>`;
+    }).join(''); if(vipStores.length===0) storesH='<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.4);font-size:12px;">لا توجد متاجر VIP معتمدة</div>';
     ap.innerHTML=`<div style="position:sticky;top:0;z-index:10;background:#121212;border-bottom:1px solid rgba(255,255,255,0.08);padding:14px 16px;display:flex;align-items:center;gap:12px;"><button onclick="this.closest('#admin-vip-panel').remove(); window.openVIPStoresScreen();" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);border:none;color:#fff;font-size:18px;cursor:pointer;">→</button><div style="font-weight:900;color:#FFC107;font-size:16px;">⚙️ إدارة VIP</div><div style="margin-left:auto;background:rgba(255,193,7,0.15);color:#FFC107;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;">${pending.length} طلب • ${vipStores.length} متجر</div></div><div style="padding:16px;max-width:600px;margin:0 auto;"><div style="display:flex;gap:8px;margin-bottom:16px;"><button class="admin-tab active" data-tab="requests" onclick="window.switchAdminTab('requests')" style="flex:1;background:#FFC107;border:none;color:#000;padding:10px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;">📨 طلبات (${pending.length})</button><button class="admin-tab" data-tab="stores" onclick="window.switchAdminTab('stores')" style="flex:1;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);padding:10px;border-radius:10px;font-size:12px;cursor:pointer;">🏪 VIP (${vipStores.length})</button></div><div id="admin-requests-tab"><div style="font-size:12px;color:#FFC107;font-weight:800;margin-bottom:10px;">📨 طلبات VIP الجديدة</div>${reqH}</div><div id="admin-stores-tab" style="display:none;"><div style="font-size:12px;color:#A7F3D0;font-weight:800;margin-bottom:10px;">🏪 متاجر VIP المعتمدة</div>${storesH}</div></div>`;
     document.body.appendChild(ap);
   };
   window.switchAdminTab=function(tab){ document.querySelectorAll('.admin-tab').forEach(t=>{ t.style.background='#1E1E1E'; t.style.color='rgba(255,255,255,0.6)'; t.style.border='1px solid rgba(255,255,255,0.1)'; }); const a=document.querySelector(`.admin-tab[data-tab="${tab}"]`); if(a){ if(tab==='requests'){ a.style.background='#FFC107'; a.style.color='#000'; }else{ a.style.background='#A7F3D0'; a.style.color='#000'; } } document.getElementById('admin-requests-tab').style.display=tab==='requests'?'block':'none'; document.getElementById('admin-stores-tab').style.display=tab==='stores'?'block':'none'; };
   window.approveVIPFromAdmin=async function(id){ const r=await window.approveVIPStore(id); if(r){ const t=document.createElement('div'); t.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999999999;background:#0F3D2E;color:#A7F3D0;padding:12px 20px;border-radius:999px;font-size:13px;font-weight:800;border:1px solid #A7F3D0;'; t.textContent='✅ تمت الموافقة - '+r.name+' أصبح VIP'; document.body.appendChild(t); setTimeout(()=>t.remove(),3000); document.querySelector('#admin-vip-panel')?.remove(); setTimeout(()=>window.openAdminVIPPanel(),500); } };
   window.rejectVIPFromAdmin=function(id){ if(confirm('هل تريد رفض هذا الطلب؟')){ window.rejectVIPStore(id); document.querySelector('#admin-vip-panel')?.remove(); setTimeout(()=>window.openAdminVIPPanel(),300); } };
-  window.removeVIPStore=function(id){ if(!confirm('هل تريد إلغاء VIP؟')) return; const s=JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]').filter(s=>s.id!==id); localStorage.setItem('darfur_vip_stores', JSON.stringify(s)); document.querySelector('#admin-vip-panel')?.remove(); setTimeout(()=>window.openAdminVIPPanel(),300); };
+  window.removeVIPStore=async function(id){ 
+    if(!confirm('هل أنت متأكد من حذف هذا المتجر نهائيا؟\nسيتم حذف المتجر وكل منتجاته!')) return; 
+    try{
+      // احذف من localStorage
+      const stores=JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+      const storeToDelete = stores.find(s=>s.id===id);
+      const filtered=stores.filter(s=>s.id!==id); 
+      localStorage.setItem('darfur_vip_stores', JSON.stringify(filtered));
+      
+      // احذف طلبات المتجر لو موجودة
+      try{
+        const reqs=JSON.parse(localStorage.getItem('darfur_vip_requests')||'[]').filter(r=>r.id!==id);
+        localStorage.setItem('darfur_vip_requests', JSON.stringify(reqs));
+        const pending=JSON.parse(localStorage.getItem('darfur_pending_vip')||'[]').filter(r=>r.id!==id);
+        localStorage.setItem('darfur_pending_vip', JSON.stringify(pending));
+      }catch(e){}
+      
+      // احذف منتجات المتجر
+      try{
+        const allProds=JSON.parse(localStorage.getItem('darfur_products')||'[]');
+        const remaining=allProds.filter(p=>p.store_id!==id && p.vip_store_id!==id);
+        localStorage.setItem('darfur_products', JSON.stringify(remaining));
+      }catch(e){}
+      
+      // احذف النسخ الاحتياطية
+      try{
+        localStorage.removeItem('darfur_store_products_'+id);
+        localStorage.removeItem('darfur_my_vip_store');
+        // احذف كل مفاتيح منتجات المتجر
+        Object.keys(localStorage).forEach(k=>{
+          if(k.includes(id)) localStorage.removeItem(k);
+        });
+      }catch(e){}
+      
+      // احذف من Supabase
+      try{
+        const SUPABASE_URL='https://wkhzzgqndbpkqadbvung.supabase.co';
+        const ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.[STRIPPED 127 bytes].mJ8F8v6dZQ7l6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2';
+        await fetch(SUPABASE_URL+'/rest/v1/darfur_vip_stores?id=eq.'+id, {
+          method:'DELETE',
+          headers:{'apikey':ANON_KEY,'Authorization':'Bearer '+ANON_KEY}
+        });
+        // احذف منتجاته من Supabase
+        await fetch(SUPABASE_URL+'/rest/v1/darfur_products?store_id=eq.'+id, {
+          method:'DELETE',
+          headers:{'apikey':ANON_KEY,'Authorization':'Bearer '+ANON_KEY}
+        });
+        await fetch(SUPABASE_URL+'/rest/v1/darfur_products?vip_store_id=eq.'+id, {
+          method:'DELETE',
+          headers:{'apikey':ANON_KEY,'Authorization':'Bearer '+ANON_KEY}
+        });
+      }catch(e){ console.log('supabase delete failed', e); }
+      
+      if(window.showToast) window.showToast('تم حذف المتجر '+(storeToDelete?.name||''),'success');
+      
+      document.querySelector('#admin-vip-panel')?.remove(); 
+      setTimeout(()=>window.openAdminVIPPanel(),300);
+    }catch(err){
+      alert('خطأ في الحذف: '+err.message);
+    }
+  };
+  
+  // دالة حذف المتجر من داخل صفحة المتجر نفسه (للمالك والادمن)
+  window.deleteCurrentStore = async function(storeId){
+    if(!window.isAdmin()){
+      const u=JSON.parse(localStorage.getItem('darfur_current_user')||'null');
+      const my=JSON.parse(localStorage.getItem('darfur_my_vip_store')||'null');
+      const stores=JSON.parse(localStorage.getItem('darfur_vip_stores')||'[]');
+      const store=stores.find(s=>s.id===storeId) || my;
+      if(!store || (u && store.owner_id!==u.id && store.owner_id!==u.email)){
+        if(window.showToast) window.showToast('لا يمكنك حذف هذا المتجر','error');
+        return;
+      }
+    }
+    await window.removeVIPStore(storeId);
+    document.querySelector('#vip-store-page-root')?.remove();
+    window.openVIPStoresScreen();
+  };
   window.contactRequester=function(w,n){ const num=w||'249912345678'; const msg=encodeURIComponent('مرحبا، بخصوص طلبك لمتجر '+n+' في دارفور ماركت VIP'); window.open('https://wa.me/'+num+'?text='+msg, '_blank'); };
   
   function createFilterCard(){
@@ -976,29 +1073,7 @@ window.openAdminVIPPanel=function(){
     const sampleClass = sampleCard ? sampleCard.className : '';
     const sampleStyle = sampleCard ? window.getComputedStyle(sampleCard) : null;
     
-    const hasF=document.querySelector('.filter-other-card:not(.vip-stores-card)'); 
     const hasV=document.querySelector('.vip-stores-card');
-    
-    if(!hasF){ 
-      const c=document.createElement('div'); 
-      // نفس كلاس الكروت الأصلية بالظبط + كلاس اضافي للتمييز
-      c.className = sampleClass ? sampleClass + ' filter-other-card' : 'filter-other-card';
-      // لو ما لقينا كلاس، نطبق ستايل مطابق يدوياً
-      if(!sampleClass){
-        c.style.cssText = 'background:#1E1E1E;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;aspect-ratio:1;min-height:90px;';
-      }
-      // نفس محتوى الكروت الأصلية - أيقونة + نص
-      c.innerHTML=`<div style="width:44px;height:44px;background:rgba(167,243,208,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#A7F3D0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="14" y2="6"></line><line x1="3" y1="10" x2="11" y2="10"></line><line x1="3" y1="14" x2="8" y2="14"></line><line x1="3" y1="18" x2="5" y2="18"></line><polyline points="16 3 16 16 19 13 13 13 16 16"></polyline></svg></div><div style="font-size:12px;font-weight:700;color:#fff;text-align:center;margin-top:4px;">فلترة أخرى</div>`;
-      c.onclick=()=>openFilterModal(); 
-      const ch=Array.from(target.children); let ins=false; 
-      for(let i=0;i<ch.length;i++){ 
-        const child=ch[i]; const txt=child.textContent||''; 
-        if(txt.includes('عقارات')){ target.insertBefore(c, child); ins=true; break; } 
-      } 
-      if(!ins){ 
-        if(ch.length>=8){ target.insertBefore(c, ch[8]); }else{ target.appendChild(c); } 
-      } 
-    }
     
     if(!hasV){ 
       const v=document.createElement('div'); 
@@ -1160,9 +1235,8 @@ function openFilterModal(){
 
  localStorage.removeItem('darfur_filters_v2'); localStorage.removeItem('darfur_filtered_products'); document.querySelectorAll('#filter-min-price, #filter-max-price').forEach(i=>i.value=''); document.querySelectorAll('.filter-sort-btn').forEach(b=>{ b.classList.remove('active'); if(b.dataset.sort==='newest') b.classList.add('active'); }); window.dispatchEvent(new CustomEvent('filtersReset')); const t=document.createElement('div'); t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:9999999;background:#1E1E1E;color:#fff;padding:10px 20px;border-radius:999px;font-size:13px;font-weight:800;border:1px solid rgba(255,255,255,0.1)'; t.textContent='🗑️ تم مسح كل الفلاتر'; document.body.appendChild(t); setTimeout(()=>t.remove(),2000); document.querySelector('.filter-modal')?.remove(); };
   
-  function init(){ const c=createFilterCard(); if(!c){ setTimeout(init, 500); } window.fetchVIPStores().then(s=>{ console.log('VIP loaded', s.length); }); }
+  function init(){ const c=window.createFilterCard(); if(!c){ setTimeout(init, 500); } if(window.fetchVIPStores) window.fetchVIPStores().then(s=>{ console.log('VIP loaded', s.length); }); }
   init();
-  const obs=new MutationObserver(()=>{ clearTimeout(window.__filterMoveT); window.__filterMoveT=setTimeout(()=>{ if(!document.querySelector('.filter-other-card') || !document.querySelector('.vip-stores-card')){ createFilterCard(); } },500); }); obs.observe(document.body, {childList:true, subtree:true});
   console.log('✅ VIP Clean - No top filters, no bottom navbar');
 })();
 </script>
@@ -1698,14 +1772,57 @@ window.openFavoritesScreen = function(){
     }
   };
   
-  // جلب المنتجات
+  // جلب المنتجات من كل مكان
   let allProducts = [];
   try{ allProducts = JSON.parse(localStorage.getItem('darfur_products')||'[]'); }catch(e){}
+  // جرب كل مفاتيح التخزين
+  try{
+    Object.keys(localStorage).forEach(k=>{
+      if(k.startsWith('darfur_store_products_') || k.startsWith('darfur_my_products_')){
+        try{
+          const arr = JSON.parse(localStorage.getItem(k)||'[]');
+          arr.forEach(p=>{
+            if(!allProducts.find(a=>a.id===p.id)) allProducts.push(p);
+          });
+        }catch(e){}
+      }
+    });
+  }catch(e){}
   
   const favProducts = allProducts.filter(p=>favIds.includes(p.id));
   
   if(favProducts.length === 0){
-    gridEl.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,0.5);font-size:13px;">المنتجات غير موجودة (تم حذفها)</div>`;
+    // حاول جلب من Supabase
+    gridEl.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;">
+      <div style="font-size:14px;color:#fff;font-weight:700;margin-bottom:8px;">المنتجات غير موجودة محليا</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.5;">جاري محاولة جلبها من السيرفر...<br>او قد تكون محذوفة</div>
+      <button onclick="localStorage.setItem('darfur_favorites','[]'); document.querySelector('#favorites-screen').remove();" style="margin-top:16px;background:#1E1E1E;border:1px solid rgba(255,255,255,0.1);color:#fff;padding:8px 16px;border-radius:10px;font-size:12px;cursor:pointer;">مسح المفضلة</button>
+    </div>`;
+    // حاول جلب من Supabase
+    try{
+      const favIds = JSON.parse(localStorage.getItem('darfur_favorites')||'[]');
+      if(favIds.length>0 && window.fetchProductsWithFilters){
+        const SUPABASE_URL='https://wkhzzgqndbpkqadbvung.supabase.co';
+        const ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndraHp6Z3FuZGJwa3FhZGJ2dW5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYxMjM0MTIsImV4cCI6MjA4MTY5OTQxMn0.mJ8F8v6dZQ7l6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2';
+        fetch(SUPABASE_URL+'/rest/v1/darfur_products?select=*&id=in.('+favIds.map(id=>`"${id}"`).join(',')+')', {
+          headers:{'apikey':ANON_KEY,'Authorization':'Bearer '+ANON_KEY}
+        }).then(r=>r.json()).then(data=>{
+          if(data && data.length>0){
+            const grid = document.getElementById('fav-grid');
+            if(grid){
+              grid.innerHTML = data.map(p=>{
+                const img = p.images && p.images[0] ? p.images[0] : '';
+                const imgHtml = img ? `<img src="${img}" style="width:100%;height:100%;object-fit:cover;">` : `<div style="width:100%;height:100%;background:#1A1A1A;display:flex;align-items:center;justify-content:center;">منتج</div>`;
+                return `<div style="background:#1A1A1A;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
+                  <div style="aspect-ratio:1;background:#121212;">${imgHtml}</div>
+                  <div style="padding:10px;"><div style="font-size:13px;color:#fff;font-weight:800;">${p.title||''}</div><div style="font-size:12px;color:#A7F3D0;margin-top:4px;">${p.price||''} SDG</div></div>
+                </div>`;
+              }).join('');
+            }
+          }
+        });
+      }
+    }catch(e){}
     return;
   }
   
@@ -1746,34 +1863,166 @@ setTimeout(()=>{
 </script>
 
 
-<script id="floating-fav-btn">
-setTimeout(()=>{
-  // أضف زر مفضلة عائم في الصفحة الرئيسية
-  if(document.querySelector('#floating-fav')) return;
-  const btn = document.createElement('button');
-  btn.id = 'floating-fav';
-  btn.style.cssText = 'position:fixed;bottom:90px;left:16px;z-index:999;width:48px;height:48px;background:#1A1A1A;border:1px solid rgba(255,107,107,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.3);';
-  btn.innerHTML = '❤️';
-  btn.title = 'المفضلة';
-  btn.onclick = ()=> window.openFavoritesScreen();
+<!-- floating fav removed, now in grid -->
+
+
+<script id="fix-refresh">
+(function(){
+  // احفظ المتجر المفتوح حاليا
+  const origOpenStore = window.openStoreProductsPage;
+  if(origOpenStore){
+    window.openStoreProductsPage = async function(storeId){
+      try{ sessionStorage.setItem('darfur_last_open_store', storeId); }catch(e){}
+      // حفظ في history
+      try{ history.pushState({storeId: storeId}, '', '#store='+storeId); }catch(e){}
+      return origOpenStore.apply(this, arguments);
+    };
+  }
   
-  // تحديث العدد
-  const updateCount = ()=>{
-    const favs = JSON.parse(localStorage.getItem('darfur_favorites')||'[]');
-    if(favs.length>0){
-      btn.innerHTML = `❤️<span style="position:absolute;top:-4px;right:-4px;background:#FF4444;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;">${favs.length}</span>`;
-      btn.style.display = 'flex';
+  // عند تحديث الصفحة، افتح المتجر تاني لو كان مفتوح
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      try{
+        const hash = location.hash;
+        if(hash && hash.startsWith('#store=')){
+          const id = hash.replace('#store=','');
+          if(id && window.openStoreProductsPage) window.openStoreProductsPage(id);
+        }else{
+          const last = sessionStorage.getItem('darfur_last_open_store');
+          if(last && location.hash===''){
+            // لا تفتح تلقائيا عشان ما يزعج، بس احفظ
+          }
+        }
+      }catch(e){}
+    }, 1500);
+  });
+  
+  // زر الرجوع في المتصفح
+  window.addEventListener('popstate', (e)=>{
+    if(e.state && e.state.storeId){
+      window.openStoreProductsPage(e.state.storeId);
     }else{
-      btn.innerHTML = '❤️';
-      // لا تخفيه، خليه ظاهر دائما للوصول السهل
+      document.querySelector('#vip-store-page-root')?.remove();
+      document.querySelector('#vip-stores-screen')?.remove();
     }
-  };
-  
-  updateCount();
-  setInterval(updateCount, 2000);
-  
-  document.body.appendChild(btn);
-}, 3000);
+  });
+})();
+</script>
+
+
+<script id="fav-in-grid">
+function createFavCardInGrid(){
+    const grids=document.querySelectorAll('div[class*="grid"]'); let target=null;
+    for(let g of grids){ const txt=g.textContent||''; if((txt.includes('عقارات') || txt.includes('هواتف')) && g.children.length>=5){ target=g; break; } }
+    if(!target){ document.querySelectorAll('div').forEach(d=>{ if(d.children.length>=8 && d.textContent.includes('عقارات') && d.textContent.includes('هواتف')){ if(d.offsetWidth>200){ target=d; } } }); }
+    if(!target) return false;
+    
+    const sampleCard = Array.from(target.children).find(c=>c.textContent.includes('عقارات') || c.textContent.includes('هواتف'));
+    const sampleClass = sampleCard ? sampleCard.className : '';
+    
+    if(document.querySelector('.fav-grid-card')) return true;
+    
+    const favCard = document.createElement('div');
+    favCard.className = sampleClass ? sampleClass + ' fav-grid-card' : 'fav-grid-card';
+    if(!sampleClass){
+      favCard.style.cssText = 'background:#1E1E1E;border:1px solid rgba(255,107,107,0.2);border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;aspect-ratio:1;min-height:90px;position:relative;';
+    }else{
+      favCard.style.cssText += ';position:relative;';
+    }
+    
+    const updateFavCard = ()=>{
+      const favs = JSON.parse(localStorage.getItem('darfur_favorites')||'[]');
+      const count = favs.length;
+      favCard.innerHTML = `
+        <div style="position:absolute;top:6px;right:6px;background:#FF4444;color:#fff;font-size:10px;font-weight:800;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 5px;${count===0?'display:none':''}">${count}</div>
+        <div style="width:44px;height:44px;background:rgba(255,107,107,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">❤️</div>
+        <div style="font-size:12px;font-weight:800;color:#fff;text-align:center;margin-top:4px;">المفضلة</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.5);text-align:center;">${count} منتج</div>
+      `;
+    };
+    
+    updateFavCard();
+    setInterval(updateFavCard, 2000);
+    
+    favCard.onclick = ()=> window.openFavoritesScreen();
+    
+    // أدخلها قبل كرت العقارات أو في الأول
+    const children = Array.from(target.children);
+    let inserted = false;
+    for(let i=0;i<children.length;i++){
+      const child=children[i];
+      const txt=child.textContent||'';
+      if(txt.includes('عقارات')){
+        target.insertBefore(favCard, child);
+        inserted = true;
+        break;
+      }
+    }
+    if(!inserted){
+      if(children.length>=2){
+        target.insertBefore(favCard, children[2]);
+      }else{
+        target.appendChild(favCard);
+      }
+    }
+    
+    return true;
+}
+
+function createVIPCardOnly(){
+    const grids=document.querySelectorAll('div[class*="grid"]'); let target=null;
+    for(let g of grids){ const txt=g.textContent||''; if(txt.includes('عقارات') && txt.includes('أجهزة') && g.children.length>=5){ target=g; break; } }
+    if(!target){ document.querySelectorAll('div').forEach(d=>{ if(d.children.length>=8 && d.textContent.includes('عقارات') && d.textContent.includes('هواتف')){ if(d.offsetWidth>200){ target=d; } } }); }
+    if(!target) return false;
+    
+    const sampleCard = Array.from(target.children).find(c=>c.textContent.includes('عقارات') || c.textContent.includes('هواتف'));
+    const sampleClass = sampleCard ? sampleCard.className : '';
+    
+    const hasV=document.querySelector('.vip-stores-card');
+    if(!hasV){ 
+      const v=document.createElement('div'); 
+      v.className = sampleClass ? sampleClass + ' filter-other-card vip-stores-card' : 'filter-other-card vip-stores-card';
+      if(!sampleClass){
+        v.style.cssText = 'background:#1E1E1E;border:1px solid rgba(167,243,208,0.2);border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;aspect-ratio:1;min-height:90px;position:relative;';
+      }
+      v.innerHTML=`<div style="position:absolute;top:6px;right:6px;background:#FFC107;color:#000;font-size:7px;font-weight:900;padding:2px 5px;border-radius:999px;">VIP</div><div style="width:44px;height:44px;background:rgba(255,193,7,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#FFC107" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4-4 4 4 4-4 4 4v8H3V8z"></path><path d="M12 12v4"></path><path d="M8 16h8"></path></svg></div><div style="font-size:12px;font-weight:800;color:#FFC107;text-align:center;margin-top:4px;">متاجر VIP</div>`;
+      v.onclick=()=>{ window.openVIPStoresScreen(); }; 
+      const all=Array.from(target.children); let vi=false; 
+      for(let i=0;i<all.length;i++){ 
+        const child=all[i]; const txt=child.textContent||''; 
+        if(txt.includes('عقارات') && !child.classList.contains('vip-stores-card') && !child.classList.contains('fav-grid-card')){ target.insertBefore(v, child); vi=true; break; } 
+      } 
+      if(!vi){ 
+        const f=document.querySelector('.fav-grid-card'); 
+        if(f){ target.insertBefore(v, f.nextSibling); }else{ target.appendChild(v); } 
+      } 
+    }
+    return true;
+}
+
+// استبدال createFilterCard القديمة
+window.createFilterCard = function(){
+  createFavCardInGrid();
+  createVIPCardOnly();
+  return true;
+};
+
+setTimeout(()=>{
+  createFavCardInGrid();
+  createVIPCardOnly();
+}, 1000);
+
+// مراقب لإعادة إنشاء الكروت لو اختفت
+const gridObserver = new MutationObserver(()=>{
+  clearTimeout(window.__favGridT);
+  window.__favGridT=setTimeout(()=>{
+    if(!document.querySelector('.fav-grid-card') || !document.querySelector('.vip-stores-card')){
+      createFavCardInGrid();
+      createVIPCardOnly();
+    }
+  }, 500);
+});
+gridObserver.observe(document.body, {childList:true, subtree:true});
 </script>
 
 </body>
