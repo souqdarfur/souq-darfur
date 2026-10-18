@@ -110,7 +110,7 @@ out[idx]=uploaded||dataUrl;
 }catch(e){out[idx]=null}
 }
 return out.filter(Boolean)
-},md=async(f,E)=>{if(!m){$("سجل دخول أولا","error");return}if(m.is_banned){$("تم حظر حسابك","error");return}let N=Date.now();if(N-gu.current<nd){$(`انتظر ${Math.ceil((nd-(N-gu.current))/1000)} ثواني`,"error");return}if(!f.title.trim()||f.title.length<3){$("العنوان قصير","error");return}if(!r1(f.price)){$("السعر غير صالح","error");return}if(E){if(E.length>5){$("الحد الأقصى 5 صور","error");return}for(let ne=0;ne<E.length;ne++){let ye=E[ne];if(!ye.type.startsWith("image/")){$("ملف غير صالح - صور فقط","error");return}if(ye.size>2097152){$("الصورة أكبر من 2MB","error");return}}}let R={id:"p_"+Date.now(),user_id:m.id,title:De(f.title.trim()),category:f.category,wilaya:f.wilaya,price:Number(f.price),description:De(f.description.trim()),whatsapp:De((f.whatsapp||"").trim()),condition:f.condition||"جديد",boosted_until:null,is_boosted:!1,images:await __imgProc(E),created_at:new Date().toISOString()},T=[R,...l];u(T),K("darfur_products",T),du("products",R),gu.current=N,Tr(!1),$("تم نشر المنتج - يظهر لكل ناس دارفور ✅")},sa=(f)=>{on({title:"هل تريد حذف هذا المنتج نهائيا؟",onConfirm:()=>{let E=l.filter((N)=>N.id!==f);u(E),K("darfur_products",E),Uo("products",f),$("تم حذف المنتج"),on(null)}})},da=(f)=>{on({title:"حذف تنبيه الطوارئ؟",onConfirm:()=>{let E=i.filter((N)=>N.id!==f);a(E),K("darfur_emergencies",E),Uo("emergencies",f),$("تم حذف التنبيه"),on(null)}})},gd=async(f)=>{if(!xe){$("النشر مخصص للإدارة فقط","error");return}let photoUrl=null;try{if(f.missing_photo){let file=f.missing_photo;let b64=await new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});photoUrl=b64;}}catch(e){}let E={id:"e_"+Date.now(),user_id:m.id,title:De(f.title),description:De(f.description),wilaya:f.wilaya,priority:f.priority,created_at:new Date().toISOString(),emergency_type:f.emergency_type||"عام",missing_name:De(f.missing_name||""),missing_age:f.missing_age||"",last_seen:De(f.last_seen||""),contact_phone:De(f.contact_phone||""),missing_photo:photoUrl},N=[E,...i];a(N),K("darfur_emergencies",N),du("emergencies",E),Wr(!1),$(f.emergency_type==="مفقود"?"تم نشر بلاغ المفقود - ربنا يجمع 🧍":"تم نشر تنبيه الطوارئ - يظهر لكل ناس دارفور \uD83D\uDEA8")},kd=async(f,F)=>{if(!xe){$("إضافة الإعلانات للإدارة فقط","error");return}if(!f.title.trim()||f.title.length<3){$("عنوان الإعلان قصير","error");return}let E=Number(f.discount);if(isNaN(E)||E<=0||E>90){$("نسبة الخصم بين 1 و 90","error");return}let N=Number(f.duration_days);if(isNaN(N)||N<1||N>365){$("المدة من 1 إلى 365 يوم","error");return}if(!f.address.trim()||f.address.length<3){$("اكتب عنوان الموقع","error");return}let R={id:"ad_"+Date.now(),user_id:m.id,title:De(f.title.trim()),ad_type:f.ad_type,wilaya:f.wilaya,discount:E,duration_days:N,description:De((f.description||"").trim()),address:De(f.address.trim()),phone:De((f.phone||"").trim()),images:await __imgProc(F),created_at:new Date().toISOString(),expires_at:new Date(Date.now()+N*24*60*60*1000).toISOString()},T=[R,...h];k(T),K("darfur_ads",T),du("ads",R),hu(!1),$("تم نشر الإعلان المميز - للجميع")},Ed=(f)=>{on({title:"حذف هذا الإعلان المميز نهائيا؟",onConfirm:()=>{let E=h.filter((N)=>N.id!==f);k(E),K("darfur_ads",E),Uo("ads",f),$("تم حذف الإعلان"),on(null)}})},wd=(f,E)=>{if(!m){$("سجل دخول للإبلاغ","error");return}let R=[{id:"r_"+Date.now(),reporter_id:m.id,product_id:f.id,reported_user_id:f.user_id,reason:De(E),created_at:new Date().toISOString()},...c];s(R),K("darfur_reports",R),$("تم إرسال البلاغ - شكرا لك")},Hr=(f)=>{let E=c.filter((N)=>N.id!==f);s(E),K("darfur_reports",E),$("تم حذف البلاغ")},Su=(f,E)=>{let N=t.map((R)=>R.id===f?{...R,is_banned:E}:R);if(r(N),K("darfur_users",N),m?.id===f&&E)fa();$(E?"تم حظر المستخدم":"تم فك الحظر")},Sd=(f)=>{if(f===m?.id){$("لا يمكنك حذف نفسك","error");return}on({title:"حذف المستخدم وجميع منتجاته؟",onConfirm:()=>{let E=t.filter((R)=>R.id!==f),N=l.filter((R)=>R.user_id!==f);r(E),K("darfur_users",E),u(N),K("darfur_products",N),$("تم حذف المستخدم"),on(null)}})},Cd=(f)=>{let E=t.map((N)=>N.id===f?{...N,is_admin:!N.is_admin}:N);r(E),K("darfur_users",E),$("تم تحديث صلاحية الأدمن")},Cu=[{id:"الكل",name:"الكل",icon:td},{id:"سيارات",name:"سيارات",icon:l1},{id:"هواتف",name:"هواتف",icon:u1},{id:"أجهزة",name:"أجهزة",icon:i1},{id:"محاصيل",name:"محاصيل",icon:o1},{id:"مواشي",name:"مواشي",icon:a1},{id:"ملابس",name:"ملابس",icon:c1},{id:"عقارات",name:"عقارات",icon:rd}],_u=(f,E=48)=>{let N=Cu.find((T)=>T.id===f),R=N?N.icon:td;return o(R,{size:E,color:"#0F3D2E"})},pa=(f,E=44)=>{let R={"مدرسة":d1,"جامعة":p1,"شركة":v1,"مطعم":y1,"عقار":h1,"غيره":xo}[f]||xo;return o(R,{size:E,color:"#0F3D2E"})},va=(f)=>{let E=["bg-[#D1FAE5]","bg-[#FEF3C7]","bg-[#DBEAFE]","bg-[#FCE7F3]","bg-[#E0E7FF]","bg-[#FEF9C3]"],N=f.charCodeAt(f.length-1)%E.length;return E[N]};return p("div",{dir:"rtl",className:"min-h-screen bg-[#121212] text-white font-[Tajawal] selection:bg-[#0F3D2E] selection:text-white overflow-x-hidden max-w-[100vw]",children:[o("style",{children:`
+},md=async(f,E)=>{if(!m){$("سجل دخول أولا","error");return}if(m.is_banned){$("تم حظر حسابك","error");return}let N=Date.now();if(N-gu.current<nd){$(`انتظر ${Math.ceil((nd-(N-gu.current))/1000)} ثواني`,"error");return}if(!f.title.trim()||f.title.length<3){$("العنوان قصير","error");return}if(!r1(f.price)){$("السعر غير صالح","error");return}if(E){if(E.length>5){$("الحد الأقصى 5 صور","error");return}for(let ne=0;ne<E.length;ne++){let ye=E[ne];if(!ye.type.startsWith("image/")){$("ملف غير صالح - صور فقط","error");return}if(ye.size>2097152){$("الصورة أكبر من 2MB","error");return}}}let R={id:"p_"+Date.now(),user_id:m.id,title:De(f.title.trim()),category:f.category,wilaya:f.wilaya,price:Number(f.price),description:De(f.description.trim()),whatsapp:De((f.whatsapp||"").trim()),condition:f.condition||"جديد",boosted_until:null,is_boosted:!1,images:await __imgProc(E),created_at:new Date().toISOString()},T=[R,...l];u(T),K("darfur_products",T),du("products",R),gu.current=N,Tr(!1),$("تم نشر المنتج - يظهر لكل ناس دارفور ✅")},sa=(f)=>{on({title:"هل تريد حذف هذا المنتج نهائيا؟",onConfirm:()=>{let E=l.filter((N)=>N.id!==f);u(E),K("darfur_products",E),Uo("products",f),$("تم حذف المنتج"),on(null)}})},da=(f)=>{on({title:"حذف تنبيه الطوارئ؟",onConfirm:()=>{let E=i.filter((N)=>N.id!==f);a(E),K("darfur_emergencies",E),Uo("emergencies",f),$("تم حذف التنبيه"),on(null)}})},gd=async(f)=>{if(!xe){$("النشر مخصص للإدارة فقط","error");return}let photoUrl=null;try{if(f.missing_photo){let file=f.missing_photo;let b64=await new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});photoUrl=b64;}}catch(e){}let E={id:"e_"+Date.now(),user_id:m.id,title:De(f.title),description:De(f.description),wilaya:f.wilaya,priority:f.priority,created_at:new Date().toISOString(),emergency_type:f.emergency_type||"عام",missing_name:De(f.missing_name||""),missing_age:f.missing_age||"",last_seen:De(f.last_seen||""),contact_phone:De(f.contact_phone||""),missing_photo:photoUrl},N=[E,...i];a(N),K("darfur_emergencies",N),du("emergencies",E),Wr(!1),$(f.emergency_type==="مفقود"?"تم نشر بلاغ المفقود - ربنا يجمع 🧍":"تم نشر تنبيه الطوارئ - يظهر لكل ناس دارفور \uD83D\uDEA8")},kd=async(f,F)=>{if(!xe){$("إضافة الإعلانات للإدارة فقط","error");return}if(!f.title.trim()||f.title.length<3){$("عنوان الإعلان قصير","error");return}let E=Number(f.discount);if(isNaN(E)||E<=0||E>90){$("نسبة الخصم بين 1 و 90","error");return}let N=Number(f.duration_days);if(isNaN(N)||N<1||N>365){$("المدة من 1 إلى 365 يوم","error");return}if(!f.address.trim()||f.address.length<3){$("اكتب عنوان الموقع","error");return}let R={id:"ad_"+Date.now(),user_id:m.id,title:De(f.title.trim()),ad_type:f.ad_type,wilaya:f.wilaya,discount:E,duration_days:N,description:De((f.description||"").trim()),address:De(f.address.trim()),phone:De((f.phone||"").trim()),images:await __imgProc(F),created_at:new Date().toISOString(),expires_at:new Date(Date.now()+N*24*60*60*1000).toISOString()},T=[R,...h];k(T),K("darfur_ads",T),du("ads",R),hu(!1),$("تم نشر الإعلان المميز - للجميع")},Ed=(f)=>{on({title:"حذف هذا الإعلان المميز نهائيا؟",onConfirm:()=>{let E=h.filter((N)=>N.id!==f);k(E),K("darfur_ads",E),Uo("ads",f),$("تم حذف الإعلان"),on(null)}})},wd=(f,E)=>{if(!m){$("سجل دخول للإبلاغ","error");return}let R=[{id:"r_"+Date.now(),reporter_id:m.id,product_id:f.id,reported_user_id:f.user_id,reason:De(E),created_at:new Date().toISOString()},...c];s(R),K("darfur_reports",R),du("reports",R[0]||R[R.length-1]),$("تم إرسال البلاغ - شكرا لك")},Hr=(f)=>{let E=c.filter((N)=>N.id!==f);s(E),K("darfur_reports",E),$("تم حذف البلاغ")},Su=(f,E)=>{let N=t.map((R)=>R.id===f?{...R,is_banned:E}:R);if(r(N),K("darfur_users",N),m?.id===f&&E)fa();$(E?"تم حظر المستخدم":"تم فك الحظر")},Sd=(f)=>{if(f===m?.id){$("لا يمكنك حذف نفسك","error");return}on({title:"حذف المستخدم وجميع منتجاته؟",onConfirm:()=>{let E=t.filter((R)=>R.id!==f),N=l.filter((R)=>R.user_id!==f);r(E),K("darfur_users",E),u(N),K("darfur_products",N),$("تم حذف المستخدم"),on(null)}})},Cd=(f)=>{let E=t.map((N)=>N.id===f?{...N,is_admin:!N.is_admin}:N);r(E),K("darfur_users",E),$("تم تحديث صلاحية الأدمن")},Cu=[{id:"الكل",name:"الكل",icon:td},{id:"سيارات",name:"سيارات",icon:l1},{id:"هواتف",name:"هواتف",icon:u1},{id:"أجهزة",name:"أجهزة",icon:i1},{id:"محاصيل",name:"محاصيل",icon:o1},{id:"مواشي",name:"مواشي",icon:a1},{id:"ملابس",name:"ملابس",icon:c1},{id:"عقارات",name:"عقارات",icon:rd}],_u=(f,E=48)=>{let N=Cu.find((T)=>T.id===f),R=N?N.icon:td;return o(R,{size:E,color:"#0F3D2E"})},pa=(f,E=44)=>{let R={"مدرسة":d1,"جامعة":p1,"شركة":v1,"مطعم":y1,"عقار":h1,"غيره":xo}[f]||xo;return o(R,{size:E,color:"#0F3D2E"})},va=(f)=>{let E=["bg-[#D1FAE5]","bg-[#FEF3C7]","bg-[#DBEAFE]","bg-[#FCE7F3]","bg-[#E0E7FF]","bg-[#FEF9C3]"],N=f.charCodeAt(f.length-1)%E.length;return E[N]};return p("div",{dir:"rtl",className:"min-h-screen bg-[#121212] text-white font-[Tajawal] selection:bg-[#0F3D2E] selection:text-white overflow-x-hidden max-w-[100vw]",children:[o("style",{children:`
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
         *{font-family:'Tajawal', sans-serif}
         ::-webkit-scrollbar{width:6px;height:6px} ::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:99px}
@@ -156,7 +156,7 @@ p("div",{className:"grid grid-cols-2 gap-3",children:[...i].sort((a,b)=> (b.emer
   } else {
     return p("div",{className:"col-span-2 rounded-2xl bg-[#1E1E1E] border border-red-500/20 p-4",children:[p("div",{className:"flex justify-between items-start gap-3",children:[o("h3",{className:"font-bold text-[#FFC7C7]",children:f.title}),o("span",{className:"text-[10px] px-2 py-1 rounded-full bg-red-500/20 text-red-300",children:f.priority})]}),o("p",{className:"text-sm text-white/70 mt-2",children:f.description}),p("div",{className:"flex items-center justify-between mt-3",children:[p("span",{className:"text-xs text-white/40",children:[f.wilaya," • ",new Date(f.created_at).toLocaleDateString("ar-SD")]}),o("button",{onClick:()=>window.__openDeleteConfirm(f),className:"px-3 h-7 rounded-full bg-[#DC2626] text-xs font-bold",children:"🗑️ حذف"})]})]},f.id)
   }
-})})]}),S==="seller"&&SL&&p("div",{className:"space-y-4",children:[o("button",{onClick:()=>_("productDetail"),className:"text-sm text-white/60",children:"\u2192 \u0631\u062c\u0648\u0639"}),p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-6 text-center",children:[o("div",{className:"w-20 h-20 mx-auto rounded-full bg-[#0F3D2E] flex items-center justify-center text-3xl font-black",children:(SL.full_name||"?").trim().slice(0,1)}),o("h2",{className:"text-xl font-black mt-3",children:SL.full_name}),(()=>{let _rl=__rt.filter(_x=>_x.seller_id===SL.id),_n=_rl.length,_avg=_n?_rl.reduce((_a,_b)=>_a+_b.stars,0)/_n:0;return o("p",{className:"text-[#FFD166] text-sm font-bold mt-1",children:_n?"\u2605 "+_avg.toFixed(1)+" ("+_n+" \u062a\u0642\u064a\u064a\u0645)":"\u0644\u0627 \u062a\u0648\u062c\u062f \u062a\u0642\u064a\u064a\u0645\u0627\u062a \u0628\u0639\u062f"})})(),SL.whatsapp&&o("p",{className:"text-white/50 text-xs mt-2",children:"\u260E "+SL.whatsapp}),p("div",{className:"flex gap-2 mt-4",children:[SL.whatsapp&&o("button",{onClick:()=>window.open("https://wa.me/"+String(SL.whatsapp).replace(/^0/,"+249"),"_blank"),className:"flex-1 h-12 rounded-full bg-[#25D366] text-white font-bold",children:"\u062a\u0648\u0627\u0635\u0644 \u0648\u0627\u062a\u0633\u0627\u0628"}),SL.whatsapp&&o("button",{onClick:()=>window.open("tel:"+String(SL.whatsapp).replace(/^0/,"+249")),className:"w-12 h-12 rounded-full bg-[#0F3D2E] text-white flex items-center justify-center text-xl",children:"\u260E"})]})]}),p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-4",children:[o("h3",{className:"font-bold text-sm",children:"\u062a\u0642\u064a\u064a\u0645 \u0627\u0644\u0628\u0627\u0626\u0639"}),(()=>{let _rl=__rt.filter(_x=>_x.seller_id===SL.id),_mine=_rl.find(_x=>m&&_x.rater_id===m.id),_self=m&&m.id===SL.id;return _self?o("p",{className:"text-white/50 text-xs mt-2",children:"\u0647\u0630\u0647 \u0635\u0641\u062d\u062a\u0643"}):_mine?o("p",{className:"text-white/50 text-xs mt-2",children:"\u0642\u064a\u0651\u0645\u062a \u0647\u0630\u0627 \u0627\u0644\u0628\u0627\u0626\u0639: "+"\u2605".repeat(_mine.stars)}):!m?o("p",{className:"text-white/50 text-xs mt-2",children:"\u0633\u062c\u0651\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0644\u062a\u0642\u064a\u064a\u0645 \u0627\u0644\u0628\u0627\u0626\u0639"}):__rm?p("div",{className:"mt-3",children:[o("div",{className:"flex gap-1 justify-center",children:[1,2,3,4,5].map(_s=>o("button",{key:_s,type:"button",onClick:()=>__setRs(_s),className:"text-3xl "+(_s<=__rs?"text-[#FFD166]":"text-white/20"),children:"\u2605"}))}),o("textarea",{value:__rc,onChange:_e=>__setRc(_e.target.value),placeholder:"\u062a\u0639\u0644\u064a\u0642 \u0627\u062e\u062a\u064a\u0627\u0631\u064a...",rows:2,className:"w-full mt-2 rounded-xl bg-[#121212] border border-white/10 p-2 text-sm text-white outline-none"}),p("div",{className:"flex gap-2 mt-2",children:[o("button",{onClick:()=>__setRm(!1),className:"flex-1 h-10 rounded-full bg-white/10 text-white text-sm font-bold",children:"\u0625\u0644\u063a\u0627\u0621"}),o("button",{onClick:async()=>{let _nr={id:"r_"+Date.now(),seller_id:SL.id,rater_id:m.id,rater_name:m.full_name||m.email,stars:__rs,comment:__rc.trim(),created_at:new Date().toISOString()};try{await du("ratings",_nr)}catch{}let _nl=[_nr,...__rt];__setRt(_nl);try{K("darfur_ratings",_nl)}catch{}__setRs(5);__setRc("");__setRm(!1);$("\u062a\u0645 \u0625\u0631\u0633\u0627\u0644 \u062a\u0642\u064a\u064a\u0645\u0643 \u2705")},className:"flex-1 h-10 rounded-full bg-white text-black text-sm font-bold",children:"\u0625\u0631\u0633\u0627\u0644 \u0627\u0644\u062a\u0642\u064a\u064a\u0645"})]})]}):o("button",{onClick:()=>__setRm(!0),className:"mt-3 w-full h-10 rounded-full bg-[#FFD166] text-black text-sm font-bold",children:"\u0642\u064a\u0651\u0645 \u0647\u0630\u0627 \u0627\u0644\u0628\u0627\u0626\u0639"})})()]}),p("div",{className:"flex items-center justify-between",children:[o("h3",{className:"font-bold",children:"\u0645\u0646\u062a\u062c\u0627\u062a \u0627\u0644\u0628\u0627\u0626\u0639"}),o("span",{className:"text-xs text-white/50",children:l.filter((f)=>f.user_id===SL.id).length+" \u0645\u0646\u062a\u062c"})]}),o("div",{className:"grid grid-cols-2 gap-3",children:l.filter((f)=>f.user_id===SL.id).map((f)=>p("div",{className:"rounded-2xl overflow-hidden bg-white text-black cursor-pointer",onClick:()=>{Q(f),_("productDetail")},children:[o("div",{className:`relative h-[110px] flex items-center justify-center overflow-hidden ${Number(f.id.slice(-1))%2===0?"bg-[#D1FAE5]":"bg-[#FEF3C7]"}`,children:[f.images&&f.images[0]?o("img",{src:f.images[0],className:"w-full h-full object-cover",alt:f.title}):_u(f.category,48),o("button",{onClick:(e)=>{e.stopPropagation();__tgF(f.id)},className:"absolute top-2 right-2 w-8 h-8 rounded-full bg-black/50 backdrop-blur flex items-center justify-center",children:o("span",{className:"text-base",children:FV.includes(f.id)?"\u2764\uFE0F":"\uD83E\uDD0D"})})]}),p("div",{className:"p-3",children:[o("h3",{className:"font-bold text-[13px] line-clamp-1",children:f.title}),p("p",{className:"text-[#0F3D2E] font-extrabold text-sm mt-1",children:[f.price.toLocaleString()," SDG"]}),p("div",{className:"mt-2 flex items-center justify-between",children:[o("span",{className:"text-[10px] px-2 py-1 rounded-full bg-[#1E1E1E] text-white",children:f.wilaya}),o("span",{className:"text-[10px] text-black/50",children:f.category})]})]})]},f.id))})]}),S==="fav"&&p("div",{className:"space-y-4",children:[o("h2",{className:"text-xl font-bold",children:"\u2764\uFE0F \u0627\u0644\u0645\u0641\u0636\u0644\u0629"}),FV.length===0?o("div",{className:"text-center py-16",children:[o("p",{className:"text-5xl",children:"\uD83E\uDD0D"}),o("p",{className:"text-white/50 mt-4",children:"\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0646\u062a\u062c\u0627\u062a \u0645\u0641\u0636\u0644\u0629 \u0628\u0639\u062f"}),o("button",{onClick:()=>_("home"),className:"mt-4 h-11 px-6 rounded-full bg-[#0F3D2E] font-bold",children:"\u062a\u0635\u0641\u062d \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a"})]}):o("div",{className:"grid grid-cols-2 gap-3",children:l.filter((f)=>FV.includes(f.id)).map((f)=>p("div",{className:"rounded-2xl overflow-hidden bg-white text-black cursor-pointer",onClick:()=>{Q(f),_("productDetail")},children:[o("div",{className:`relative h-[110px] flex items-center justify-center overflow-hidden ${Number(f.id.slice(-1))%2===0?"bg-[#D1FAE5]":"bg-[#FEF3C7]"}`,children:[f.images&&f.images[0]?o("img",{src:f.images[0],className:"w-full h-full object-cover",alt:f.title}):_u(f.category,48),o("button",{onClick:(e)=>{e.stopPropagation();__tgF(f.id)},className:"absolute top-2 right-2 w-8 h-8 rounded-full bg-black/50 flex items-center justify-center",children:o("span",{className:"text-base",children:FV.includes(f.id)?"\u2764\uFE0F":"\uD83E\uDD0D"})})]}),p("div",{className:"p-3",children:[o("h3",{className:"font-bold text-[13px] line-clamp-1",children:f.title}),p("p",{className:"text-[#0F3D2E] font-extrabold text-sm mt-1",children:[f.price.toLocaleString()," SDG"]}),p("div",{className:"mt-2 flex items-center justify-between",children:[o("span",{className:"text-[10px] px-2 py-1 rounded-full bg-[#1E1E1E] text-white",children:f.wilaya}),o("span",{className:"text-[10px] text-black/50",children:f.category})]})]})]},f.id))})]}),S==="reports"&&p("div",{className:"space-y-4",children:[p("div",{className:"flex justify-between items-center",children:[p("h2",{className:"text-xl font-bold flex items-center gap-2",children:[o(Ao,{})," البلاغات"]}),m&&o("button",{onClick:()=>__setRp(!0),className:"h-9 px-4 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 text-xs font-bold",children:"+ بلاغ جديد"})]}),o("div",{className:"rounded-2xl bg-[#1E1E1E] p-4 border border-white/5",children:o("p",{className:"text-sm text-white/70",children:"للإبلاغ عن منتج مخالف، افتح المنتج واضغط زر الإبلاغ."})}),xe?c.length===0?o("p",{className:"text-center py-12 text-white/40",children:"لا توجد بلاغات"}):c.map((f)=>{let E=l.find((T)=>T.id===f.product_id),N=t.find((T)=>T.id===f.reported_user_id),R=t.find((T)=>T.id===f.reporter_id);return p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-4",children:[p("p",{className:"text-sm",children:[o("span",{className:"text-white/50",children:"المنتج:"})," ",E?.title||f.product_id||"بلاغ عام"]}),p("p",{className:"text-sm mt-1",children:[o("span",{className:"text-white/50",children:"السبب:"})," ",f.reason]}),p("p",{className:"text-xs mt-1 text-white/40",children:["المبلغ: ",R?.email," • المبلغ عنه: ",N?.email]}),p("div",{className:"flex gap-2 mt-3",children:[o("button",{onClick:()=>{window.__reviewReportById && window.__reviewReportById(f.id)},className:"flex-1 h-8 rounded-full bg-[#1E3A2E] border border-[#A7F3D0]/30 text-[11px] font-bold",children:"👁️ مراجعة"}),o("button",{onClick:()=>{let d=prompt("حظر مؤقت - كم يوم؟","7");if(!d)return;window.__tempBanByReportId && window.__tempBanByReportId(f.id,parseInt(d))},className:"flex-1 h-8 rounded-full bg-[#F59E0B] text-black text-[11px] font-bold",children:"⏳ مؤقت"}),o("button",{onClick:()=>{if(confirm("حظر نهائي؟")){window.__permBanByReportId && window.__permBanByReportId(f.id)}},className:"flex-1 h-8 rounded-full bg-[#DC2626] text-white text-[11px] font-bold",children:"🚫 نهائي"})]})]},f.id)}):o("div",{className:"text-center py-12",children:o("p",{className:"text-white/60 text-sm",children:"البلاغات تتم مراجعتها بواسطة الإدارة فقط"})})]}),__rp&&o(R1,{onSubmit:(f)=>{let R={id:"r_"+Date.now(),reporter_id:m.id,product_id:null,reported_user_id:null,reason:De(f),created_at:new Date().toISOString()},E=[R,...c];s(E),K("darfur_reports",E),__setRp(!1),$("تم إرسال البلاغ - شكرا لك")},onClose:()=>__setRp(!1)}),S==="account"&&p("div",{className:"space-y-4",children:[o("h2",{className:"text-xl font-bold",children:"حسابي"}),m?p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-5",children:[o("div",{className:"w-16 h-16 rounded-full bg-[#0F3D2E] flex items-center justify-center text-xl font-bold mx-auto",children:m.full_name.charAt(0)}),o("h3",{className:"text-center font-bold mt-3",children:m.full_name}),o("p",{className:"text-center text-sm text-white/50",children:m.email}),m.gender&&p("p",{className:"text-center text-xs text-white/30 mt-1",children:[m.gender," ",m.whatsapp?`• ${m.whatsapp}`:""]}),xe&&o("div",{className:"mt-2 flex justify-center",children:o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#A7F3D0] text-[#0F3D2E] font-bold",children:"أدمن"})}),p("div",{className:"grid grid-cols-2 gap-3 mt-6",children:[p("div",{className:"rounded-xl bg-[#121212] p-3 text-center",children:[o("p",{className:"text-2xl font-bold",children:l.filter((f)=>f.user_id===m.id).length}),o("p",{className:"text-xs text-white/50",children:"منتجاتي"})]}),p("div",{className:"rounded-xl bg-[#121212] p-3 text-center",children:[o("p",{className:"text-2xl font-bold",children:m.is_banned?"محظور":"نشط"}),o("p",{className:"text-xs text-white/50",children:"الحالة"})]})]}),xe&&o("button",{onClick:()=>_("admin"),className:"w-full mt-4 h-12 rounded-full bg-[#0F3D2E] font-bold border border-[#A7F3D0]/30",children:"لوحة الإدارة"}),o("button",{onClick:fa,className:"w-full mt-3 h-12 rounded-full bg-white/5 border border-white/10 font-bold",children:"تسجيل خروج"})]}):p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-6 text-center",children:[o("div",{className:"w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4",children:o(jo,{size:28,color:"#A7F3D0"})}),o("h3",{className:"font-bold",children:"مرحبا بك في سوق دارفور"}),o("p",{className:"text-sm text-white/50 mt-2",children:"سجل دخول لنشر منتجاتك ومتابعة الطلبات"}),p("div",{className:"flex gap-3 mt-6",children:[o("button",{onClick:()=>ce(!0),className:"flex-1 h-12 rounded-full bg-[#0F3D2E] font-bold",children:"دخول"}),o("button",{onClick:()=>Ae(!0),className:"flex-1 h-12 rounded-full bg-white text-black font-bold",children:"إنشاء حساب"})]})]}),p("div",{className:"grid grid-cols-1 gap-3",children:[o("button",{onClick:()=>_("about"),className:"h-12 rounded-xl bg-[#1E1E1E] border border-white/5 text-sm",children:"من نحن"}),o("button",{onClick:()=>_("terms"),className:"h-12 rounded-xl bg-[#1E1E1E] border border-white/5 text-sm",children:"الشروط والأحكام"}),o("button",{onClick:()=>_("contact"),className:"h-12 rounded-xl bg-[#1E1E1E] border border-white/5 text-sm",children:"تواصل معنا"})]})]}),S==="admin"&&xe&&p("div",{className:"space-y-4",children:[o("h2",{className:"text-xl font-bold",children:"لوحة الإدارة"}),o("div",{className:"flex gap-2 overflow-x-auto pb-2",children:[{id:"products",label:`المنتجات (${l.length})`},{id:"emergencies",label:`الطوارئ (${i.length})`},{id:"ads",label:`إعلانات (${h.length})`},{id:"reports",label:`البلاغات (${c.length})`},{id:"users",label:`المستخدمين (${t.length})`}].map((f)=>o("button",{onClick:()=>F(f.id),className:`shrink-0 px-4 h-9 rounded-full text-xs font-bold border ${P===f.id?"bg-[#0F3D2E] border-[#A7F3D0] text-white":"bg-[#1E1E1E] border-white/10 text-white/60"}`,children:f.label},f.id))}),P==="products"&&o("div",{className:"space-y-3",children:l.map((f)=>p("div",{className:`rounded-xl p-3 flex gap-3 items-center border ${f.boosted_until&&new Date(f.boosted_until)>new Date()?"bg-[#FFC107]/10 border-[#FFC107]/30":"bg-[#1E1E1E] border-white/5"}`,children:[o("div",{className:"w-12 h-12 rounded-lg bg-[#FEF3C7] flex items-center justify-center shrink-0",children:_u(f.category,24)}),p("div",{className:"flex-1 min-w-0",children:[o("p",{className:"font-bold text-sm truncate flex items-center gap-1",children:[f.title,f.boosted_until&&new Date(f.boosted_until)>new Date()?o("span",{className:"text-[9px] bg-[#FFC107] text-black px-1.5 py-0.5 rounded-full",children:"🚀"}):null]}),p("p",{className:"text-xs text-white/40",children:[f.category," • ",f.wilaya," • ",f.price.toLocaleString()," SDG"]}),f.boosted_until&&new Date(f.boosted_until)>new Date()?o("p",{className:"text-[10px] text-[#FFC107]",children:[`مثبت حتى ${new Date(f.boosted_until).toLocaleDateString('ar-EG')}`]}):null]}),p("div",{className:"flex gap-1 shrink-0",children:[o("button",{onClick:async()=>{let d=prompt(`تثبيت "${f.title}"\nكم يوم؟ 1=1000`,"1");if(!d)return;d=parseInt(d);let u=new Date();u.setDate(u.getDate()+d);let upd=l.map((p)=>p.id===f.id?{...p,boosted_until:u.toISOString(),is_boosted:!0}:p);localStorage.setItem("darfur_products",JSON.stringify(upd));if(window.supabaseClient){await window.supabaseClient.from("products").update({boosted_until:u.toISOString(),is_boosted:true}).eq("id",f.id);}location.reload();},className:"w-9 h-9 rounded-full bg-[#FFC107] text-black flex items-center justify-center",children:"🚀"}),o("button",{onClick:()=>sa(f.id),className:"w-9 h-9 rounded-full bg-[#DC2626] flex items-center justify-center shrink-0",children:o(Wt,{size:16})})]})]},f.id))}),P==="ads"&&p("div",{className:"space-y-3",children:[p("div",{className:"flex justify-between items-center",children:[o("p",{className:"text-sm text-white/60",children:"الإعلانات المميزة"}),p("button",{onClick:()=>hu(!0),className:"h-9 px-4 rounded-full bg-[#FFC107] text-black text-xs font-bold flex items-center gap-1",children:[o(qo,{size:14})," إعلان جديد"]})]}),h.map((f)=>p("div",{className:"rounded-xl bg-[#1E1E1E] p-3 flex gap-3 items-center border border-white/5",children:[o("div",{className:`w-12 h-12 rounded-lg ${va(f.id)} flex items-center justify-center shrink-0`,children:pa(f.ad_type,22)}),p("div",{className:"flex-1 min-w-0",children:[o("p",{className:"font-bold text-sm truncate",children:f.title}),p("p",{className:"text-xs text-white/40",children:[f.ad_type," • ",f.wilaya," • خصم ",f.discount,"%"]})]}),o("button",{onClick:()=>Ed(f.id),className:"w-9 h-9 rounded-full bg-[#DC2626] flex items-center justify-center shrink-0",children:o(Wt,{size:16})})]},f.id))]}),P==="emergencies"&&o("div",{className:"space-y-3",children:i.map((f)=>p("div",{className:"rounded-xl bg-[#1E1E1E] p-3 flex justify-between items-center border border-white/5",children:[p("div",{children:[o("p",{className:"font-bold text-sm",children:f.title}),o("p",{className:"text-xs text-white/40",children:f.wilaya})]}),o("button",{onClick:()=>da(f.id),className:"w-9 h-9 rounded-full bg-[#DC2626] flex items-center justify-center",children:o(Wt,{size:16})})]},f.id))}),P==="reports"&&p("div",{className:"space-y-3",children:[c.map((f)=>{let E=l.find((R)=>R.id===f.product_id),N=t.find((R)=>R.id===f.reported_user_id);return p("div",{className:"rounded-xl bg-[#1E1E1E] p-3 border border-white/5",children:[o("p",{className:"text-sm font-bold",children:E?.title||"منتج محذوف"}),p("p",{className:"text-xs text-white/50 mt-1",children:["السبب: ",f.reason]}),p("div",{className:"flex gap-2 mt-3",children:[o("button",{onClick:()=>{window.__reviewReportById && window.__reviewReportById(f.id)},className:"flex-1 h-8 rounded-full bg-[#1E3A2E] border border-[#A7F3D0]/30 text-[11px] font-bold",children:"👁️ مراجعة"}),o("button",{onClick:()=>{let d=prompt("حظر مؤقت - كم يوم؟","7");if(!d)return;window.__tempBanByReportId && window.__tempBanByReportId(f.id,parseInt(d))},className:"flex-1 h-8 rounded-full bg-[#F59E0B] text-black text-[11px] font-bold",children:"⏳ مؤقت"}),o("button",{onClick:()=>{if(confirm("حظر نهائي؟")){window.__permBanByReportId && window.__permBanByReportId(f.id)}},className:"flex-1 h-8 rounded-full bg-[#DC2626] text-white text-[11px] font-bold",children:"🚫 نهائي"})]})]},f.id)}),c.length===0&&o("p",{className:"text-center text-white/30 py-10",children:"لا بلاغات"})]}),P==="users"&&o("div",{className:"space-y-3",children:t.map((f)=>p("div",{className:"rounded-xl bg-[#1E1E1E] p-3 border border-white/5",children:[o("div",{className:"flex justify-between items-start gap-2",children:p("div",{className:"min-w-0",children:[p("p",{className:"font-bold text-sm truncate flex items-center gap-2",children:[f.full_name," ",f.is_admin&&o("span",{className:"text-[10px] px-2 py-0.5 rounded-full bg-[#A7F3D0] text-[#0F3D2E]",children:"ADMIN"})," ",f.is_banned&&o("span",{className:"text-[10px] px-2 py-0.5 rounded-full bg-[#DC2626] text-white",children:"محظور"})]}),p("p",{className:"text-xs text-white/40 truncate",children:[f.email," ",f.gender?`• ${f.gender}`:""]})]})}),p("div",{className:"flex gap-2 mt-3",children:[o("button",{onClick:()=>Su(f.id,!f.is_banned),className:`flex-1 h-8 rounded-full text-xs font-bold ${f.is_banned?"bg-[#10B981] text-white":"bg-[#F59E0B] text-black"}`,children:f.is_banned?"فك حظر":"حظر"}),o("button",{onClick:()=>Cd(f.id),className:"flex-1 h-8 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 text-xs font-bold",children:"جعل أدمن"}),o("button",{onClick:()=>Sd(f.id),className:"w-8 h-8 rounded-full bg-[#DC2626] flex items-center justify-center",children:o(Wt,{size:14})})]})]},f.id))})]}),S==="productDetail"&&L&&o("div",{className:"space-y-4",children:p("div",{className:"rounded-2xl overflow-hidden bg-white text-black",children:[o("div",{className:`relative h-[220px] flex items-center justify-center overflow-hidden ${Number(L.id.slice(-1))%2===0?"bg-[#D1FAE5]":"bg-[#FEF3C7]"}`,children:[L.images&&L.images.length?o("img",{key:(GI||0),src:L.images[Math.min(GI||0,L.images.length-1)],className:"w-full h-full object-cover",alt:L.title}):_u(L.category,80),L.images&&L.images.length>1&&o("button",{onClick:(e)=>{e.stopPropagation();__setGI(((GI||0)-1+L.images.length)%L.images.length)},className:"absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 text-white text-xl flex items-center justify-center",children:"\u2039"}),L.images&&L.images.length>1&&o("button",{onClick:(e)=>{e.stopPropagation();__setGI(((GI||0)+1)%L.images.length)},className:"absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 text-white text-xl flex items-center justify-center",children:"\u203a"}),L.images&&L.images.length>1&&o("div",{className:"absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5",children:L.images.map((_,_i)=>o("button",{onClick:(e)=>{e.stopPropagation();__setGI(_i)},className:`w-2 h-2 rounded-full ${(GI||0)===_i?"bg-white":"bg-white/40"}`}))}),o("button",{onClick:(e)=>{e.stopPropagation();__tgF(L.id)},className:`absolute top-2 right-2 w-9 h-9 rounded-full flex items-center justify-center ${FV.includes(L.id)?"bg-[#DC2626]":"bg-black/50"}`,children:o("span",{className:"text-lg",children:FV.includes(L.id)?"\u2764\uFE0F":"\uD83E\uDD0D"})})]}),p("div",{className:"p-4",children:[o("h1",{className:"font-black text-lg",children:L.title}),p("p",{className:"text-[#0F3D2E] font-extrabold text-xl mt-2",children:[L.price.toLocaleString()," SDG"]}),p("div",{className:"flex gap-2 mt-3",children:[o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#1E1E1E] text-white",children:L.category}),o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#1E1E1E] text-white",children:L.wilaya})]}),o("p",{className:"text-sm text-black/70 mt-4 leading-7",children:L.description}),
+})})]}),S==="seller"&&SL&&p("div",{className:"space-y-4",children:[o("button",{onClick:()=>_("productDetail"),className:"text-sm text-white/60",children:"\u2192 \u0631\u062c\u0648\u0639"}),p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-6 text-center",children:[o("div",{className:"w-20 h-20 mx-auto rounded-full bg-[#0F3D2E] flex items-center justify-center text-3xl font-black",children:(SL.full_name||"?").trim().slice(0,1)}),o("h2",{className:"text-xl font-black mt-3",children:SL.full_name}),(()=>{let _rl=__rt.filter(_x=>_x.seller_id===SL.id),_n=_rl.length,_avg=_n?_rl.reduce((_a,_b)=>_a+_b.stars,0)/_n:0;return o("p",{className:"text-[#FFD166] text-sm font-bold mt-1",children:_n?"\u2605 "+_avg.toFixed(1)+" ("+_n+" \u062a\u0642\u064a\u064a\u0645)":"\u0644\u0627 \u062a\u0648\u062c\u062f \u062a\u0642\u064a\u064a\u0645\u0627\u062a \u0628\u0639\u062f"})})(),SL.whatsapp&&o("p",{className:"text-white/50 text-xs mt-2",children:"\u260E "+SL.whatsapp}),p("div",{className:"flex gap-2 mt-4",children:[SL.whatsapp&&o("button",{onClick:()=>window.open("https://wa.me/"+String(SL.whatsapp).replace(/^0/,"+249"),"_blank"),className:"flex-1 h-12 rounded-full bg-[#25D366] text-white font-bold",children:"\u062a\u0648\u0627\u0635\u0644 \u0648\u0627\u062a\u0633\u0627\u0628"}),SL.whatsapp&&o("button",{onClick:()=>window.open("tel:"+String(SL.whatsapp).replace(/^0/,"+249")),className:"w-12 h-12 rounded-full bg-[#0F3D2E] text-white flex items-center justify-center text-xl",children:"\u260E"})]})]}),p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-4",children:[o("h3",{className:"font-bold text-sm",children:"\u062a\u0642\u064a\u064a\u0645 \u0627\u0644\u0628\u0627\u0626\u0639"}),(()=>{let _rl=__rt.filter(_x=>_x.seller_id===SL.id),_mine=_rl.find(_x=>m&&_x.rater_id===m.id),_self=m&&m.id===SL.id;return _self?o("p",{className:"text-white/50 text-xs mt-2",children:"\u0647\u0630\u0647 \u0635\u0641\u062d\u062a\u0643"}):_mine?o("p",{className:"text-white/50 text-xs mt-2",children:"\u0642\u064a\u0651\u0645\u062a \u0647\u0630\u0627 \u0627\u0644\u0628\u0627\u0626\u0639: "+"\u2605".repeat(_mine.stars)}):!m?o("p",{className:"text-white/50 text-xs mt-2",children:"\u0633\u062c\u0651\u0644 \u0627\u0644\u062f\u062e\u0648\u0644 \u0644\u062a\u0642\u064a\u064a\u0645 \u0627\u0644\u0628\u0627\u0626\u0639"}):__rm?p("div",{className:"mt-3",children:[o("div",{className:"flex gap-1 justify-center",children:[1,2,3,4,5].map(_s=>o("button",{key:_s,type:"button",onClick:()=>__setRs(_s),className:"text-3xl "+(_s<=__rs?"text-[#FFD166]":"text-white/20"),children:"\u2605"}))}),o("textarea",{value:__rc,onChange:_e=>__setRc(_e.target.value),placeholder:"\u062a\u0639\u0644\u064a\u0642 \u0627\u062e\u062a\u064a\u0627\u0631\u064a...",rows:2,className:"w-full mt-2 rounded-xl bg-[#121212] border border-white/10 p-2 text-sm text-white outline-none"}),p("div",{className:"flex gap-2 mt-2",children:[o("button",{onClick:()=>__setRm(!1),className:"flex-1 h-10 rounded-full bg-white/10 text-white text-sm font-bold",children:"\u0625\u0644\u063a\u0627\u0621"}),o("button",{onClick:async()=>{let _nr={id:"r_"+Date.now(),seller_id:SL.id,rater_id:m.id,rater_name:m.full_name||m.email,stars:__rs,comment:__rc.trim(),created_at:new Date().toISOString()};try{await du("ratings",_nr)}catch{}let _nl=[_nr,...__rt];__setRt(_nl);try{K("darfur_ratings",_nl)}catch{}__setRs(5);__setRc("");__setRm(!1);$("\u062a\u0645 \u0625\u0631\u0633\u0627\u0644 \u062a\u0642\u064a\u064a\u0645\u0643 \u2705")},className:"flex-1 h-10 rounded-full bg-white text-black text-sm font-bold",children:"\u0625\u0631\u0633\u0627\u0644 \u0627\u0644\u062a\u0642\u064a\u064a\u0645"})]})]}):o("button",{onClick:()=>__setRm(!0),className:"mt-3 w-full h-10 rounded-full bg-[#FFD166] text-black text-sm font-bold",children:"\u0642\u064a\u0651\u0645 \u0647\u0630\u0627 \u0627\u0644\u0628\u0627\u0626\u0639"})})()]}),p("div",{className:"flex items-center justify-between",children:[o("h3",{className:"font-bold",children:"\u0645\u0646\u062a\u062c\u0627\u062a \u0627\u0644\u0628\u0627\u0626\u0639"}),o("span",{className:"text-xs text-white/50",children:l.filter((f)=>f.user_id===SL.id).length+" \u0645\u0646\u062a\u062c"})]}),o("div",{className:"grid grid-cols-2 gap-3",children:l.filter((f)=>f.user_id===SL.id).map((f)=>p("div",{className:"rounded-2xl overflow-hidden bg-white text-black cursor-pointer",onClick:()=>{Q(f),_("productDetail")},children:[o("div",{className:`relative h-[110px] flex items-center justify-center overflow-hidden ${Number(f.id.slice(-1))%2===0?"bg-[#D1FAE5]":"bg-[#FEF3C7]"}`,children:[f.images&&f.images[0]?o("img",{src:f.images[0],className:"w-full h-full object-cover",alt:f.title}):_u(f.category,48),o("button",{onClick:(e)=>{e.stopPropagation();__tgF(f.id)},className:"absolute top-2 right-2 w-8 h-8 rounded-full bg-black/50 backdrop-blur flex items-center justify-center",children:o("span",{className:"text-base",children:FV.includes(f.id)?"\u2764\uFE0F":"\uD83E\uDD0D"})})]}),p("div",{className:"p-3",children:[o("h3",{className:"font-bold text-[13px] line-clamp-1",children:f.title}),p("p",{className:"text-[#0F3D2E] font-extrabold text-sm mt-1",children:[f.price.toLocaleString()," SDG"]}),p("div",{className:"mt-2 flex items-center justify-between",children:[o("span",{className:"text-[10px] px-2 py-1 rounded-full bg-[#1E1E1E] text-white",children:f.wilaya}),o("span",{className:"text-[10px] text-black/50",children:f.category})]})]})]},f.id))})]}),S==="fav"&&p("div",{className:"space-y-4",children:[o("h2",{className:"text-xl font-bold",children:"\u2764\uFE0F \u0627\u0644\u0645\u0641\u0636\u0644\u0629"}),FV.length===0?o("div",{className:"text-center py-16",children:[o("p",{className:"text-5xl",children:"\uD83E\uDD0D"}),o("p",{className:"text-white/50 mt-4",children:"\u0644\u0627 \u062a\u0648\u062c\u062f \u0645\u0646\u062a\u062c\u0627\u062a \u0645\u0641\u0636\u0644\u0629 \u0628\u0639\u062f"}),o("button",{onClick:()=>_("home"),className:"mt-4 h-11 px-6 rounded-full bg-[#0F3D2E] font-bold",children:"\u062a\u0635\u0641\u062d \u0627\u0644\u0645\u0646\u062a\u062c\u0627\u062a"})]}):o("div",{className:"grid grid-cols-2 gap-3",children:l.filter((f)=>FV.includes(f.id)).map((f)=>p("div",{className:"rounded-2xl overflow-hidden bg-white text-black cursor-pointer",onClick:()=>{Q(f),_("productDetail")},children:[o("div",{className:`relative h-[110px] flex items-center justify-center overflow-hidden ${Number(f.id.slice(-1))%2===0?"bg-[#D1FAE5]":"bg-[#FEF3C7]"}`,children:[f.images&&f.images[0]?o("img",{src:f.images[0],className:"w-full h-full object-cover",alt:f.title}):_u(f.category,48),o("button",{onClick:(e)=>{e.stopPropagation();__tgF(f.id)},className:"absolute top-2 right-2 w-8 h-8 rounded-full bg-black/50 flex items-center justify-center",children:o("span",{className:"text-base",children:FV.includes(f.id)?"\u2764\uFE0F":"\uD83E\uDD0D"})})]}),p("div",{className:"p-3",children:[o("h3",{className:"font-bold text-[13px] line-clamp-1",children:f.title}),p("p",{className:"text-[#0F3D2E] font-extrabold text-sm mt-1",children:[f.price.toLocaleString()," SDG"]}),p("div",{className:"mt-2 flex items-center justify-between",children:[o("span",{className:"text-[10px] px-2 py-1 rounded-full bg-[#1E1E1E] text-white",children:f.wilaya}),o("span",{className:"text-[10px] text-black/50",children:f.category})]})]})]},f.id))})]}),S==="reports"&&p("div",{className:"space-y-4",children:[p("div",{className:"flex justify-between items-center",children:[p("h2",{className:"text-xl font-bold flex items-center gap-2",children:[o(Ao,{})," البلاغات"]}),m&&o("button",{onClick:()=>__setRp(!0),className:"h-9 px-4 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 text-xs font-bold",children:"+ بلاغ جديد"})]}),o("div",{className:"rounded-2xl bg-[#1E1E1E] p-4 border border-white/5",children:o("p",{className:"text-sm text-white/70",children:"للإبلاغ عن منتج مخالف، افتح المنتج واضغط زر الإبلاغ."})}),xe?c.length===0?o("p",{className:"text-center py-12 text-white/40",children:"لا توجد بلاغات"}):c.map((f)=>{let E=l.find((T)=>T.id===f.product_id),N=t.find((T)=>T.id===f.reported_user_id),R=t.find((T)=>T.id===f.reporter_id);return p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-4",children:[p("p",{className:"text-sm",children:[o("span",{className:"text-white/50",children:"المنتج:"})," ",E?.title||f.product_id||"بلاغ عام"]}),p("p",{className:"text-sm mt-1",children:[o("span",{className:"text-white/50",children:"السبب:"})," ",f.reason]}),p("p",{className:"text-xs mt-1 text-white/40",children:["المبلغ: ",R?.email," • المبلغ عنه: ",N?.email]}),p("div",{className:"flex gap-2 mt-3",children:[o("button",{onClick:()=>{window.__reviewReportById && window.__reviewReportById(f.id)},className:"flex-1 h-7 rounded-full bg-[#1E3A2E] border border-[#A7F3D0]/30 text-[9px] font-bold",children:"👁️ مراجعة"}),o("button",{onClick:()=>{window.__ignoreReportById && window.__ignoreReportById(f.id)},className:"flex-1 h-7 rounded-full bg-[#2A2A2A] border border-white/10 text-[9px] font-bold",children:"🗑️ تجاهل"}),o("button",{onClick:()=>{window.__deleteProductByReportId && window.__deleteProductByReportId(f.id)},className:"flex-1 h-7 rounded-full bg-[#7C3AED] text-white text-[9px] font-bold",children:"📦 حذف"}),o("button",{onClick:()=>{let d=prompt("كم يوم؟","7");if(!d)return;window.__tempBanByReportId && window.__tempBanByReportId(f.id,parseInt(d))},className:"flex-1 h-7 rounded-full bg-[#F59E0B] text-black text-[9px] font-bold",children:"⏳ مؤقت"}),o("button",{onClick:()=>{if(confirm("نهائي؟")){window.__permBanByReportId && window.__permBanByReportId(f.id)}},className:"flex-1 h-7 rounded-full bg-[#DC2626] text-white text-[9px] font-bold",children:"🚫 نهائي"})]})]},f.id)}):o("div",{className:"text-center py-12",children:o("p",{className:"text-white/60 text-sm",children:"البلاغات تتم مراجعتها بواسطة الإدارة فقط"})})]}),__rp&&o(R1,{onSubmit:(f)=>{let R={id:"r_"+Date.now(),reporter_id:m.id,product_id:null,reported_user_id:null,reason:De(f),created_at:new Date().toISOString()},E=[R,...c];s(E),K("darfur_reports",E),__setRp(!1),$("تم إرسال البلاغ - شكرا لك")},onClose:()=>__setRp(!1)}),S==="account"&&p("div",{className:"space-y-4",children:[o("h2",{className:"text-xl font-bold",children:"حسابي"}),m?p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-5",children:[o("div",{className:"w-16 h-16 rounded-full bg-[#0F3D2E] flex items-center justify-center text-xl font-bold mx-auto",children:m.full_name.charAt(0)}),o("h3",{className:"text-center font-bold mt-3",children:m.full_name}),o("p",{className:"text-center text-sm text-white/50",children:m.email}),m.gender&&p("p",{className:"text-center text-xs text-white/30 mt-1",children:[m.gender," ",m.whatsapp?`• ${m.whatsapp}`:""]}),xe&&o("div",{className:"mt-2 flex justify-center",children:o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#A7F3D0] text-[#0F3D2E] font-bold",children:"أدمن"})}),p("div",{className:"grid grid-cols-2 gap-3 mt-6",children:[p("div",{className:"rounded-xl bg-[#121212] p-3 text-center",children:[o("p",{className:"text-2xl font-bold",children:l.filter((f)=>f.user_id===m.id).length}),o("p",{className:"text-xs text-white/50",children:"منتجاتي"})]}),p("div",{className:"rounded-xl bg-[#121212] p-3 text-center",children:[o("p",{className:"text-2xl font-bold",children:m.is_banned?"محظور":"نشط"}),o("p",{className:"text-xs text-white/50",children:"الحالة"})]})]}),xe&&o("button",{onClick:()=>_("admin"),className:"w-full mt-4 h-12 rounded-full bg-[#0F3D2E] font-bold border border-[#A7F3D0]/30",children:"لوحة الإدارة"}),o("button",{onClick:fa,className:"w-full mt-3 h-12 rounded-full bg-white/5 border border-white/10 font-bold",children:"تسجيل خروج"})]}):p("div",{className:"rounded-2xl bg-[#1E1E1E] border border-white/5 p-6 text-center",children:[o("div",{className:"w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4",children:o(jo,{size:28,color:"#A7F3D0"})}),o("h3",{className:"font-bold",children:"مرحبا بك في سوق دارفور"}),o("p",{className:"text-sm text-white/50 mt-2",children:"سجل دخول لنشر منتجاتك ومتابعة الطلبات"}),p("div",{className:"flex gap-3 mt-6",children:[o("button",{onClick:()=>ce(!0),className:"flex-1 h-12 rounded-full bg-[#0F3D2E] font-bold",children:"دخول"}),o("button",{onClick:()=>Ae(!0),className:"flex-1 h-12 rounded-full bg-white text-black font-bold",children:"إنشاء حساب"})]})]}),p("div",{className:"grid grid-cols-1 gap-3",children:[o("button",{onClick:()=>_("about"),className:"h-12 rounded-xl bg-[#1E1E1E] border border-white/5 text-sm",children:"من نحن"}),o("button",{onClick:()=>_("terms"),className:"h-12 rounded-xl bg-[#1E1E1E] border border-white/5 text-sm",children:"الشروط والأحكام"}),o("button",{onClick:()=>_("contact"),className:"h-12 rounded-xl bg-[#1E1E1E] border border-white/5 text-sm",children:"تواصل معنا"})]})]}),S==="admin"&&xe&&p("div",{className:"space-y-4",children:[o("h2",{className:"text-xl font-bold",children:"لوحة الإدارة"}),o("div",{className:"flex gap-2 overflow-x-auto pb-2",children:[{id:"products",label:`المنتجات (${l.length})`},{id:"emergencies",label:`الطوارئ (${i.length})`},{id:"ads",label:`إعلانات (${h.length})`},{id:"reports",label:`البلاغات (${c.length})`},{id:"users",label:`المستخدمين (${t.length})`}].map((f)=>o("button",{onClick:()=>F(f.id),className:`shrink-0 px-4 h-9 rounded-full text-xs font-bold border ${P===f.id?"bg-[#0F3D2E] border-[#A7F3D0] text-white":"bg-[#1E1E1E] border-white/10 text-white/60"}`,children:f.label},f.id))}),P==="products"&&o("div",{className:"space-y-3",children:l.map((f)=>p("div",{className:`rounded-xl p-3 flex gap-3 items-center border ${f.boosted_until&&new Date(f.boosted_until)>new Date()?"bg-[#FFC107]/10 border-[#FFC107]/30":"bg-[#1E1E1E] border-white/5"}`,children:[o("div",{className:"w-12 h-12 rounded-lg bg-[#FEF3C7] flex items-center justify-center shrink-0",children:_u(f.category,24)}),p("div",{className:"flex-1 min-w-0",children:[o("p",{className:"font-bold text-sm truncate flex items-center gap-1",children:[f.title,f.boosted_until&&new Date(f.boosted_until)>new Date()?o("span",{className:"text-[9px] bg-[#FFC107] text-black px-1.5 py-0.5 rounded-full",children:"🚀"}):null]}),p("p",{className:"text-xs text-white/40",children:[f.category," • ",f.wilaya," • ",f.price.toLocaleString()," SDG"]}),f.boosted_until&&new Date(f.boosted_until)>new Date()?o("p",{className:"text-[10px] text-[#FFC107]",children:[`مثبت حتى ${new Date(f.boosted_until).toLocaleDateString('ar-EG')}`]}):null]}),p("div",{className:"flex gap-1 shrink-0",children:[o("button",{onClick:async()=>{let d=prompt(`تثبيت "${f.title}"\nكم يوم؟ 1=1000`,"1");if(!d)return;d=parseInt(d);let u=new Date();u.setDate(u.getDate()+d);let upd=l.map((p)=>p.id===f.id?{...p,boosted_until:u.toISOString(),is_boosted:!0}:p);localStorage.setItem("darfur_products",JSON.stringify(upd));if(window.supabaseClient){await window.supabaseClient.from("products").update({boosted_until:u.toISOString(),is_boosted:true}).eq("id",f.id);}location.reload();},className:"w-9 h-9 rounded-full bg-[#FFC107] text-black flex items-center justify-center",children:"🚀"}),o("button",{onClick:()=>sa(f.id),className:"w-9 h-9 rounded-full bg-[#DC2626] flex items-center justify-center shrink-0",children:o(Wt,{size:16})})]})]},f.id))}),P==="ads"&&p("div",{className:"space-y-3",children:[p("div",{className:"flex justify-between items-center",children:[o("p",{className:"text-sm text-white/60",children:"الإعلانات المميزة"}),p("button",{onClick:()=>hu(!0),className:"h-9 px-4 rounded-full bg-[#FFC107] text-black text-xs font-bold flex items-center gap-1",children:[o(qo,{size:14})," إعلان جديد"]})]}),h.map((f)=>p("div",{className:"rounded-xl bg-[#1E1E1E] p-3 flex gap-3 items-center border border-white/5",children:[o("div",{className:`w-12 h-12 rounded-lg ${va(f.id)} flex items-center justify-center shrink-0`,children:pa(f.ad_type,22)}),p("div",{className:"flex-1 min-w-0",children:[o("p",{className:"font-bold text-sm truncate",children:f.title}),p("p",{className:"text-xs text-white/40",children:[f.ad_type," • ",f.wilaya," • خصم ",f.discount,"%"]})]}),o("button",{onClick:()=>Ed(f.id),className:"w-9 h-9 rounded-full bg-[#DC2626] flex items-center justify-center shrink-0",children:o(Wt,{size:16})})]},f.id))]}),P==="emergencies"&&o("div",{className:"space-y-3",children:i.map((f)=>p("div",{className:"rounded-xl bg-[#1E1E1E] p-3 flex justify-between items-center border border-white/5",children:[p("div",{children:[o("p",{className:"font-bold text-sm",children:f.title}),o("p",{className:"text-xs text-white/40",children:f.wilaya})]}),o("button",{onClick:()=>da(f.id),className:"w-9 h-9 rounded-full bg-[#DC2626] flex items-center justify-center",children:o(Wt,{size:16})})]},f.id))}),P==="reports"&&p("div",{className:"space-y-3",children:[c.map((f)=>{let E=l.find((R)=>R.id===f.product_id),N=t.find((R)=>R.id===f.reported_user_id);return p("div",{className:"rounded-xl bg-[#1E1E1E] p-3 border border-white/5",children:[o("p",{className:"text-sm font-bold",children:E?.title||"منتج محذوف"}),p("p",{className:"text-xs text-white/50 mt-1",children:["السبب: ",f.reason]}),p("div",{className:"flex gap-2 mt-3",children:[o("button",{onClick:()=>{window.__reviewReportById && window.__reviewReportById(f.id)},className:"flex-1 h-7 rounded-full bg-[#1E3A2E] border border-[#A7F3D0]/30 text-[9px] font-bold",children:"👁️ مراجعة"}),o("button",{onClick:()=>{window.__ignoreReportById && window.__ignoreReportById(f.id)},className:"flex-1 h-7 rounded-full bg-[#2A2A2A] border border-white/10 text-[9px] font-bold",children:"🗑️ تجاهل"}),o("button",{onClick:()=>{window.__deleteProductByReportId && window.__deleteProductByReportId(f.id)},className:"flex-1 h-7 rounded-full bg-[#7C3AED] text-white text-[9px] font-bold",children:"📦 حذف"}),o("button",{onClick:()=>{let d=prompt("كم يوم؟","7");if(!d)return;window.__tempBanByReportId && window.__tempBanByReportId(f.id,parseInt(d))},className:"flex-1 h-7 rounded-full bg-[#F59E0B] text-black text-[9px] font-bold",children:"⏳ مؤقت"}),o("button",{onClick:()=>{if(confirm("نهائي؟")){window.__permBanByReportId && window.__permBanByReportId(f.id)}},className:"flex-1 h-7 rounded-full bg-[#DC2626] text-white text-[9px] font-bold",children:"🚫 نهائي"})]})]},f.id)}),c.length===0&&o("p",{className:"text-center text-white/30 py-10",children:"لا بلاغات"})]}),P==="users"&&o("div",{className:"space-y-3",children:t.map((f)=>p("div",{className:"rounded-xl bg-[#1E1E1E] p-3 border border-white/5",children:[o("div",{className:"flex justify-between items-start gap-2",children:p("div",{className:"min-w-0",children:[p("p",{className:"font-bold text-sm truncate flex items-center gap-2",children:[f.full_name," ",f.is_admin&&o("span",{className:"text-[10px] px-2 py-0.5 rounded-full bg-[#A7F3D0] text-[#0F3D2E]",children:"ADMIN"})," ",f.is_banned&&o("span",{className:"text-[10px] px-2 py-0.5 rounded-full bg-[#DC2626] text-white",children:"محظور"})]}),p("p",{className:"text-xs text-white/40 truncate",children:[f.email," ",f.gender?`• ${f.gender}`:""]})]})}),p("div",{className:"flex gap-2 mt-3",children:[o("button",{onClick:()=>Su(f.id,!f.is_banned),className:`flex-1 h-8 rounded-full text-xs font-bold ${f.is_banned?"bg-[#10B981] text-white":"bg-[#F59E0B] text-black"}`,children:f.is_banned?"فك حظر":"حظر"}),o("button",{onClick:()=>Cd(f.id),className:"flex-1 h-8 rounded-full bg-[#0F3D2E] border border-[#A7F3D0]/20 text-xs font-bold",children:"جعل أدمن"}),o("button",{onClick:()=>Sd(f.id),className:"w-8 h-8 rounded-full bg-[#DC2626] flex items-center justify-center",children:o(Wt,{size:14})})]})]},f.id))})]}),S==="productDetail"&&L&&o("div",{className:"space-y-4",children:p("div",{className:"rounded-2xl overflow-hidden bg-white text-black",children:[o("div",{className:`relative h-[220px] flex items-center justify-center overflow-hidden ${Number(L.id.slice(-1))%2===0?"bg-[#D1FAE5]":"bg-[#FEF3C7]"}`,children:[L.images&&L.images.length?o("img",{key:(GI||0),src:L.images[Math.min(GI||0,L.images.length-1)],className:"w-full h-full object-cover",alt:L.title}):_u(L.category,80),L.images&&L.images.length>1&&o("button",{onClick:(e)=>{e.stopPropagation();__setGI(((GI||0)-1+L.images.length)%L.images.length)},className:"absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 text-white text-xl flex items-center justify-center",children:"\u2039"}),L.images&&L.images.length>1&&o("button",{onClick:(e)=>{e.stopPropagation();__setGI(((GI||0)+1)%L.images.length)},className:"absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 text-white text-xl flex items-center justify-center",children:"\u203a"}),L.images&&L.images.length>1&&o("div",{className:"absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5",children:L.images.map((_,_i)=>o("button",{onClick:(e)=>{e.stopPropagation();__setGI(_i)},className:`w-2 h-2 rounded-full ${(GI||0)===_i?"bg-white":"bg-white/40"}`}))}),o("button",{onClick:(e)=>{e.stopPropagation();__tgF(L.id)},className:`absolute top-2 right-2 w-9 h-9 rounded-full flex items-center justify-center ${FV.includes(L.id)?"bg-[#DC2626]":"bg-black/50"}`,children:o("span",{className:"text-lg",children:FV.includes(L.id)?"\u2764\uFE0F":"\uD83E\uDD0D"})})]}),p("div",{className:"p-4",children:[o("h1",{className:"font-black text-lg",children:L.title}),p("p",{className:"text-[#0F3D2E] font-extrabold text-xl mt-2",children:[L.price.toLocaleString()," SDG"]}),p("div",{className:"flex gap-2 mt-3",children:[o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#1E1E1E] text-white",children:L.category}),o("span",{className:"text-xs px-3 py-1 rounded-full bg-[#1E1E1E] text-white",children:L.wilaya})]}),o("p",{className:"text-sm text-black/70 mt-4 leading-7",children:L.description}),
 (()=>{let _rid=L.user_id,_rl=__rt.filter(_x=>_x.seller_id===_rid),_n=_rl.length,_avg=_n?_rl.reduce((_a,_b)=>_a+_b.stars,0)/_n:0,_mine=_rl.find(_x=>m&&_x.rater_id===m.id),_self=m&&m.id===_rid;
 return p("div",{className:"mt-4 rounded-2xl bg-[#1E1E1E] p-4",children:[
 o("button",{onClick:()=>{let _su=t.find((E)=>E.id===_rid);if(_su){__setRm(!1);__setSL(_su);_("seller")}else $("\u062a\u0639\u0630\u0631 \u0641\u062a\u062d \u0635\u0641\u062d\u0629 \u0627\u0644\u0628\u0627\u0626\u0639","error")},className:"w-full flex items-center justify-between",children:[o("span",{className:"text-white font-bold text-sm",children:"\u062a\u0642\u064a\u064a\u0645 \u0627\u0644\u0628\u0627\u0626\u0639"}),o("span",{className:"text-[#FFD166] text-sm font-bold",children:_n?"\u2605 "+_avg.toFixed(1)+" ("+_n+")":"\u0644\u0627 \u062a\u0648\u062c\u062f \u062a\u0642\u064a\u064a\u0645\u0627\u062a \u0628\u0639\u062f"}),o("span",{className:"text-white/40 text-lg",children:"\u2039"})]}),
@@ -497,7 +497,11 @@ window.__openDeleteConfirm = function(f){
 
 
 <script>
-// === نظام البلاغات V5 - يعمل بـ ID فقط - مضمون 100% ===
+// === V11 FIX - بدون ما نكسر الكود الاصلي - شاشة بيضاء اتصلحت ===
+console.log("🚀 V11 FIX loading...");
+
+window.__getSupabase = function(){ try{ if(window.supabaseClient) return window.supabaseClient; return null; }catch(e){return null;} };
+
 window.__getReportData = function(reportId){
   try{
     let reports = JSON.parse(localStorage.getItem("darfur_reports")||"[]");
@@ -505,209 +509,174 @@ window.__getReportData = function(reportId){
     if(!report) return null;
     let products = JSON.parse(localStorage.getItem("darfur_products")||"[]");
     let users = JSON.parse(localStorage.getItem("darfur_users")||"[]");
-    let product = products.find(function(p){return p.id===report.product_id;});
-    let reportedUser = users.find(function(u){return u.id===report.reported_user_id;});
-    let reporterUser = users.find(function(u){return u.id===report.reporter_id;});
-    return {report:report, product:product, reportedUser:reportedUser, reporterUser:reporterUser};
-  }catch(e){ console.error(e); return null; }
+    return {report:report, product:products.find(function(p){return p.id===report.product_id;}), reportedUser:users.find(function(u){return u.id===report.reported_user_id;}), reporterUser:users.find(function(u){return u.id===report.reporter_id;})};
+  }catch(e){return null;}
 };
 
 window.__reviewReportById = function(reportId){
   try{
-    console.log("Review ID:", reportId);
     let data = window.__getReportData(reportId);
-    if(!data){ alert("لم يتم العثور على البلاغ"); return; }
-    let report = data.report;
-    let product = data.product;
-    let reportedUser = data.reportedUser;
-    let reporterUser = data.reporterUser;
-
-    let old = document.getElementById("review-modal-v5");
-    if(old) old.remove();
-    let div = document.createElement("div");
-    div.id="review-modal-v5";
-    div.style.cssText="position:fixed;inset:0;z-index:99999999;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px;";
-
-    let prodTitle = product ? product.title : (report.product_id || 'بلاغ عام');
-    let prodInfo = product ? ((product.wilaya||'')+' • '+(product.category||'')+' • '+(product.price||'')+' SDG') : '';
-    let reason = report.reason || 'بدون سبب';
-    let dateStr = report.created_at ? new Date(report.created_at).toLocaleString('ar-SD') : '';
-    let reporterEmail = reporterUser ? reporterUser.email : (report.reporter_id || 'مجهول');
-    let reportedEmail = reportedUser ? reportedUser.email : (report.reported_user_id || 'مجهول');
-
-    div.innerHTML = '<div style="background:#1E1E1E;border-radius:20px;max-width:440px;width:100%;border:1px solid rgba(255,255,255,0.1);">'
-      +'<div style="padding:18px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;"><h3 style="color:white;font-weight:900;">👁️ مراجعة البلاغ</h3><button id="close-review" style="width:32px;height:32px;border-radius:999px;background:rgba(255,255,255,0.1);color:white;border:none;font-size:16px;">✕</button></div>'
+    if(!data){ alert("البلاغ غير موجود"); return; }
+    let report=data.report, product=data.product, reportedUser=data.reportedUser, reporterUser=data.reporterUser;
+    let old=document.getElementById("review-modal"); if(old) old.remove();
+    let div=document.createElement("div");
+    div.id="review-modal";
+    div.style.cssText="position:fixed;inset:0;z-index:99999999;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:16px;";
+    let prodTitle=product?product.title:(report.product_id||'بلاغ عام');
+    let reason=report.reason||'بدون سبب';
+    let dateStr=report.created_at?new Date(report.created_at).toLocaleString('ar-SD'):'';
+    let reporterEmail=reporterUser?reporterUser.email:(report.reporter_id||'مجهول');
+    let reportedEmail=reportedUser?reportedUser.email:(report.reported_user_id||'مجهول');
+    div.innerHTML='<div style="background:#1E1E1E;border-radius:20px;max-width:440px;width:100%;border:1px solid rgba(255,255,255,0.12);">'
+      +'<div style="padding:18px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;"><h3 style="color:white;font-weight:900;">👁️ مراجعة البلاغ</h3><button id="close-r" style="width:32px;height:32px;border-radius:999px;background:rgba(255,255,255,0.1);color:white;border:none;">✕</button></div>'
       +'<div style="padding:18px;display:flex;flex-direction:column;gap:10px;">'
-      +'<div style="background:#121212;border-radius:12px;padding:12px;"><div style="font-size:11px;color:#888;">المنتج</div><div style="color:white;font-weight:bold;margin-top:3px;">'+prodTitle+'</div><div style="font-size:11px;color:#888;margin-top:2px;">'+prodInfo+'</div></div>'
+      +'<div style="background:#121212;border-radius:12px;padding:12px;"><div style="font-size:11px;color:#888;">المنتج</div><div style="color:white;font-weight:bold;margin-top:3px;">'+prodTitle+'</div></div>'
       +'<div style="background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.25);border-radius:12px;padding:12px;"><div style="font-size:11px;color:#f87171;">السبب</div><div style="color:white;margin-top:4px;">'+reason+'</div><div style="font-size:10px;color:#888;margin-top:6px;">'+dateStr+'</div></div>'
-      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div style="background:#121212;border-radius:12px;padding:10px;"><div style="font-size:10px;color:#888;">المبلغ</div><div style="color:#A7F3D0;font-size:12px;font-weight:bold;word-break:break-all;margin-top:2px;">'+reporterEmail+'</div></div><div style="background:#121212;border-radius:12px;padding:10px;"><div style="font-size:10px;color:#888;">المبلغ عنه</div><div style="color:#FBBF24;font-size:12px;font-weight:bold;word-break:break-all;margin-top:2px;">'+reportedEmail+'</div></div></div>'
-      +'</div>'
-      +'<div style="padding:0 18px 18px;display:flex;gap:8px;"><button id="close-review-2" style="flex:1;height:42px;border-radius:999px;background:rgba(255,255,255,0.08);color:white;border:none;font-weight:bold;">إغلاق</button></div></div>';
-
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"><div style="background:#121212;border-radius:12px;padding:10px;"><div style="font-size:10px;color:#888;">المبلغ</div><div style="color:#A7F3D0;font-size:12px;font-weight:bold;word-break:break-all;">'+reporterEmail+'</div></div><div style="background:#121212;border-radius:12px;padding:10px;"><div style="font-size:10px;color:#888;">المبلغ عنه</div><div style="color:#FBBF24;font-size:12px;font-weight:bold;word-break:break-all;">'+reportedEmail+'</div></div></div>'
+      +'</div><div style="padding:0 18px 18px;"><button id="close-r2" style="width:100%;height:44px;border-radius:999px;background:rgba(255,255,255,0.08);color:white;border:none;font-weight:bold;">إغلاق</button></div></div>';
     document.body.appendChild(div);
-    let close1 = div.querySelector("#close-review");
-    let close2 = div.querySelector("#close-review-2");
-    if(close1) close1.onclick = function(){ div.remove(); };
-    if(close2) close2.onclick = function(){ div.remove(); };
+    div.querySelector("#close-r").onclick=function(){div.remove();};
+    div.querySelector("#close-r2").onclick=function(){div.remove();};
     div.addEventListener("click", function(e){ if(e.target===div) div.remove(); });
-    console.log("Modal opened");
-  }catch(err){
-    alert("خطأ: "+err.message);
-    console.error(err);
-  }
+  }catch(err){ alert(err.message); console.error(err); }
 };
 
-window.__tempBanByReportId = function(reportId, days){
+async function supaDeleteReport(reportId){
+  let reports = JSON.parse(localStorage.getItem("darfur_reports")||"[]");
+  reports = reports.filter(function(r){return r.id!==reportId;});
+  localStorage.setItem("darfur_reports", JSON.stringify(reports));
   try{
-    let data = window.__getReportData(reportId);
-    if(!data || !data.reportedUser){ alert("المستخدم غير موجود"); return; }
-    let userId = data.reportedUser.id;
-    let users = JSON.parse(localStorage.getItem("darfur_users")||"[]");
-    let until = new Date(); until.setDate(until.getDate()+days);
-    users = users.map(function(u){ if(u.id===userId) return Object.assign({}, u, {is_banned:true, ban_type:"temp", banned_until:until.toISOString(), banned_at:new Date().toISOString()}); return u; });
-    localStorage.setItem("darfur_users", JSON.stringify(users));
-    let reports = JSON.parse(localStorage.getItem("darfur_reports")||"[]");
-    reports = reports.filter(function(r){return r.id!==reportId;});
-    localStorage.setItem("darfur_reports", JSON.stringify(reports));
-    alert("⏳ تم حظر "+data.reportedUser.email+" لمدة "+days+" يوم");
-    location.reload();
-  }catch(e){ alert(e.message); }
-};
-
-window.__permBanByReportId = function(reportId){
-  try{
-    let data = window.__getReportData(reportId);
-    if(!data || !data.reportedUser){ alert("المستخدم غير موجود"); return; }
-    let userId = data.reportedUser.id;
-    let users = JSON.parse(localStorage.getItem("darfur_users")||"[]");
-    users = users.map(function(u){ if(u.id===userId) return Object.assign({}, u, {is_banned:true, ban_type:"permanent", banned_until:null, banned_at:new Date().toISOString()}); return u; });
-    localStorage.setItem("darfur_users", JSON.stringify(users));
-    let reports = JSON.parse(localStorage.getItem("darfur_reports")||"[]");
-    reports = reports.filter(function(r){return r.id!==reportId;});
-    localStorage.setItem("darfur_reports", JSON.stringify(reports));
-    alert("🚫 تم الحظر النهائي لـ "+data.reportedUser.email);
-    location.reload();
-  }catch(e){ alert(e.message); }
-};
-
-// Keep old functions for compatibility
-window.__reviewReport = function(report){ if(report && report.id) window.__reviewReportById(report.id); };
-window.__tempBanUser = function(userId, days, reportId){ if(reportId) window.__tempBanByReportId(reportId, days); };
-window.__permBanUser = function(userId, reportId){ if(reportId) window.__permBanByReportId(reportId); };
-
-console.log("✅ نظام البلاغات V5 جاهز");
-</script>
-
-
-<script>
-// === V6 - مزامنة الحظر من Supabase + طرد المحظور تلقائيا ===
-(function(){
-  console.log("🔒 نظام الحظر V6 - يفحص من Supabase");
-
-  async function checkCurrentUserBan(){
-    try{
-      let currentUserStr = localStorage.getItem("darfur_current_user");
-      if(!currentUserStr || currentUserStr==="null") return;
-      let currentUser = JSON.parse(currentUserStr);
-      if(!currentUser || !currentUser.id) return;
-
-      // 1. فحص من localStorage اولا (سريع)
-      let usersLocal = JSON.parse(localStorage.getItem("darfur_users")||"[]");
-      let localUser = usersLocal.find(function(u){return u.id===currentUser.id;});
-      if(localUser && localUser.is_banned){
-        // تحقق من الحظر المؤقت انتهى ولا لا
-        if(localUser.ban_type==="temp" && localUser.banned_until){
-          if(new Date(localUser.banned_until) < new Date()){
-            // فك الحظر
-            console.log("✅ حظر مؤقت انتهى - فك الحظر");
-            usersLocal = usersLocal.map(function(u){
-              if(u.id===currentUser.id) return Object.assign({}, u, {is_banned:false, ban_type:null, banned_until:null});
-              return u;
-            });
-            localStorage.setItem("darfur_users", JSON.stringify(usersLocal));
-            return; // مسموح
-          }
-        }
-        // محظور فعلا
-        handleBannedUser(localUser);
-        return;
-      }
-
-      // 2. فحص من Supabase (مضمون عبر كل الأجهزة)
-      if(window.supabaseClient){
-        try{
-          let res = await window.supabaseClient.from("users").select("id,is_banned,ban_type,banned_until,email").eq("id", currentUser.id).single();
-          // supabase-js v2 يرجع {data, error}
-          let data = res.data || res;
-          if(data && data.is_banned){
-            if(data.ban_type==="temp" && data.banned_until){
-              if(new Date(data.banned_until) < new Date()){
-                // انتهى
-                await window.supabaseClient.from("users").update({is_banned:false, ban_type:null, banned_until:null}).eq("id", currentUser.id);
-                console.log("✅ حظر مؤقت من Supabase انتهى");
-                return;
-              }
-            }
-            handleBannedUser(data);
-          }
-        }catch(e){
-          console.log("Supabase check error (ignored):", e.message);
-        }
-      }
-
-      // 3. فحص عبر REST API كبديل
-      try{
-        let gn = localStorage.getItem("supabase_url") || "";
-        // نحاول نجيب من الـ global المتغير gn الموجود في الكود
-        // نستخدم fetch مباشر
-        if(typeof gn !== 'undefined' && gn){
-          // محفوظ في متغير داخلي - نحاول نقرا من window
-        }
-      }catch(e){}
-
-    }catch(e){ console.error("Ban check error:", e); }
-  }
-
-  function handleBannedUser(bannedUser){
-    console.log("🚫 مستخدم محظور:", bannedUser);
-    localStorage.removeItem("darfur_current_user");
-    localStorage.removeItem("darfur_supabase_session");
-    
-    let div = document.createElement("div");
-    div.style.cssText="position:fixed;inset:0;z-index:99999999;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:20px;";
-    let untilText = "";
-    if(bannedUser.ban_type==="temp" && bannedUser.banned_until){
-      let until = new Date(bannedUser.banned_until);
-      untilText = "<div style='margin-top:12px;padding:10px;background:rgba(245,158,11,0.15);border-radius:10px;font-size:13px;'>⏳ الحظر حتى: "+until.toLocaleString('ar-SD')+"</div>";
-    } else {
-      untilText = "<div style='margin-top:12px;padding:10px;background:rgba(220,38,38,0.15);border-radius:10px;font-size:13px;'>🚫 حظر نهائي</div>";
+    let sb = window.__getSupabase();
+    if(sb && sb.from){
+      await sb.from("reports").delete().eq("id", reportId);
+      console.log("✅ حذف البلاغ من Supabase:", reportId);
     }
-    
-    div.innerHTML = '<div style="background:#1E1E1E;border-radius:24px;max-width:360px;width:100%;padding:24px;text-align:center;border:1px solid rgba(220,38,38,0.3);">'
-      +'<div style="width:72px;height:72px;border-radius:999px;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;">🚫</div>'
-      +'<h2 style="color:white;font-weight:900;font-size:20px;">تم حظر حسابك</h2>'
-      +'<p style="color:rgba(255,255,255,0.6);font-size:14px;margin-top:8px;line-height:1.6;">تم حظر حسابك بواسطة الإدارة<br>لا يمكنك استخدام دارفور ماركت حاليا</p>'
-      +untilText
-      +'<p style="color:rgba(255,255,255,0.4);font-size:12px;margin-top:16px;">تواصل مع الإدارة: 0923784866</p>'
-      +'<button onclick="location.reload()" style="margin-top:20px;width:100%;height:48px;border-radius:999px;background:white;color:black;font-weight:bold;border:none;">حسناً</button>'
-      +'</div>';
-    document.body.appendChild(div);
-    
-    setTimeout(function(){ 
-      try{ location.reload(); }catch(e){}
-    }, 5000);
+  }catch(e){ console.log("delete error:", e.message); }
+}
+
+window.__ignoreReportById = async function(reportId){
+  if(!confirm("حذف البلاغ من كل الأجهزة؟")) return;
+  await supaDeleteReport(reportId);
+  alert("🗑️ تم الحذف");
+  location.reload();
+};
+
+window.__deleteProductByReportId = async function(reportId){
+  let data = window.__getReportData(reportId);
+  if(!data){ alert("غير موجود"); return; }
+  let productId = data.report.product_id;
+  if(!productId){ alert("لا يوجد منتج"); return; }
+  if(!confirm("حذف المنتج "+(data.product?data.product.title:productId)+" ؟")) return;
+  let products = JSON.parse(localStorage.getItem("darfur_products")||"[]");
+  products = products.filter(function(p){return p.id!==productId;});
+  localStorage.setItem("darfur_products", JSON.stringify(products));
+  try{
+    let sb = window.__getSupabase();
+    if(sb && sb.from){
+      await sb.from("products").delete().eq("id", productId);
+      await sb.from("reports").delete().eq("id", reportId);
+    }
+  }catch(e){ console.log(e.message); }
+  let reports = JSON.parse(localStorage.getItem("darfur_reports")||"[]");
+  reports = reports.filter(function(r){return r.id!==reportId;});
+  localStorage.setItem("darfur_reports", JSON.stringify(reports));
+  alert("📦 حذف المنتج والبلاغ");
+  location.reload();
+};
+
+window.__tempBanByReportId = async function(reportId, days){
+  let data = window.__getReportData(reportId);
+  if(!data || !data.reportedUser){ alert("مستخدم غير موجود"); return; }
+  let userId = data.reportedUser.id;
+  let until = new Date(); until.setDate(until.getDate()+days);
+  let users = JSON.parse(localStorage.getItem("darfur_users")||"[]");
+  users = users.map(function(u){ if(u.id===userId) return Object.assign({}, u, {is_banned:true, ban_type:"temp", banned_until:until.toISOString(), banned_at:new Date().toISOString()}); return u; });
+  localStorage.setItem("darfur_users", JSON.stringify(users));
+  try{
+    let sb = window.__getSupabase();
+    if(sb && sb.from){
+      await sb.from("users").update({is_banned:true, ban_type:"temp", banned_until:until.toISOString(), banned_at:new Date().toISOString()}).eq("id", userId);
+      await sb.from("reports").delete().eq("id", reportId);
+    }
+  }catch(e){ console.log(e.message); }
+  let reports = JSON.parse(localStorage.getItem("darfur_reports")||"[]");
+  reports = reports.filter(function(r){return r.id!==reportId;});
+  localStorage.setItem("darfur_reports", JSON.stringify(reports));
+  alert("⏳ حظر "+days+" يوم");
+  location.reload();
+};
+
+window.__permBanByReportId = async function(reportId){
+  let data = window.__getReportData(reportId);
+  if(!data || !data.reportedUser){ alert("غير موجود"); return; }
+  let userId = data.reportedUser.id;
+  let users = JSON.parse(localStorage.getItem("darfur_users")||"[]");
+  users = users.map(function(u){ if(u.id===userId) return Object.assign({}, u, {is_banned:true, ban_type:"permanent", banned_until:null, banned_at:new Date().toISOString()}); return u; });
+  localStorage.setItem("darfur_users", JSON.stringify(users));
+  try{
+    let sb = window.__getSupabase();
+    if(sb && sb.from){
+      await sb.from("users").update({is_banned:true, ban_type:"permanent", banned_until:null, banned_at:new Date().toISOString()}).eq("id", userId);
+      await sb.from("reports").delete().eq("id", reportId);
+    }
+  }catch(e){ console.log(e.message); }
+  let reports = JSON.parse(localStorage.getItem("darfur_reports")||"[]");
+  reports = reports.filter(function(r){return r.id!==reportId;});
+  localStorage.setItem("darfur_reports", JSON.stringify(reports));
+  alert("🚫 نهائي");
+  location.reload();
+};
+
+// === تحميل البلاغات من Supabase عند فتح التطبيق ===
+(function(){
+  async function loadReportsFromSupabase(){
+    try{
+      await new Promise(r=>setTimeout(r, 2500)); // انتظر لحد ما supabaseClient يجهز
+      let sb = window.__getSupabase();
+      if(!sb || !sb.from) { console.log("Supabase not ready yet for reports"); return; }
+      let res = await sb.from("reports").select("*").order("created_at", {ascending:false});
+      let data = res.data || res;
+      if(data && Array.isArray(data) && data.length>0){
+        console.log("✅ حملت "+data.length+" بلاغ من Supabase");
+        localStorage.setItem("darfur_reports", JSON.stringify(data));
+        // حاول تحدث الواجهة لو في صفحة البلاغات
+        // لا نعمل reload عشان ما نعمل loop
+      } else if(data && data.length===0){
+        console.log("لا يوجد بلاغات في Supabase");
+      }
+    }catch(e){ console.log("load reports error:", e.message); }
   }
+  setTimeout(loadReportsFromSupabase, 3000);
+  setInterval(loadReportsFromSupabase, 30000); // كل 30 ثانية حدث البلاغات
 
-  // شغل الفحص اول ما الصفحة تفتح
-  setTimeout(checkCurrentUserBan, 1500);
-  // وكل دقيقة افحص تاني (لو الادمن حظرو وهو فاتح التطبيق)
-  setInterval(checkCurrentUserBan, 60000);
-
-  // اعمل الـ check متاح عالميا
-  window.__checkBanNow = checkCurrentUserBan;
-
-  console.log("✅ V6 Ban Sync جاهز");
+  // فحص الحظر
+  async function checkBan(){
+    try{
+      let cur = localStorage.getItem("darfur_current_user");
+      if(!cur || cur==="null") return;
+      let cu = JSON.parse(cur);
+      if(!cu || !cu.id) return;
+      let users = JSON.parse(localStorage.getItem("darfur_users")||"[]");
+      let lu = users.find(function(u){return u.id===cu.id;});
+      if(lu && lu.is_banned){
+        if(lu.ban_type==="temp" && lu.banned_until && new Date(lu.banned_until) < new Date()){
+          users = users.map(function(u){ if(u.id===cu.id) return Object.assign({}, u, {is_banned:false, ban_type:null, banned_until:null}); return u; });
+          localStorage.setItem("darfur_users", JSON.stringify(users));
+          return;
+        }
+        localStorage.removeItem("darfur_current_user");
+        let d=document.createElement("div");
+        d.style.cssText="position:fixed;inset:0;z-index:99999999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;padding:20px;";
+        d.innerHTML='<div style="background:#1E1E1E;border-radius:24px;max-width:340px;width:100%;padding:24px;text-align:center;border:1px solid rgba(220,38,38,0.3);"><div style="font-size:48px;">🚫</div><h2 style="color:white;font-weight:900;margin-top:12px;">تم حظر حسابك</h2><p style="color:#aaa;font-size:13px;margin-top:8px;">تواصل مع الإدارة 0923784866</p><button onclick="location.reload()" style="margin-top:16px;width:100%;height:44px;border-radius:999px;background:white;color:black;font-weight:bold;border:none;">حسناً</button></div>';
+        document.body.appendChild(d);
+      }
+    }catch(e){}
+  }
+  setTimeout(checkBan, 1500);
+  setInterval(checkBan, 60000);
 })();
+
+console.log("✅ V11 FIX - شاشة بيضاء اتصلحت + reports مربوطة");
 </script>
 
 </body>
